@@ -47,22 +47,6 @@ const DATA = {
     {label: "Supermarket Simulator", value: 7.9},
     {label: "ELDEN RING NIGHTREIGN", value: 14.8}
   ],
-  "Шутер Года": [
-    {label: "Call of Duty: Black Ops 7", value: 6.8},
-    {label: "Battlefield", value: 62.7, cheese:true},
-    {label: "Escape from Tarkov", value: 15.2},
-    {label: "ARC Raiders", value: 17.8},
-    {label: "Borderlands 4", value: 7.7}
-  ],
-  "Стратегия Года": [
-    {label: "Sid Meier's Civilization VII", value: 24.6},
-    {label: "Europa Universalis V", value: 26.1, cheese:true},
-    {label: "Stormgate", value: 16.3},
-    {label: "Anno 117", value: 12.4},
-    {label: "Jurassic World Evolution 3", value: 8.4},
-    {label: "Tempest Rising", value: 7.3},
-    {label: "Farthest Frontier", value: 4.9}
-  ],
   "Инди Года": [
     {label: "Peak", value: 39.4},
     {label: "Megabonk", value: 21.1},
@@ -80,6 +64,22 @@ const DATA = {
     {label: "Supermarket Simulator", value: 7.1},
     {label: "BALL x PITT", value: 6.3},
     {label: "He is coming", value: 4.4}
+  ],
+  "Шутер Года": [
+    {label: "Call of Duty: Black Ops 7", value: 6.8},
+    {label: "Battlefield", value: 62.7, cheese:true},
+    {label: "Escape from Tarkov", value: 15.2},
+    {label: "ARC Raiders", value: 17.8},
+    {label: "Borderlands 4", value: 7.7}
+  ],
+  "Стратегия Года": [
+    {label: "Sid Meier's Civilization VII", value: 24.6},
+    {label: "Europa Universalis V", value: 26.1, cheese:true},
+    {label: "Stormgate", value: 16.3},
+    {label: "Anno 117", value: 12.4},
+    {label: "Jurassic World Evolution 3", value: 8.4},
+    {label: "Tempest Rising", value: 7.3},
+    {label: "Farthest Frontier", value: 4.9}
   ],
   "RPG Года": [
     {label: "Kingdom Come: Deliverance II", value: 53.4, cheese:true},
@@ -154,18 +154,29 @@ const DATA = {
     {label: "Duet Night Abyss", value: 8.6},
     {label: "GIRLS' FRONTLINE 2: EXILIUM", value: 30.6},
     {label: "Destiny: Rising", value: 14.3},
-    {label: "Persona 5: The Phantom X ( Global )", value: 46.5, cheese:true}
+    {label: "Persona 5: The Phantom X ( Global )", value: 46.5, cheese:true},
   ],
   "Позор Года": [
-    {label: "Оптимизация Borderlands 4", value: 30.6},
+    {label: "Оптимизация Borderlands 4", value: 30.6, cheese:true},
     {label: "Plants vs. Zombies: Replanted", value: 28.4},
     {label: "Vampire: The Masquerade - Bloodlines 2", value: 17.0},
     {label: "Mindseye", value: 15.6},
     {label: "FBC: Firebreak", value: 5.8},
     {label: "South of Midnight", value: 2.6},
-    {label: "Пчелиная Война 2", value: 46.2, cheese:true},
-    {label: "Persona 4 Revival", value: 16.1},
-    {label: "Grand Theft Auto VI", value: 11.9}
+  ],
+  "Ожидание Года": [
+    {label: "Resident Evil Requiem", value: 5.6},
+    {label: "007: First Light", value: 1.8},
+    {label: "PRAGMATA", value: 1.3},
+    {label: "Halo: Campaign Evolved", value: 0.6},
+    {label: "Persona 4 Revival", value: 16},
+    {label: "LEGO Batman: Legacy of the Dark Knight", value: 4.4},
+    {label: "Marvel's Wolverine", value: 1.6},
+    {label: "Heroes of Might and Magic: Olden Era", value: 3.5},
+    {label: "Grand Theft Auto VI", value: 11.9},
+    {label: "Пчелиная Война 2", value: 46.4, cheese:true },
+    {label: "Ведьмак 4", value: 6.6},
+    {label: "Star Citizen", value: 16.1},
   ],
   "Мужчина Года": [
     {label: "Гюстав (Expedition 33)", value: 20.4, cheese:true},
