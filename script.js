@@ -436,6 +436,9 @@ const loginButton =
 const googleLoginModal =
     document.getElementById("google-login-modal");
 
+const discordLoginModal =
+    document.getElementById("discord-login-modal");
+
 const prevCategoryButton =
     document.getElementById("prev-category");
 
@@ -784,12 +787,9 @@ function showLoginModal() {
 
     if (!loginModal) return;
 
-    loginModal.classList.add(
-        "active"
-    );
+    loginModal.classList.add("active");
 
-    document.body.style.overflow =
-        "hidden";
+    document.body.style.overflow = "hidden";
 }
 
 
@@ -797,16 +797,13 @@ function closeLoginModal() {
 
     if (!loginModal) return;
 
-    loginModal.classList.remove(
-        "active"
-    );
+    loginModal.classList.remove("active");
 
     if (
         !modal ||
         !modal.classList.contains("active")
     ) {
-        document.body.style.overflow =
-            "";
+        document.body.style.overflow = "";
     }
 }
 
@@ -836,6 +833,39 @@ async function loginWithGoogle() {
 
         alert(
             "Ошибка входа через Google:\n" +
+            error.message
+        );
+    }
+}
+
+// ============================================================
+// DISCORD LOGIN
+// ============================================================
+
+async function loginWithDiscord() {
+
+    const { error } =
+        await supabaseClient.auth.signInWithOAuth({
+
+            provider: "discord",
+
+            options: {
+                redirectTo:
+                    window.location.origin +
+                    window.location.pathname
+            }
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Ошибка входа через Discord:",
+            error
+        );
+
+        alert(
+            "Ошибка входа через Discord:\n" +
             error.message
         );
     }
@@ -945,10 +975,10 @@ function updateLoginButton() {
 
     if (!currentUser) {
 
-        loginButton.textContent =
-            "Войти через Google";
+    loginButton.textContent =
+        "Авторизация";
 
-        return;
+     return;
     }
 
 
@@ -1215,25 +1245,36 @@ if (loginModalOverlay) {
     );
 }
 
-
 // ============================================================
-// GOOGLE LOGIN
+// АВТОРИЗАЦИЯ
 // ============================================================
 
+// Кнопка "Авторизация" в шапке
 if (loginButton) {
 
     loginButton.addEventListener(
+        "click",
+        showLoginModal
+    );
+}
+
+
+// Google
+if (googleLoginModal) {
+
+    googleLoginModal.addEventListener(
         "click",
         loginWithGoogle
     );
 }
 
 
-if (googleLoginModal) {
+// Discord
+if (discordLoginModal) {
 
-    googleLoginModal.addEventListener(
+    discordLoginModal.addEventListener(
         "click",
-        loginWithGoogle
+        loginWithDiscord
     );
 }
 

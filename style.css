@@ -465,52 +465,6 @@ main::after {
 }
 
 /* =========================================================
-   КНОПКИ ЛОГИНА
-========================================================= */
-
-.login-button,
-.google-login-button {
-    border:
-        1px solid rgba(255, 224, 138, 0.55);
-
-    border-radius: 12px;
-
-    padding: 12px 21px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffd45a 0%,
-            #fbbf24 55%,
-            #e99b0b 100%
-        );
-
-    color: #160b03;
-
-    font-size: 14px;
-    font-weight: 850;
-
-    letter-spacing: 0.2px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 22px rgba(245, 158, 11, 0.22);
-
-    transition: 0.25s ease;
-}
-
-.login-button:hover,
-.google-login-button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.08);
-
-    box-shadow:
-        0 8px 28px rgba(245, 158, 11, 0.36);
-}
-
-/* =========================================================
    HERO IMAGE
 ========================================================= */
 
@@ -2511,4 +2465,145 @@ footer::before {
 
 .results-page-logo span {
     font-size: 15px;
+}
+
+/* =========================================================
+   АВТОРИЗАЦИЯ — GOOGLE + DISCORD
+========================================================= */
+
+.auth-provider-button {
+    width: 100%;
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 12px;
+
+    border-radius: 13px;
+
+    padding: 13px 18px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* Иконка */
+
+.auth-provider-icon {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+
+/* GOOGLE */
+
+.google-auth-button {
+    color: #24152f;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f2edf7
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.65);
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.20);
+}
+
+.google-auth-button .auth-provider-icon {
+    color: #4285f4;
+
+    background:
+        rgba(66, 133, 244, 0.10);
+}
+
+.google-auth-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 8px 28px rgba(255, 255, 255, 0.13);
+}
+
+
+/* DISCORD */
+
+.discord-auth-button {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5865f2,
+            #4752c4
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.16);
+
+    box-shadow:
+        0 5px 22px rgba(88, 101, 242, 0.25);
+}
+
+.discord-auth-button .auth-provider-icon {
+    color: #ffffff;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+}
+
+.discord-auth-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 8px 30px rgba(88, 101, 242, 0.38);
+}
+
+
+/* Текст внутри окна */
+
+.login-modal-content p {
+    margin-bottom: 22px;
+}
+
+
+/* На телефоне */
+
+@media (max-width: 650px) {
+
+    .auth-provider-button {
+        min-height: 50px;
+        font-size: 13px;
+    }
+
 }
