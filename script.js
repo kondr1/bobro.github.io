@@ -433,6 +433,15 @@ const voteMessage =
 const loginButton =
     document.getElementById("login-button");
 
+const accountMenu =
+    document.getElementById("account-menu");
+
+const accountMenuName =
+    document.getElementById("account-menu-name");
+
+const logoutButton =
+    document.getElementById("logout-button");
+
 const googleLoginModal =
     document.getElementById("google-login-modal");
 
@@ -871,6 +880,42 @@ async function loginWithDiscord() {
     }
 }
 
+// ============================================================
+// LOGOUT
+// ============================================================
+
+async function logout() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        console.error(
+            "Ошибка выхода:",
+            error
+        );
+
+        alert(
+            "Не удалось выйти из аккаунта:\n" +
+            error.message
+        );
+
+        return;
+    }
+
+
+    currentUser = null;
+    userVotes = {};
+
+    updateLoginButton();
+
+    if (accountMenu) {
+        accountMenu.classList.remove("active");
+    }
+}
+
 
 // ============================================================
 // ЗАГРУЗКА ГОЛОСОВ
@@ -975,10 +1020,18 @@ function updateLoginButton() {
 
     if (!currentUser) {
 
-    loginButton.textContent =
-        "Авторизация";
+        loginButton.textContent =
+            "Авторизация";
 
-     return;
+        loginButton.classList.remove(
+            "logged-in"
+        );
+
+        if (accountMenu) {
+            accountMenu.classList.remove("active");
+        }
+
+        return;
     }
 
 
@@ -991,6 +1044,17 @@ function updateLoginButton() {
 
     loginButton.textContent =
         name;
+
+    loginButton.classList.add(
+        "logged-in"
+    );
+
+
+    if (accountMenuName) {
+
+        accountMenuName.textContent =
+            name;
+    }
 }
 
 
@@ -1249,15 +1313,41 @@ if (loginModalOverlay) {
 // АВТОРИЗАЦИЯ
 // ============================================================
 
-// Кнопка "Авторизация" в шапке
 if (loginButton) {
 
     loginButton.addEventListener(
         "click",
-        showLoginModal
+        () => {
+
+            // Если пользователь НЕ вошёл
+            if (!currentUser) {
+
+                showLoginModal();
+
+                return;
+            }
+
+
+            // Если пользователь уже вошёл
+            if (accountMenu) {
+
+                accountMenu.classList.toggle(
+                    "active"
+                );
+            }
+
+        }
     );
 }
 
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        logout
+    );
+}
 
 // Google
 if (googleLoginModal) {

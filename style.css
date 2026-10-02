@@ -2607,3 +2607,130 @@ footer::before {
     }
 
 }
+
+/* =========================================================
+   АККАУНТ / ВЫХОД
+========================================================= */
+
+.account-wrapper {
+    position: relative;
+}
+
+
+/* Выпадающее меню */
+
+.account-menu {
+    position: absolute;
+
+    top: calc(100% + 10px);
+    right: 0;
+
+    width: 220px;
+
+    padding: 10px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(24, 17, 38, 0.97);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(15px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-6px);
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s ease;
+
+    z-index: 1000;
+}
+
+
+/* Открытое меню */
+
+.account-menu.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+
+/* Имя пользователя */
+
+.account-menu-name {
+    padding: 10px 12px 12px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    margin-bottom: 6px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Кнопка выхода */
+
+.logout-button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 12px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.logout-button:hover {
+    background:
+        rgba(255, 80, 120, 0.18);
+
+    transform: translateX(2px);
+}
+
+
+/* На телефоне */
+
+@media (max-width: 650px) {
+
+    .account-menu {
+        right: 0;
+        width: 200px;
+    }
+
+}
