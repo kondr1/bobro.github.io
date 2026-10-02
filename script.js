@@ -887,7 +887,9 @@ async function loginWithDiscord() {
 async function logout() {
 
     const { error } =
-        await supabaseClient.auth.signOut();
+        await supabaseClient.auth.signOut({
+            scope: "local"
+        });
 
 
     if (error) {
@@ -906,14 +908,14 @@ async function logout() {
     }
 
 
+    if (accountMenu) {
+        accountMenu.classList.remove("active");
+    }
+
     currentUser = null;
     userVotes = {};
 
     updateLoginButton();
-
-    if (accountMenu) {
-        accountMenu.classList.remove("active");
-    }
 }
 
 
@@ -1349,6 +1351,27 @@ if (logoutButton) {
     );
 }
 
+document.addEventListener(
+    "click",
+    event => {
+
+        if (!accountMenu || !loginButton) {
+            return;
+        }
+
+
+        if (
+            accountMenu.contains(event.target) ||
+            loginButton.contains(event.target)
+        ) {
+            return;
+        }
+
+
+        accountMenu.classList.remove("active");
+    }
+);
+
 // Google
 if (googleLoginModal) {
 
@@ -1401,20 +1424,16 @@ document.addEventListener(
 
         if (event.key === "Escape") {
 
-            if (
-                modal &&
-                modal.classList.contains("active")
-            ) {
-                closeModal();
-            }
+    if (accountMenu) {
+        accountMenu.classList.remove("active");
+    }
 
-
-            if (
-                loginModal &&
-                loginModal.classList.contains("active")
-            ) {
-                closeLoginModal();
-            }
+    if (
+        modal &&
+        modal.classList.contains("active")
+    ) {
+        closeModal();
+    }
 
 
             return;
