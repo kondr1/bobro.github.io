@@ -8,46 +8,64 @@ const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+
 // ============================================================
-// ТАЙМЕР (23 декабря 23:59:59)
+// ТАЙМЕР
 // ============================================================
 
-// Если нужен другой год (например, 2025 или 2026), просто поменяйте цифру года:
 const votingEnd = new Date("2026-12-23T23:59:59");
 
 function updateCountdown() {
     const countdownEl = document.getElementById("countdown");
+
+    // На странице результатов таймера нет
     if (!countdownEl) return;
 
     const now = new Date();
     const difference = votingEnd - now;
 
-    // ЕСЛИ ВРЕМЯ ВЫШЛО:
     if (difference <= 0) {
         countdownEl.textContent = "Голосование завершено";
 
-        // Файл результатов называется result.html
-        window.location.href = "result.html";
+        // Не перенаправляем повторно, если уже на result.html
+        if (!window.location.pathname.endsWith("result.html")) {
+            window.location.href = "result.html";
+        }
+
         return;
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / (1000 * 60)) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
+    const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+    );
 
-    countdownEl.textContent = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+    const hours = Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (difference / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (difference / 1000) % 60
+    );
+
+    countdownEl.textContent =
+        `${days}д ${hours}ч ${minutes}м ${seconds}с`;
 }
 
-// Запускаем таймер сразу же
-updateCountdown();
-setInterval(updateCountdown, 1000);
 
 // ============================================================
-// КАРТИНКА И КАТЕГОРИИ
+// КАРТИНКА
 // ============================================================
 
 const TEMP_IMAGE = "./photo_2025-11-10_21-02-06.png";
+
+
+// ============================================================
+// КАТЕГОРИИ
+// ============================================================
 
 const CATEGORIES = [
     {
@@ -62,6 +80,7 @@ const CATEGORIES = [
             "Тетрис"
         ]
     },
+
     {
         id: "game-of-the-year",
         name: "Игра Года",
@@ -75,6 +94,7 @@ const CATEGORIES = [
             "Hollow Knight: Silksong"
         ]
     },
+
     {
         id: "real-game-of-the-year",
         name: "НАСТОЯЩАЯ ИГРА ГОДА",
@@ -88,6 +108,7 @@ const CATEGORIES = [
             "Mindseye"
         ]
     },
+
     {
         id: "single-player",
         name: "Single-player Года",
@@ -102,6 +123,7 @@ const CATEGORIES = [
             "Like a Dragon: Pirate Yakuza in Hawaii"
         ]
     },
+
     {
         id: "multiplayer",
         name: "Multiplayer Года",
@@ -114,6 +136,7 @@ const CATEGORIES = [
             "Escape from Tarkov"
         ]
     },
+
     {
         id: "coop",
         name: "Кооп Года",
@@ -127,6 +150,7 @@ const CATEGORIES = [
             "ELDEN RING NIGHTREIGN"
         ]
     },
+
     {
         id: "indie",
         name: "Инди Года",
@@ -150,6 +174,7 @@ const CATEGORIES = [
             "He is coming"
         ]
     },
+
     {
         id: "shooter",
         name: "Шутер Года",
@@ -162,6 +187,7 @@ const CATEGORIES = [
             "Borderlands 4"
         ]
     },
+
     {
         id: "strategy",
         name: "Стратегия Года",
@@ -176,6 +202,7 @@ const CATEGORIES = [
             "Farthest Frontier"
         ]
     },
+
     {
         id: "rpg",
         name: "RPG Года",
@@ -189,6 +216,7 @@ const CATEGORIES = [
             "Digimon Story Time Stranger"
         ]
     },
+
     {
         id: "simulator",
         name: "Симулятор Года",
@@ -201,6 +229,7 @@ const CATEGORIES = [
             "Football Manager 26"
         ]
     },
+
     {
         id: "horror",
         name: "Хоррор Года",
@@ -214,6 +243,7 @@ const CATEGORIES = [
             "Little Nightmares III"
         ]
     },
+
     {
         id: "f2p",
         name: "F2P Года",
@@ -226,6 +256,7 @@ const CATEGORIES = [
             "Terminull Brigade"
         ]
     },
+
     {
         id: "remaster-remake",
         name: "Remaster/Remake Года",
@@ -242,6 +273,7 @@ const CATEGORIES = [
             "Tales of Xillia Remastered"
         ]
     },
+
     {
         id: "early-access",
         name: "Early Access Года",
@@ -258,6 +290,7 @@ const CATEGORIES = [
             "Jump Space"
         ]
     },
+
     {
         id: "dlc",
         name: "DLC Года",
@@ -271,6 +304,7 @@ const CATEGORIES = [
             "Rain World: The Watcher"
         ]
     },
+
     {
         id: "soundtrack",
         name: "Лучший Саундтрек",
@@ -285,6 +319,7 @@ const CATEGORIES = [
             "Like a Dragon: Pirate Yakuza in Hawaii"
         ]
     },
+
     {
         id: "chinese-casino",
         name: "Китайское Казино Года",
@@ -296,6 +331,7 @@ const CATEGORIES = [
             "Persona 5: The Phantom X ( Global )"
         ]
     },
+
     {
         id: "shame",
         name: "Позор Года",
@@ -309,6 +345,7 @@ const CATEGORIES = [
             "South of Midnight"
         ]
     },
+
     {
         id: "most-anticipated",
         name: "Ожидание Года",
@@ -328,6 +365,7 @@ const CATEGORIES = [
             "Star Citizen"
         ]
     },
+
     {
         id: "man-of-the-year",
         name: "Мужчина Года",
@@ -341,6 +379,7 @@ const CATEGORIES = [
             "Сонар (Dispatch)"
         ]
     },
+
     {
         id: "woman-of-the-year",
         name: "Женщина Года",
@@ -359,32 +398,50 @@ const CATEGORIES = [
     }
 ];
 
+
 // ============================================================
 // DOM
 // ============================================================
 
-const categoriesGrid = document.getElementById("categories-grid");
+const categoriesGrid =
+    document.getElementById("categories-grid");
 
-const modal = document.getElementById("modal");
-const loginModal = document.getElementById("login-modal");
+const modal =
+    document.getElementById("modal");
 
-const modalImage = document.getElementById("modal-image");
-const modalNumber = document.getElementById("modal-number");
-const modalTitle = document.getElementById("modal-title");
-const modalDescription = document.getElementById("modal-description");
+const loginModal =
+    document.getElementById("login-modal");
 
-const nomineesList = document.getElementById("nominees-list");
-const voteMessage = document.getElementById("vote-message");
+const modalImage =
+    document.getElementById("modal-image");
 
-const loginButton = document.getElementById("login-button");
-const googleLoginModal = document.getElementById("google-login-modal");
+const modalNumber =
+    document.getElementById("modal-number");
 
-// ============================================================
-// КНОПКИ ПЕРЕХОДА МЕЖДУ НОМИНАЦИЯМИ
-// ============================================================
+const modalTitle =
+    document.getElementById("modal-title");
 
-const prevCategoryButton = document.getElementById("prev-category");
-const nextCategoryButton = document.getElementById("next-category");
+const modalDescription =
+    document.getElementById("modal-description");
+
+const nomineesList =
+    document.getElementById("nominees-list");
+
+const voteMessage =
+    document.getElementById("vote-message");
+
+const loginButton =
+    document.getElementById("login-button");
+
+const googleLoginModal =
+    document.getElementById("google-login-modal");
+
+const prevCategoryButton =
+    document.getElementById("prev-category");
+
+const nextCategoryButton =
+    document.getElementById("next-category");
+
 
 // ============================================================
 // СОСТОЯНИЕ
@@ -393,11 +450,8 @@ const nextCategoryButton = document.getElementById("next-category");
 let currentCategory = null;
 let currentUser = null;
 
-let userVotes = {}; 
-// Хранилище:
-// {
-//     "category-id": ["nominee1", "nominee2"]
-// }
+let userVotes = {};
+
 
 // ============================================================
 // ESCAPE HTML
@@ -412,17 +466,30 @@ function escapeHTML(value) {
         .replaceAll("'", "&#039;");
 }
 
+
 // ============================================================
 // КАРТОЧКИ КАТЕГОРИЙ
 // ============================================================
 
 function createCategoryCards() {
+
+    // ВАЖНО:
+    // Если этот JS каким-то образом загрузился не на главной,
+    // функция просто прекращает работу.
+
+    if (!categoriesGrid) {
+        return;
+    }
+
     categoriesGrid.innerHTML = "";
 
     CATEGORIES.forEach((category, index) => {
-        const card = document.createElement("div");
 
-        card.className = "category-card";
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "category-card";
 
         card.innerHTML = `
             <div class="category-number">
@@ -434,6 +501,7 @@ function createCategoryCards() {
             </div>
 
             <div class="category-bottom">
+
                 <span class="nominee-count">
                     ${category.nominees.length} кандидатов
                 </span>
@@ -441,81 +509,107 @@ function createCategoryCards() {
                 <span class="category-arrow">
                     →
                 </span>
+
             </div>
         `;
 
-        card.addEventListener("click", () => {
-            openCategory(category);
-        });
+        card.addEventListener(
+            "click",
+            () => openCategory(category)
+        );
 
         categoriesGrid.appendChild(card);
     });
 }
 
+
 // ============================================================
-// ОБНОВЛЕНИЕ КНОПОК НАЗАД / ДАЛЕЕ
+// ОБНОВЛЕНИЕ НАВИГАЦИИ
 // ============================================================
 
 function updateCategoryNavigation() {
+
     if (!currentCategory) return;
 
-    const currentIndex = CATEGORIES.indexOf(currentCategory);
+    const currentIndex =
+        CATEGORIES.indexOf(currentCategory);
 
     if (currentIndex === -1) return;
 
-    // ------------------------------
-    // КНОПКА НАЗАД
-    // ------------------------------
 
     if (prevCategoryButton) {
+
         if (currentIndex === 0) {
-            prevCategoryButton.style.visibility = "hidden";
-            prevCategoryButton.disabled = true;
+
+            prevCategoryButton.style.visibility =
+                "hidden";
+
+            prevCategoryButton.disabled =
+                true;
+
         } else {
-            prevCategoryButton.style.visibility = "visible";
-            prevCategoryButton.disabled = false;
+
+            prevCategoryButton.style.visibility =
+                "visible";
+
+            prevCategoryButton.disabled =
+                false;
         }
     }
 
-    // ------------------------------
-    // КНОПКА ДАЛЕЕ
-    // ------------------------------
 
     if (nextCategoryButton) {
+
         if (currentIndex === CATEGORIES.length - 1) {
-            nextCategoryButton.style.visibility = "hidden";
-            nextCategoryButton.disabled = true;
+
+            nextCategoryButton.style.visibility =
+                "hidden";
+
+            nextCategoryButton.disabled =
+                true;
+
         } else {
-            nextCategoryButton.style.visibility = "visible";
-            nextCategoryButton.disabled = false;
+
+            nextCategoryButton.style.visibility =
+                "visible";
+
+            nextCategoryButton.disabled =
+                false;
         }
     }
 }
+
 
 // ============================================================
 // ПРЕДЫДУЩАЯ НОМИНАЦИЯ
 // ============================================================
 
 function openPreviousCategory() {
+
     if (!currentCategory) return;
 
-    const currentIndex = CATEGORIES.indexOf(currentCategory);
+    const currentIndex =
+        CATEGORIES.indexOf(currentCategory);
 
     if (currentIndex <= 0) return;
 
-    const previousCategory = CATEGORIES[currentIndex - 1];
+    const previousCategory =
+        CATEGORIES[currentIndex - 1];
 
     openCategory(previousCategory);
 }
+
 
 // ============================================================
 // СЛЕДУЮЩАЯ НОМИНАЦИЯ
 // ============================================================
 
 function openNextCategory() {
+
     if (!currentCategory) return;
 
-    const currentIndex = CATEGORIES.indexOf(currentCategory);
+    const currentIndex =
+        CATEGORIES.indexOf(currentCategory);
 
     if (currentIndex === -1) return;
 
@@ -523,156 +617,221 @@ function openNextCategory() {
         return;
     }
 
-    const nextCategory = CATEGORIES[currentIndex + 1];
+    const nextCategory =
+        CATEGORIES[currentIndex + 1];
 
     openCategory(nextCategory);
 }
+
 
 // ============================================================
 // ОТКРЫТИЕ КАТЕГОРИИ
 // ============================================================
 
 function openCategory(category) {
+
+    // Дополнительная защита
+    if (
+        !modal ||
+        !modalImage ||
+        !modalNumber ||
+        !modalTitle ||
+        !modalDescription ||
+        !nomineesList ||
+        !voteMessage
+    ) {
+        return;
+    }
+
     currentCategory = category;
 
-    const categoryIndex = CATEGORIES.indexOf(category) + 1;
+    const categoryIndex =
+        CATEGORIES.indexOf(category) + 1;
 
-    const isIndie = category.id === "indie";
+    const isIndie =
+        category.id === "indie";
 
-    // ------------------------------
-    // ЗАГОЛОВОК
-    // ------------------------------
 
     modalNumber.textContent =
         `НОМИНАЦИЯ ${String(categoryIndex).padStart(2, "0")}`;
 
-    modalTitle.textContent = category.name;
+    modalTitle.textContent =
+        category.name;
 
-    // ------------------------------
-    // ОПИСАНИЕ
-    // ------------------------------
 
-    modalDescription.textContent = isIndie
-        ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
-        : "Выберите одного кандидата.";
+    modalDescription.textContent =
+        isIndie
+            ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
+            : "Выберите одного кандидата.";
 
-    // ------------------------------
-    // КАРТИНКА
-    // ------------------------------
 
-    modalImage.src = category.image;
-    modalImage.alt = category.name;
+    modalImage.src =
+        category.image;
 
-    // ------------------------------
-    // СООБЩЕНИЕ О ГОЛОСЕ
-    // ------------------------------
+    modalImage.alt =
+        category.name;
 
-    voteMessage.classList.remove("visible");
-    voteMessage.textContent = "";
 
-    // ------------------------------
-    // СПИСОК НОМИНАНТОВ
-    // ------------------------------
+    voteMessage.classList.remove(
+        "visible"
+    );
 
-    nomineesList.innerHTML = "";
+    voteMessage.textContent =
+        "";
 
-    const selectedNominees = userVotes[category.id] || [];
 
-    category.nominees.forEach(nominee => {
-        const button = document.createElement("button");
+    nomineesList.innerHTML =
+        "";
 
-        button.className = "nominee";
 
-        // Если этот номинант уже выбран
-        if (selectedNominees.includes(nominee)) {
-            button.classList.add("selected");
-        }
+    const selectedNominees =
+        userVotes[category.id] || [];
 
-        button.innerHTML = `
-            <span class="nominee-name">
-                ${escapeHTML(nominee)}
-            </span>
 
-            <div class="nominee-check">
-                <span>✓</span>
-            </div>
-        `;
+    category.nominees.forEach(
+        nominee => {
 
-        button.addEventListener("click", () => {
-            if (!currentUser) {
-                showLoginModal();
-                return;
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "nominee";
+
+
+            if (
+                selectedNominees.includes(
+                    nominee
+                )
+            ) {
+                button.classList.add(
+                    "selected"
+                );
             }
 
-            voteForNominee(
-                category,
-                nominee,
+
+            button.innerHTML = `
+                <span class="nominee-name">
+                    ${escapeHTML(nominee)}
+                </span>
+
+                <div class="nominee-check">
+                    <span>✓</span>
+                </div>
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    if (!currentUser) {
+
+                        showLoginModal();
+
+                        return;
+                    }
+
+                    voteForNominee(
+                        category,
+                        nominee,
+                        button
+                    );
+                }
+            );
+
+
+            nomineesList.appendChild(
                 button
             );
-        });
+        }
+    );
 
-        nomineesList.appendChild(button);
-    });
-
-    // ------------------------------
-    // ОБНОВЛЯЕМ НАЗАД / ДАЛЕЕ
-    // ------------------------------
 
     updateCategoryNavigation();
 
-    // ------------------------------
-    // ОТКРЫВАЕМ MODAL
-    // ------------------------------
 
-    modal.classList.add("active");
+    modal.classList.add(
+        "active"
+    );
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+        "hidden";
 }
 
+
 // ============================================================
-// ЗАКРЫТИЕ МОДАЛКИ
+// ЗАКРЫТИЕ MODAL
 // ============================================================
 
 function closeModal() {
-    modal.classList.remove("active");
 
-    document.body.style.overflow = "";
+    if (!modal) return;
+
+    modal.classList.remove(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "";
 }
+
 
 // ============================================================
 // LOGIN MODAL
 // ============================================================
 
 function showLoginModal() {
-    loginModal.classList.add("active");
 
-    document.body.style.overflow = "hidden";
+    if (!loginModal) return;
+
+    loginModal.classList.add(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "hidden";
 }
+
 
 function closeLoginModal() {
-    loginModal.classList.remove("active");
 
-    if (!modal.classList.contains("active")) {
-        document.body.style.overflow = "";
+    if (!loginModal) return;
+
+    loginModal.classList.remove(
+        "active"
+    );
+
+    if (
+        !modal ||
+        !modal.classList.contains("active")
+    ) {
+        document.body.style.overflow =
+            "";
     }
 }
+
 
 // ============================================================
 // GOOGLE LOGIN
 // ============================================================
 
 async function loginWithGoogle() {
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-        provider: "google",
 
-        options: {
-            redirectTo:
-                window.location.origin +
-                window.location.pathname
-        }
-    });
+    const { error } =
+        await supabaseClient.auth.signInWithOAuth({
+
+            provider: "google",
+
+            options: {
+                redirectTo:
+                    window.location.origin +
+                    window.location.pathname
+            }
+        });
+
 
     if (error) {
+
         console.error(error);
 
         alert(
@@ -682,23 +841,35 @@ async function loginWithGoogle() {
     }
 }
 
+
 // ============================================================
-// ЗАГРУЗКА ГОЛОСОВ ПОЛЬЗОВАТЕЛЯ
+// ЗАГРУЗКА ГОЛОСОВ
 // ============================================================
 
 async function loadUserVotes() {
+
     if (!currentUser) {
+
         userVotes = {};
+
         return;
     }
+
 
     const { data, error } =
         await supabaseClient
             .from("votes")
-            .select("category_id, nominee_id")
-            .eq("user_id", currentUser.id);
+            .select(
+                "category_id, nominee_id"
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
 
     if (error) {
+
         console.error(
             "Ошибка при получении голосов:",
             error
@@ -707,12 +878,19 @@ async function loadUserVotes() {
         return;
     }
 
+
     userVotes = {};
 
+
     if (Array.isArray(data)) {
+
         data.forEach(item => {
-            if (!userVotes[item.category_id]) {
-                userVotes[item.category_id] = [];
+
+            if (
+                !userVotes[item.category_id]
+            ) {
+                userVotes[item.category_id] =
+                    [];
             }
 
             userVotes[item.category_id].push(
@@ -722,16 +900,23 @@ async function loadUserVotes() {
     }
 }
 
+
 // ============================================================
 // ТЕКУЩИЙ ПОЛЬЗОВАТЕЛЬ
 // ============================================================
 
 async function loadCurrentUser() {
+
+    if (!supabaseClient) return;
+
     const { data, error } =
         await supabaseClient.auth.getUser();
 
+
     if (error || !data.user) {
+
         currentUser = null;
+
         userVotes = {};
 
         updateLoginButton();
@@ -739,24 +924,33 @@ async function loadCurrentUser() {
         return;
     }
 
-    currentUser = data.user;
+
+    currentUser =
+        data.user;
 
     updateLoginButton();
 
     await loadUserVotes();
 }
 
+
 // ============================================================
-// ОБНОВЛЕНИЕ КНОПКИ ВХОДА
+// КНОПКА ВХОДА
 // ============================================================
 
 function updateLoginButton() {
+
+    if (!loginButton) return;
+
+
     if (!currentUser) {
+
         loginButton.textContent =
             "Войти через Google";
 
         return;
     }
+
 
     const name =
         currentUser.user_metadata?.full_name ||
@@ -764,8 +958,11 @@ function updateLoginButton() {
         currentUser.email ||
         "Вы вошли";
 
-    loginButton.textContent = name;
+
+    loginButton.textContent =
+        name;
 }
+
 
 // ============================================================
 // AUTH STATE CHANGE
@@ -773,19 +970,27 @@ function updateLoginButton() {
 
 supabaseClient.auth.onAuthStateChange(
     async (event, session) => {
-        currentUser = session?.user || null;
+
+        currentUser =
+            session?.user || null;
+
 
         updateLoginButton();
 
+
         if (currentUser) {
+
             closeLoginModal();
 
             await loadUserVotes();
+
         } else {
+
             userVotes = {};
         }
     }
 );
+
 
 // ============================================================
 // ГОЛОСОВАНИЕ
@@ -796,188 +1001,264 @@ async function voteForNominee(
     nominee,
     buttonElement
 ) {
+
     if (!currentUser) {
+
         showLoginModal();
+
         return;
     }
+
 
     const isIndie =
         category.id === "indie";
 
+
     if (!userVotes[category.id]) {
-        userVotes[category.id] = [];
+
+        userVotes[category.id] =
+            [];
     }
+
 
     // ========================================================
     // ВИЗУАЛЬНОЕ СОСТОЯНИЕ
     // ========================================================
 
     if (isIndie) {
+
         buttonElement.classList.toggle(
             "selected"
         );
+
     } else {
+
         document
             .querySelectorAll(".nominee")
             .forEach(el => {
+
                 el.classList.remove(
                     "selected"
                 );
             });
+
 
         buttonElement.classList.add(
             "selected"
         );
     }
 
+
     voteMessage.textContent =
         "Сохраняем голос...";
+
 
     voteMessage.classList.add(
         "visible"
     );
 
+
     // ========================================================
-    // ОТПРАВКА ГОЛОСА В SUPABASE
+    // SUPABASE
     // ========================================================
 
-    const { data: action, error } =
-        await supabaseClient.rpc(
-            "cast_vote",
-            {
-                p_category_id: category.id,
-                p_nominee_id: nominee
-            }
-        );
+    const {
+        data: action,
+        error
+    } = await supabaseClient.rpc(
+        "cast_vote",
+        {
+            p_category_id:
+                category.id,
+
+            p_nominee_id:
+                nominee
+        }
+    );
+
 
     // ========================================================
     // ОШИБКА
     // ========================================================
 
     if (error) {
+
         console.error(
             "Ошибка голосования:",
             error
         );
 
+
         voteMessage.textContent =
             "Не удалось сохранить голос: " +
             error.message;
 
-        // Возвращаем визуальное состояние
+
         if (isIndie) {
+
             buttonElement.classList.toggle(
                 "selected"
             );
+
         } else {
+
             buttonElement.classList.remove(
                 "selected"
             );
         }
 
+
         return;
     }
 
+
     // ========================================================
-    // ОБНОВЛЯЕМ ЛОКАЛЬНОЕ СОСТОЯНИЕ
+    // ЛОКАЛЬНОЕ СОСТОЯНИЕ
     // ========================================================
 
     if (isIndie) {
+
         if (action === "removed") {
+
             userVotes[category.id] =
                 userVotes[category.id].filter(
                     name => name !== nominee
                 );
 
+
             voteMessage.textContent =
                 "Голос убран!";
+
         } else {
+
             userVotes[category.id].push(
                 nominee
             );
 
+
             voteMessage.textContent =
                 "✓ Голос добавлен!";
         }
+
     } else {
-        userVotes[category.id] = [nominee];
+
+        userVotes[category.id] =
+            [nominee];
+
 
         voteMessage.textContent =
             "✓ Голос сохранён!";
     }
 }
 
+
 // ============================================================
 // СОБЫТИЯ
 // ============================================================
 
-// ------------------------------
 // Закрытие обычной модалки
-// ------------------------------
 
-document
-    .getElementById("close-modal")
-    .addEventListener(
+const closeModalButton =
+    document.getElementById("close-modal");
+
+if (closeModalButton) {
+
+    closeModalButton.addEventListener(
         "click",
         closeModal
     );
+}
 
-document
-    .querySelector("#modal .modal-overlay")
-    .addEventListener(
+
+const modalOverlay =
+    document.querySelector(
+        "#modal .modal-overlay"
+    );
+
+if (modalOverlay) {
+
+    modalOverlay.addEventListener(
         "click",
         closeModal
     );
+}
 
-// ------------------------------
-// Закрытие login modal
-// ------------------------------
 
-document
-    .getElementById("close-login-modal")
-    .addEventListener(
+// ============================================================
+// LOGIN MODAL
+// ============================================================
+
+const closeLoginModalButton =
+    document.getElementById(
+        "close-login-modal"
+    );
+
+if (closeLoginModalButton) {
+
+    closeLoginModalButton.addEventListener(
         "click",
         closeLoginModal
     );
+}
 
-document
-    .querySelector("#login-modal .modal-overlay")
-    .addEventListener(
+
+const loginModalOverlay =
+    document.querySelector(
+        "#login-modal .modal-overlay"
+    );
+
+if (loginModalOverlay) {
+
+    loginModalOverlay.addEventListener(
         "click",
         closeLoginModal
     );
+}
 
-// ------------------------------
-// Google Login
-// ------------------------------
 
-loginButton.addEventListener(
-    "click",
-    loginWithGoogle
-);
+// ============================================================
+// GOOGLE LOGIN
+// ============================================================
 
-googleLoginModal.addEventListener(
-    "click",
-    loginWithGoogle
-);
+if (loginButton) {
+
+    loginButton.addEventListener(
+        "click",
+        loginWithGoogle
+    );
+}
+
+
+if (googleLoginModal) {
+
+    googleLoginModal.addEventListener(
+        "click",
+        loginWithGoogle
+    );
+}
+
 
 // ============================================================
 // НАЗАД / ДАЛЕЕ
 // ============================================================
 
 if (prevCategoryButton) {
+
     prevCategoryButton.addEventListener(
         "click",
         openPreviousCategory
     );
 }
 
+
 if (nextCategoryButton) {
+
     nextCategoryButton.addEventListener(
         "click",
         openNextCategory
     );
 }
+
 
 // ============================================================
 // КЛАВИАТУРА
@@ -986,40 +1267,68 @@ if (nextCategoryButton) {
 document.addEventListener(
     "keydown",
     event => {
-        // ESC — закрыть модалку
+
         if (event.key === "Escape") {
-            if (modal.classList.contains("active")) {
+
+            if (
+                modal &&
+                modal.classList.contains("active")
+            ) {
                 closeModal();
             }
 
-            if (loginModal.classList.contains("active")) {
+
+            if (
+                loginModal &&
+                loginModal.classList.contains("active")
+            ) {
                 closeLoginModal();
             }
 
+
             return;
         }
 
-        // Если модалка номинации не открыта,
-        // стрелки ничего не делают
-        if (!modal.classList.contains("active")) {
+
+        if (
+            !modal ||
+            !modal.classList.contains("active")
+        ) {
             return;
         }
 
-        // ← — предыдущая номинация
+
         if (event.key === "ArrowLeft") {
+
             openPreviousCategory();
         }
 
-        // → — следующая номинация
+
         if (event.key === "ArrowRight") {
+
             openNextCategory();
         }
     }
 );
 
+
 // ============================================================
 // СТАРТ
 // ============================================================
+
+// Таймер запускаем всегда.
+// На result.html он просто ничего не делает.
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+// Карточки и пользовательская логика
+// запускаются безопасно.
 
 createCategoryCards();
 
