@@ -1,474 +1,1026 @@
-/* ========== ДАННЫЕ ========== */
-const DATA = {
-  "Выбор БУЛДЖАТь": [
-    {label: "WWE 2025", value: 8.3},
-    {label: "Madden 2025", value: 5.0},
-    {label: "Dokapon! Ikari no Tekken", value: 13.2},
-    {label: "MLB The Show 25", value: 3.9},
-    {label: "Тетрис", value: 69.6, cheese: true}
-  ],
-  "Игра Года": [
-    {label: "Clair Obscur: Expedition 33", value: 23.5},
-    {label: "Death Stranding 2", value: 9.8},
-    {label: "NINJA GAIDEN 4", value: 8.2},
-    {label: "Split Fiction", value: 6.2},
-    {label: "Kingdom Come: Deliverance II", value: 24.9},
-    {label: "Hollow Knight: Silksong", value: 27.3, cheese: true}
-  ],
-  "НАСТОЯЩАЯ ИГРА ГОДА": [
-    {label: "FEMBOY FUTA HOUSE", value: 37.9, cheese:true},
-    {label: "ТИХИЙ ДЭН", value: 12.1},
-    {label: "Земский Собор", value: 11.4},
-    {label: "РУСЫ ПРОТИВ ЯЩЕРОВ 2", value: 16.5},
-    {label: "ВАША МАТЬ", value: 15.6},
-    {label: "Mindseye", value: 6.4}
-  ],
-  "Single-player Года": [
-    {label: "Clair Obscur: Expedition 33", value: 17.8},
-    {label: "DOOM: The Dark Ages", value: 14.8},
-    {label: "Kingdom Come: Deliverance II", value: 19.8, cheese:true},
-    {label: "Donkey Kong Bananza", value: 13.6},
-    {label: "Death Stranding 2", value: 7.7},
-    {label: "NINJA GAIDEN 4", value: 4.8},
-    {label: "Like a Dragon: Pirate Yakuza in Hawaii", value: 4.7}
-  ],
-  "Multiplayer Года": [
-    {label: "ARC Raiders", value: 25.6},
-    {label: "Call of Duty: Black Ops 7", value: 6.2},
-    {label: "Battlefield 6", value: 44.6, cheese:true},
-    {label: "REMATCH", value: 7.6},
-    {label: "Escape from Tarkov", value: 16.0}
-  ],
-  "Кооп Года": [
-    {label: "Split Fiction", value: 27.3},
-    {label: "LEGO Voyagers", value: 5.9},
-    {label: "Abiotic Factor", value: 8.2},
-    {label: "PEAK", value: 35.9, cheese:true},
-    {label: "Supermarket Simulator", value: 7.9},
-    {label: "ELDEN RING NIGHTREIGN", value: 14.8}
-  ],
-  "Инди Года": [
-    {label: "Peak", value: 39.4},
-    {label: "Megabonk", value: 21.1},
-    {label: "Dispatch", value: 39.4},
-    {label: "CloverPit", value: 11.3},
-    {label: "No, I’m not human", value: 42.3},
-    {label: "Beholder: Conductor", value: 15.4},
-    {label: "Guilty as Sock", value: 4.7},
-    {label: "Hollow Knight: Silksong", value: 51.2, cheese:true},
-    {label: "Femboy Futa House", value: 34.1},
-    {label: "Power wash Simulator 2", value: 12.9},
-    {label: "My Summer Car", value: 18.9},
-    {label: "Necesse", value: 4.7},
-    {label: "Hades 2", value: 25.0},
-    {label: "Supermarket Simulator", value: 7.1},
-    {label: "BALL x PITT", value: 6.3},
-    {label: "He is coming", value: 4.4}
-  ],
-  "Шутер Года": [
-    {label: "Call of Duty: Black Ops 7", value: 6.8},
-    {label: "Battlefield", value: 62.7, cheese:true},
-    {label: "Escape from Tarkov", value: 15.2},
-    {label: "ARC Raiders", value: 17.8},
-    {label: "Borderlands 4", value: 7.7}
-  ],
-  "Стратегия Года": [
-    {label: "Sid Meier's Civilization VII", value: 24.6},
-    {label: "Europa Universalis V", value: 26.1, cheese:true},
-    {label: "Stormgate", value: 16.3},
-    {label: "Anno 117", value: 12.4},
-    {label: "Jurassic World Evolution 3", value: 8.4},
-    {label: "Tempest Rising", value: 7.3},
-    {label: "Farthest Frontier", value: 4.9}
-  ],
-  "RPG Года": [
-    {label: "Kingdom Come: Deliverance II", value: 53.4, cheese:true},
-    {label: "Clair Obscur: Expedition 33", value: 24.4},
-    {label: "The Outer Worlds 2", value: 5.8},
-    {label: "Avowed", value: 4.6},
-    {label: "Tainted Grail: The Fall of Avalon", value: 6.9},
-    {label: "Digimon Story Time Stranger", value: 4.9}
-  ],
-  "Симулятор Года": [
-    {label: "PowerWash Simulator 2", value: 37.3, cheese:true},
-    {label: "Beholder: Conductor", value: 27.1},
-    {label: "Supermarket Simulator", value: 17.8},
-    {label: "RoadCraft", value: 12.8},
-    {label: "Football Manager 26", value: 5.0}
-  ],
-  "Хоррор Года": [
-    {label: "No, I'm not a Human", value: 41.7, cheese:true},
-    {label: "SILENT HILL f", value: 21.5},
-    {label: "Cronos: The New Dawn", value: 12.1},
-    {label: "Five Nights at Freddy's: Secret of the Mimic", value: 9.6},
-    {label: "Escape the Backrooms", value: 8.0},
-    {label: "Little Nightmares III", value: 7.1}
-  ],
-  "F2P Года": [
-    {label: "Umamusume: Pretty Derby", value: 50.8, cheese:true},
-    {label: "Battlefield REDSEC", value: 19.7},
-    {label: "FragPunk", value: 18.7},
-    {label: "Mecha BREAK", value: 8.7},
-    {label: "Terminull Brigade", value: 2.1}
-  ],
-  "Remaster/Remake Года": [
-    {label: "The Elder Scrolls IV: Oblivion Remastered", value: 29.0, cheese:true},
-    {label: "METAL GEAR SOLID Δ: SNAKE EATER", value: 26.6},
-    {label: "Trails in the Sky 1st Chapter", value: 11.2},
-    {label: "Warhammer 40,000: Dawn of War", value: 10.9},
-    {label: "NINJA GAIDEN 2 Black", value: 9.5},
-    {label: "RAIDOU Remastered", value: 2.4},
-    {label: "Stronghold Crusader: Definitive Edition", value: 5.3},
-    {label: "FINAL FANTASY TACTICS - The Ivalice Chronicles", value: 2.8},
-    {label: "Tales of Xillia Remastered", value: 2.3}
-  ],
-  "Early Access Года": [
-    {label: "R.E.P.O.", value: 52.5, cheese:true},
-    {label: "Schedule I", value: 11.8},
-    {label: "inZOI", value: 8.7},
-    {label: "Grounded 2", value: 5.8},
-    {label: "2XKO", value: 4.7},
-    {label: "RuneScape: Dragonwilds", value: 4.1},
-    {label: "Endless Legend II", value: 3.5},
-    {label: "Hollywood Animal", value: 4.9},
-    {label: "Jump Space", value: 4.0}
-  ],
-  "DLC Года": [
-    {label: "Lies of P: Overture", value: 21.2},
-    {label: "Crusader Kings III: All Under Heaven", value: 10.5},
-    {label: "RimWorld: Odyssey", value: 18.4},
-    {label: "Atomic Heart - Enchantment Under the Sea", value: 36.5, cheese:true},
-    {label: "Destiny 2: The Edge of Fate", value: 3.9},
-    {label: "Rain World: The Watcher", value: 9.4}
-  ],
-  "Лучший Саундтрек": [
-    {label: "Clair Obscur: Expedition 33", value: 33.3, cheese:true},
-    {label: "Hollow Knight: Silksong", value: 17.4},
-    {label: "DOOM: The Dark Ages", value: 17.3},
-    {label: "Deltarune chapters 3 & 4", value: 15.9},
-    {label: "Hades II", value: 6.7},
-    {label: "NINJA GAIDEN 4", value: 4.3},
-    {label: "Like a Dragon: Pirate Yakuza in Hawaii", value: 5.1}
-  ],
-  "Китайское Казино Года": [
-    {label: "Duet Night Abyss", value: 8.6},
-    {label: "GIRLS' FRONTLINE 2: EXILIUM", value: 30.6},
-    {label: "Destiny: Rising", value: 14.3},
-    {label: "Persona 5: The Phantom X ( Global )", value: 46.5, cheese:true},
-  ],
-  "Позор Года": [
-    {label: "Оптимизация Borderlands 4", value: 30.6, cheese:true},
-    {label: "Plants vs. Zombies: Replanted", value: 28.4},
-    {label: "Vampire: The Masquerade - Bloodlines 2", value: 17.0},
-    {label: "Mindseye", value: 15.6},
-    {label: "FBC: Firebreak", value: 5.8},
-    {label: "South of Midnight", value: 2.6},
-  ],
-  "Ожидание Года": [
-    {label: "Resident Evil Requiem", value: 5.6},
-    {label: "007: First Light", value: 1.8},
-    {label: "PRAGMATA", value: 1.3},
-    {label: "Halo: Campaign Evolved", value: 0.6},
-    {label: "Persona 4 Revival", value: 16},
-    {label: "LEGO Batman: Legacy of the Dark Knight", value: 4.4},
-    {label: "Marvel's Wolverine", value: 1.6},
-    {label: "Heroes of Might and Magic: Olden Era", value: 3.5},
-    {label: "Grand Theft Auto VI", value: 11.9},
-    {label: "Пчелиная Война 2", value: 46.4, cheese:true },
-    {label: "Ведьмак 4", value: 6.6},
-    {label: "Star Citizen", value: 16.1},
-  ],
-  "Мужчина Года": [
-    {label: "Гюстав (Expedition 33)", value: 20.4, cheese:true},
-    {label: "Ясуке (Assassin's Creed Shadows)", value: 12.9},
-    {label: "Якумо (Ninja Gaiden 4)", value: 10.7},
-    {label: "Кайл Крейн (Dying Light: The Beast)", value: 16.2},
-    {label: "Маджима (Like a Dragon: Pirate Yakuza in Hawaii)", value: 19.8},
-    {label: "Сонар (Dispatch)", value: 20.1}
-  ],
-  "Женщина Года": [
-    {label: "Сэори (Ninja Gaiden 4)", value: 4.1},
-    {label: "Твоя мама (ВАША МАТЬ)", value: 24.4},
-    {label: "Невидива (Dispatch)", value: 9.5},
-    {label: "Люнэ (Expedition 33)", value: 7.9},
-    {label: "Фрэджайл (Death Stranding 2)", value: 5.8},
-    {label: "Катерина (Kingdom Come: Deliverance II)", value: 7.1},
-    {label: "Блонди Блейзер (Dispatch)", value: 6.5},
-    {label: "Мишель (Beholder: Conductor)", value: 5.0},
-    {label: "Хорнет (Hollow Knight Silksong)", value: 29.7, cheese:true}
-  ]
-};
+// ============================================================
+// SUPABASE
+// ============================================================
 
-// --- ЦВЕТОВАЯ ПАЛИТРА ---
-const COLORS = [
-  '#3b82f6', // Blue
-  '#ef4444', // Red
-  '#10b981', // Emerald
-  '#f97316', // Orange
-  '#8b5cf6', // Violet
-  '#ec4899', // Pink
-  '#06b6d4', // Cyan
-  '#84cc16', // Lime
-];
+const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
+const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
 
-function getItemColor(item, index) {
-  if (item.cheese) return '#ffd700'; // Gold
-  return COLORS[index % COLORS.length];
-}
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* ============================================================
-      СОЗДАНИЕ КАРТОЧЕК
-============================================================ */
-const cardsContainer = document.getElementById('cards');
+// ============================================================
+// ТАЙМЕР (23 декабря 23:59:59)
+// ============================================================
 
-function createCards() {
-  Object.keys(DATA).forEach(title => {
-    const btn = document.createElement('button');
-    btn.className = 'card';
-    btn.type = 'button';
-    btn.innerHTML = `<div class="title">${title}</div>`;
-    btn.addEventListener('click', () => openModal(title));
-    cardsContainer.appendChild(btn);
-  });
-}
-createCards();
+// Если нужен другой год (например, 2025 или 2026), просто поменяйте цифру года:
+const votingEnd = new Date("2026-12-23T23:59:59");
 
+function updateCountdown() {
+    const countdownEl = document.getElementById("countdown");
+    if (!countdownEl) return;
 
-/* ============================================================
-      МОДАЛЬНОЕ ОКНО
-============================================================ */
-const modalOverlay = document.getElementById('modalOverlay');
-const modalClose   = document.getElementById('modalClose');
-const closeBtn     = document.getElementById('closeBtn');
-const modalTitle   = document.getElementById('modalTitle');
-const itemsList    = document.getElementById('itemsList');
-const chartCanvas  = document.getElementById('chartCanvas');
+    const now = new Date();
+    const difference = votingEnd - now;
 
-modalClose.addEventListener('click', closeModal);
-closeBtn.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', e => {
-  if (e.target === modalOverlay) closeModal();
-});
+    // ЕСЛИ ВРЕМЯ ВЫШЛО:
+    if (difference <= 0) {
+        countdownEl.textContent = "Голосование завершено";
 
-function openModal(title) {
-    const dataset = DATA[title] || [];
-    modalTitle.textContent = title;
-
-    // Сначала заполняем список, чтобы цвета совпали
-    populateList(dataset);
-
-    modalOverlay.style.display = 'flex';
-    modalOverlay.setAttribute('aria-hidden', 'false');
-
-    // Логика выбора типа диаграммы
-    setTimeout(() => {
-        if (title === "Инди Года") {
-            drawBarChart(dataset);
-        } else {
-            // Восстанавливаем canvas если его скрывали
-            const parent = chartCanvas.parentElement;
-            const oldBars = parent.querySelector('.bar-chart-container');
-            if (oldBars) oldBars.remove();
-            
-            chartCanvas.style.display = 'block';
-            drawAnimatedPieChart(dataset);
-        }
-    }, 30);
-}
-
-function closeModal() {
-  modalOverlay.style.display = 'none';
-  modalOverlay.setAttribute('aria-hidden', 'true');
-}
-
-
-/* ============================================================
-      ПРАВАЯ ПАНЕЛЬ – СПИСОК
-============================================================ */
-function populateList(dataset) {
-  itemsList.innerHTML = '';
-  
-  dataset.forEach((it, index) => {
-    const row = document.createElement('div');
-    row.className = 'item' + (it.cheese ? ' cheese' : '');
-
-    const color = getItemColor(it, index);
-
-    const labelDiv = document.createElement('div');
-    labelDiv.className = 'label';
-    
-    // Цветная точка
-    const dot = document.createElement('span');
-    dot.className = 'legend-dot';
-    dot.style.backgroundColor = color;
-    
-    labelDiv.appendChild(dot);
-    labelDiv.appendChild(document.createTextNode(it.label));
-
-    const pct = document.createElement('div');
-    pct.className = 'percent';
-    pct.textContent = it.value.toFixed(1) + '%';
-
-    row.appendChild(labelDiv);
-    row.appendChild(pct);
-    itemsList.appendChild(row);
-  });
-}
-
-
-/* ============================================================
-      СТОЛБЧАТАЯ ДИАГРАММА (BAR CHART)
-============================================================ */
-function drawBarChart(dataset) {
-    const canvas = document.getElementById('chartCanvas');
-    const container = canvas.parentElement;
-
-    // 1. Скрываем круглую диаграмму
-    canvas.style.display = 'none';
-
-    // 2. Убираем старую таблицу
-    const oldBars = container.querySelector('.bar-chart-container');
-    if (oldBars) oldBars.remove();
-
-    // 3. Создаем контейнер
-    const barList = document.createElement('div');
-    barList.className = 'bar-chart-container';
-
-    // 4. Сортируем
-    const sortedData = [...dataset].sort((a, b) => b.value - a.value);
-
-    // 5. Генерируем строки
-    sortedData.forEach((item) => {
-        if (item.value <= 0) return;
-
-        // Находим исходный индекс для цвета
-        const originalIndex = dataset.indexOf(item);
-        const color = getItemColor(item, originalIndex);
-
-        const row = document.createElement('div');
-        row.className = 'bar-row';
-
-        row.innerHTML = `
-            <div class="bar-label" title="${item.label}">${item.label}</div>
-            <div class="bar-track">
-                <div class="bar-fill" 
-                     style="width: 0%; background: ${color}; box-shadow: 0 0 10px ${color}80;" 
-                     data-width="${item.value > 100 ? 100 : item.value}%">
-                </div>
-            </div>
-            <div class="bar-value">${item.value.toFixed(1)}%</div>
-        `;
-        barList.appendChild(row);
-    });
-
-    container.appendChild(barList);
-
-    // 6. Анимация
-    requestAnimationFrame(() => {
-        const fills = barList.querySelectorAll('.bar-fill');
-        fills.forEach(fill => {
-            fill.style.width = fill.getAttribute('data-width');
-        });
-    });
-}
-
-/* ============================================================
-      КРУГОВАЯ ДИАГРАММА (PIE CHART)
-============================================================ */
-function drawAnimatedPieChart(dataset) {
-    const canvas = chartCanvas;
-    const ctx = canvas.getContext('2d');
-    const DPR = window.devicePixelRatio || 1;
-
-    // Цвет границ (как фон модалки)
-    const backgroundColor = "#0b1622"; 
-    
-    // Размеры берем от родителя
-    const parentWidth = canvas.parentElement.clientWidth;
-    const parentHeight = canvas.parentElement.clientHeight;
-    
-    // Чтобы на телефонах не был слишком огромным
-    const w = parentWidth;
-    const h = parentHeight;
-
-    canvas.width = w * DPR;
-    canvas.height = h * DPR;
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.scale(DPR, DPR);
-
-    ctx.clearRect(0, 0, w, h);
-
-    if (!dataset.length) return;
-
-    const total = dataset.reduce((a, b) => a + b.value, 0);
-    const cx = w / 2;
-    const cy = h / 2;
-    const radius = Math.min(w, h) * 0.35; // Радиус круга
-
-    const startTime = performance.now();
-    const duration = 900;
-
-    function ease(t) { return 1 - Math.pow(1 - t, 3); }
-
-    function frame(time) {
-        const progress = Math.min(1, (time - startTime) / duration);
-        const eased = ease(progress);
-
-        ctx.clearRect(0, 0, w, h);
-
-        let startAngle = -Math.PI / 2;
-        let lastTextAngle = -100; 
-
-        dataset.forEach((item, index) => {
-            if (item.value <= 0) return;
-
-            const slice = (item.value / total) * Math.PI * 2 * eased;
-            const endAngle = startAngle + slice;
-            
-            const color = getItemColor(item, index);
-
-            // Сектор
-            ctx.beginPath();
-            ctx.moveTo(cx, cy);
-            ctx.arc(cx, cy, radius, startAngle, endAngle);
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-
-            // Границы
-            ctx.lineWidth = 2; 
-            ctx.strokeStyle = backgroundColor; 
-            ctx.stroke(); 
-
-            // Текст на секторе (если больше 6%)
-            if (item.value > 6) { 
-                const mid = (startAngle + endAngle) / 2;
-                
-                if (Math.abs(mid - lastTextAngle) > 0.3) {
-                    const tx = cx + Math.cos(mid) * (radius * 0.70); 
-                    const ty = cy + Math.sin(mid) * (radius * 0.70);
-
-                    const textColor = item.cheese ? "rgba(0, 0, 0, 0.9)" : "white";
-                    
-                    ctx.shadowColor = "rgba(0,0,0,0.5)";
-                    ctx.shadowBlur = 4;
-
-                    ctx.fillStyle = textColor;
-                    ctx.font = "bold 14px Inter, Arial";
-                    ctx.textAlign = "center";
-                    ctx.textBaseline = "middle";
-                    ctx.fillText(item.value.toFixed(1) + "%", tx, ty);
-                    
-                    ctx.shadowBlur = 0;
-                    lastTextAngle = mid;
-                }
-            }
-            startAngle = endAngle;
-        });
-
-        if (progress < 1) requestAnimationFrame(frame);
+        // Файл результатов называется result.html
+        window.location.href = "result.html";
+        return;
     }
 
-    requestAnimationFrame(frame);
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    countdownEl.textContent = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
 }
+
+// Запускаем таймер сразу же
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ============================================================
+// КАРТИНКА И КАТЕГОРИИ
+// ============================================================
+
+const TEMP_IMAGE = "./photo_2025-11-10_21-02-06.png";
+
+const CATEGORIES = [
+    {
+        id: "choice-buldzhat",
+        name: "Выбор БУЛДЖАТь",
+        image: TEMP_IMAGE,
+        nominees: [
+            "WWE 2025",
+            "Madden 2025",
+            "Dokapon! Ikari no Tekken",
+            "MLB The Show 25",
+            "Тетрис"
+        ]
+    },
+    {
+        id: "game-of-the-year",
+        name: "Игра Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Clair Obscur: Expedition 33",
+            "Death Stranding 2",
+            "NINJA GAIDEN 4",
+            "Split Fiction",
+            "Kingdom Come: Deliverance II",
+            "Hollow Knight: Silksong"
+        ]
+    },
+    {
+        id: "real-game-of-the-year",
+        name: "НАСТОЯЩАЯ ИГРА ГОДА",
+        image: TEMP_IMAGE,
+        nominees: [
+            "FEMBOY FUTA HOUSE",
+            "ТИХИЙ ДЭН",
+            "Земский Собор",
+            "РУСЫ ПРОТИВ ЯЩЕРОВ 2",
+            "ВАША МАТЬ",
+            "Mindseye"
+        ]
+    },
+    {
+        id: "single-player",
+        name: "Single-player Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Clair Obscur: Expedition 33",
+            "DOOM: The Dark Ages",
+            "Kingdom Come: Deliverance II",
+            "Donkey Kong Bananza",
+            "Death Stranding 2",
+            "NINJA GAIDEN 4",
+            "Like a Dragon: Pirate Yakuza in Hawaii"
+        ]
+    },
+    {
+        id: "multiplayer",
+        name: "Multiplayer Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "ARC Raiders",
+            "Call of Duty: Black Ops 7",
+            "Battlefield 6",
+            "REMATCH",
+            "Escape from Tarkov"
+        ]
+    },
+    {
+        id: "coop",
+        name: "Кооп Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Split Fiction",
+            "LEGO Voyagers",
+            "Abiotic Factor",
+            "PEAK",
+            "Supermarket Simulator",
+            "ELDEN RING NIGHTREIGN"
+        ]
+    },
+    {
+        id: "indie",
+        name: "Инди Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Peak",
+            "Megabonk",
+            "Dispatch",
+            "CloverPit",
+            "No, I’m not human",
+            "Beholder: Conductor",
+            "Guilty as Sock",
+            "Hollow Knight: Silksong",
+            "Femboy Futa House",
+            "Power wash Simulator 2",
+            "My Summer Car",
+            "Necesse",
+            "Hades 2",
+            "Supermarket Simulator",
+            "BALL x PITT",
+            "He is coming"
+        ]
+    },
+    {
+        id: "shooter",
+        name: "Шутер Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Call of Duty: Black Ops 7",
+            "Battlefield",
+            "Escape from Tarkov",
+            "ARC Raiders",
+            "Borderlands 4"
+        ]
+    },
+    {
+        id: "strategy",
+        name: "Стратегия Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Sid Meier's Civilization VII",
+            "Europa Universalis V",
+            "Stormgate",
+            "Anno 117",
+            "Jurassic World Evolution 3",
+            "Tempest Rising",
+            "Farthest Frontier"
+        ]
+    },
+    {
+        id: "rpg",
+        name: "RPG Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Kingdom Come: Deliverance II",
+            "Clair Obscur: Expedition 33",
+            "The Outer Worlds 2",
+            "Avowed",
+            "Tainted Grail: The Fall of Avalon",
+            "Digimon Story Time Stranger"
+        ]
+    },
+    {
+        id: "simulator",
+        name: "Симулятор Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "PowerWash Simulator 2",
+            "Beholder: Conductor",
+            "Supermarket Simulator",
+            "RoadCraft",
+            "Football Manager 26"
+        ]
+    },
+    {
+        id: "horror",
+        name: "Хоррор Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "No, I’m not a Human",
+            "SILENT HILL f",
+            "Cronos: The New Dawn",
+            "Five Nights at Freddy's: Secret of the Mimic",
+            "Escape the Backrooms",
+            "Little Nightmares III"
+        ]
+    },
+    {
+        id: "f2p",
+        name: "F2P Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Umamusume: Pretty Derby",
+            "Battlefield REDSEC",
+            "FragPunk",
+            "Mecha BREAK",
+            "Terminull Brigade"
+        ]
+    },
+    {
+        id: "remaster-remake",
+        name: "Remaster/Remake Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "The Elder Scrolls IV: Oblivion Remastered",
+            "METAL GEAR SOLID Δ: SNAKE EATER",
+            "Trails in the Sky 1st Chapter",
+            "Warhammer 40,000: Dawn of War",
+            "NINJA GAIDEN 2 Black",
+            "RAIDOU Remastered",
+            "Stronghold Crusader: Definitive Edition",
+            "FINAL FANTASY TACTICS - The Ivalice Chronicles",
+            "Tales of Xillia Remastered"
+        ]
+    },
+    {
+        id: "early-access",
+        name: "Early Access Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "R.E.P.O.",
+            "Schedule I",
+            "inZOI",
+            "Grounded 2",
+            "2XKO",
+            "RuneScape: Dragonwilds",
+            "Endless Legend II",
+            "Hollywood Animal",
+            "Jump Space"
+        ]
+    },
+    {
+        id: "dlc",
+        name: "DLC Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Lies of P: Overture",
+            "Crusader Kings III: All Under Heaven",
+            "RimWorld: Odyssey",
+            "Atomic Heart - Enchantment Under the Sea",
+            "Destiny 2: The Edge of Fate",
+            "Rain World: The Watcher"
+        ]
+    },
+    {
+        id: "soundtrack",
+        name: "Лучший Саундтрек",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Clair Obscur: Expedition 33",
+            "Hollow Knight: Silksong",
+            "DOOM: The Dark Ages",
+            "Deltarune chapters 3 & 4",
+            "Hades II",
+            "NINJA GAIDEN 4",
+            "Like a Dragon: Pirate Yakuza in Hawaii"
+        ]
+    },
+    {
+        id: "chinese-casino",
+        name: "Китайское Казино Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Duet Night Abyss",
+            "GIRLS' FRONTLINE 2: EXILIUM",
+            "Destiny: Rising",
+            "Persona 5: The Phantom X ( Global )"
+        ]
+    },
+    {
+        id: "shame",
+        name: "Позор Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Оптимизация Borderlands 4",
+            "Plants vs. Zombies: Replanted",
+            "Vampire: The Masquerade - Bloodlines 2",
+            "Mindseye",
+            "FBC: Firebreak",
+            "South of Midnight"
+        ]
+    },
+    {
+        id: "most-anticipated",
+        name: "Ожидание Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Resident Evil Requiem",
+            "007: First Light",
+            "PRAGMATA",
+            "Halo: Campaign Evolved",
+            "Persona 4 Revival",
+            "LEGO Batman: Legacy of the Dark Knight",
+            "Marvel's Wolverine",
+            "Heroes of Might and Magic: Olden Era",
+            "Grand Theft Auto VI",
+            "Пчелиная Война 2",
+            "Ведьмак 4",
+            "Star Citizen"
+        ]
+    },
+    {
+        id: "man-of-the-year",
+        name: "Мужчина Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Гюстав (Expedition 33)",
+            "Ясуке (Assassin's Creed Shadows)",
+            "Якумо (Ninja Gaiden 4)",
+            "Кайл Крейн (Dying Light: The Beast)",
+            "Маджима (Like a Dragon: Pirate Yakuza in Hawaii)",
+            "Сонар (Dispatch)"
+        ]
+    },
+    {
+        id: "woman-of-the-year",
+        name: "Женщина Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Сэори (Ninja Gaiden 4)",
+            "Твоя мама (ВАША МАТЬ)",
+            "Невидива (Dispatch)",
+            "Люнэ (Expedition 33)",
+            "Фрэджайл (Death Stranding 2)",
+            "Катерина (Kingdom Come: Deliverance II)",
+            "Блонди Блейзер (Dispatch)",
+            "Мишель (Beholder: Conductor)",
+            "Хорнет (Hollow Knight Silksong)"
+        ]
+    }
+];
+
+// ============================================================
+// DOM
+// ============================================================
+
+const categoriesGrid = document.getElementById("categories-grid");
+
+const modal = document.getElementById("modal");
+const loginModal = document.getElementById("login-modal");
+
+const modalImage = document.getElementById("modal-image");
+const modalNumber = document.getElementById("modal-number");
+const modalTitle = document.getElementById("modal-title");
+const modalDescription = document.getElementById("modal-description");
+
+const nomineesList = document.getElementById("nominees-list");
+const voteMessage = document.getElementById("vote-message");
+
+const loginButton = document.getElementById("login-button");
+const googleLoginModal = document.getElementById("google-login-modal");
+
+// ============================================================
+// КНОПКИ ПЕРЕХОДА МЕЖДУ НОМИНАЦИЯМИ
+// ============================================================
+
+const prevCategoryButton = document.getElementById("prev-category");
+const nextCategoryButton = document.getElementById("next-category");
+
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+
+let currentCategory = null;
+let currentUser = null;
+
+let userVotes = {}; 
+// Хранилище:
+// {
+//     "category-id": ["nominee1", "nominee2"]
+// }
+
+// ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHTML(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+// ============================================================
+// КАРТОЧКИ КАТЕГОРИЙ
+// ============================================================
+
+function createCategoryCards() {
+    categoriesGrid.innerHTML = "";
+
+    CATEGORIES.forEach((category, index) => {
+        const card = document.createElement("div");
+
+        card.className = "category-card";
+
+        card.innerHTML = `
+            <div class="category-number">
+                НОМИНАЦИЯ ${String(index + 1).padStart(2, "0")}
+            </div>
+
+            <div class="category-name">
+                ${escapeHTML(category.name)}
+            </div>
+
+            <div class="category-bottom">
+                <span class="nominee-count">
+                    ${category.nominees.length} кандидатов
+                </span>
+
+                <span class="category-arrow">
+                    →
+                </span>
+            </div>
+        `;
+
+        card.addEventListener("click", () => {
+            openCategory(category);
+        });
+
+        categoriesGrid.appendChild(card);
+    });
+}
+
+// ============================================================
+// ОБНОВЛЕНИЕ КНОПОК НАЗАД / ДАЛЕЕ
+// ============================================================
+
+function updateCategoryNavigation() {
+    if (!currentCategory) return;
+
+    const currentIndex = CATEGORIES.indexOf(currentCategory);
+
+    if (currentIndex === -1) return;
+
+    // ------------------------------
+    // КНОПКА НАЗАД
+    // ------------------------------
+
+    if (prevCategoryButton) {
+        if (currentIndex === 0) {
+            prevCategoryButton.style.visibility = "hidden";
+            prevCategoryButton.disabled = true;
+        } else {
+            prevCategoryButton.style.visibility = "visible";
+            prevCategoryButton.disabled = false;
+        }
+    }
+
+    // ------------------------------
+    // КНОПКА ДАЛЕЕ
+    // ------------------------------
+
+    if (nextCategoryButton) {
+        if (currentIndex === CATEGORIES.length - 1) {
+            nextCategoryButton.style.visibility = "hidden";
+            nextCategoryButton.disabled = true;
+        } else {
+            nextCategoryButton.style.visibility = "visible";
+            nextCategoryButton.disabled = false;
+        }
+    }
+}
+
+// ============================================================
+// ПРЕДЫДУЩАЯ НОМИНАЦИЯ
+// ============================================================
+
+function openPreviousCategory() {
+    if (!currentCategory) return;
+
+    const currentIndex = CATEGORIES.indexOf(currentCategory);
+
+    if (currentIndex <= 0) return;
+
+    const previousCategory = CATEGORIES[currentIndex - 1];
+
+    openCategory(previousCategory);
+}
+
+// ============================================================
+// СЛЕДУЮЩАЯ НОМИНАЦИЯ
+// ============================================================
+
+function openNextCategory() {
+    if (!currentCategory) return;
+
+    const currentIndex = CATEGORIES.indexOf(currentCategory);
+
+    if (currentIndex === -1) return;
+
+    if (currentIndex >= CATEGORIES.length - 1) {
+        return;
+    }
+
+    const nextCategory = CATEGORIES[currentIndex + 1];
+
+    openCategory(nextCategory);
+}
+
+// ============================================================
+// ОТКРЫТИЕ КАТЕГОРИИ
+// ============================================================
+
+function openCategory(category) {
+    currentCategory = category;
+
+    const categoryIndex = CATEGORIES.indexOf(category) + 1;
+
+    const isIndie = category.id === "indie";
+
+    // ------------------------------
+    // ЗАГОЛОВОК
+    // ------------------------------
+
+    modalNumber.textContent =
+        `НОМИНАЦИЯ ${String(categoryIndex).padStart(2, "0")}`;
+
+    modalTitle.textContent = category.name;
+
+    // ------------------------------
+    // ОПИСАНИЕ
+    // ------------------------------
+
+    modalDescription.textContent = isIndie
+        ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
+        : "Выберите одного кандидата.";
+
+    // ------------------------------
+    // КАРТИНКА
+    // ------------------------------
+
+    modalImage.src = category.image;
+    modalImage.alt = category.name;
+
+    // ------------------------------
+    // СООБЩЕНИЕ О ГОЛОСЕ
+    // ------------------------------
+
+    voteMessage.classList.remove("visible");
+    voteMessage.textContent = "";
+
+    // ------------------------------
+    // СПИСОК НОМИНАНТОВ
+    // ------------------------------
+
+    nomineesList.innerHTML = "";
+
+    const selectedNominees = userVotes[category.id] || [];
+
+    category.nominees.forEach(nominee => {
+        const button = document.createElement("button");
+
+        button.className = "nominee";
+
+        // Если этот номинант уже выбран
+        if (selectedNominees.includes(nominee)) {
+            button.classList.add("selected");
+        }
+
+        button.innerHTML = `
+            <span class="nominee-name">
+                ${escapeHTML(nominee)}
+            </span>
+
+            <div class="nominee-check">
+                <span>✓</span>
+            </div>
+        `;
+
+        button.addEventListener("click", () => {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+
+            voteForNominee(
+                category,
+                nominee,
+                button
+            );
+        });
+
+        nomineesList.appendChild(button);
+    });
+
+    // ------------------------------
+    // ОБНОВЛЯЕМ НАЗАД / ДАЛЕЕ
+    // ------------------------------
+
+    updateCategoryNavigation();
+
+    // ------------------------------
+    // ОТКРЫВАЕМ MODAL
+    // ------------------------------
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+// ============================================================
+// ЗАКРЫТИЕ МОДАЛКИ
+// ============================================================
+
+function closeModal() {
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+// ============================================================
+// LOGIN MODAL
+// ============================================================
+
+function showLoginModal() {
+    loginModal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeLoginModal() {
+    loginModal.classList.remove("active");
+
+    if (!modal.classList.contains("active")) {
+        document.body.style.overflow = "";
+    }
+}
+
+// ============================================================
+// GOOGLE LOGIN
+// ============================================================
+
+async function loginWithGoogle() {
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+        provider: "google",
+
+        options: {
+            redirectTo:
+                window.location.origin +
+                window.location.pathname
+        }
+    });
+
+    if (error) {
+        console.error(error);
+
+        alert(
+            "Ошибка входа через Google:\n" +
+            error.message
+        );
+    }
+}
+
+// ============================================================
+// ЗАГРУЗКА ГОЛОСОВ ПОЛЬЗОВАТЕЛЯ
+// ============================================================
+
+async function loadUserVotes() {
+    if (!currentUser) {
+        userVotes = {};
+        return;
+    }
+
+    const { data, error } =
+        await supabaseClient
+            .from("votes")
+            .select("category_id, nominee_id")
+            .eq("user_id", currentUser.id);
+
+    if (error) {
+        console.error(
+            "Ошибка при получении голосов:",
+            error
+        );
+
+        return;
+    }
+
+    userVotes = {};
+
+    if (Array.isArray(data)) {
+        data.forEach(item => {
+            if (!userVotes[item.category_id]) {
+                userVotes[item.category_id] = [];
+            }
+
+            userVotes[item.category_id].push(
+                item.nominee_id
+            );
+        });
+    }
+}
+
+// ============================================================
+// ТЕКУЩИЙ ПОЛЬЗОВАТЕЛЬ
+// ============================================================
+
+async function loadCurrentUser() {
+    const { data, error } =
+        await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+        currentUser = null;
+        userVotes = {};
+
+        updateLoginButton();
+
+        return;
+    }
+
+    currentUser = data.user;
+
+    updateLoginButton();
+
+    await loadUserVotes();
+}
+
+// ============================================================
+// ОБНОВЛЕНИЕ КНОПКИ ВХОДА
+// ============================================================
+
+function updateLoginButton() {
+    if (!currentUser) {
+        loginButton.textContent =
+            "Войти через Google";
+
+        return;
+    }
+
+    const name =
+        currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
+        currentUser.email ||
+        "Вы вошли";
+
+    loginButton.textContent = name;
+}
+
+// ============================================================
+// AUTH STATE CHANGE
+// ============================================================
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+        currentUser = session?.user || null;
+
+        updateLoginButton();
+
+        if (currentUser) {
+            closeLoginModal();
+
+            await loadUserVotes();
+        } else {
+            userVotes = {};
+        }
+    }
+);
+
+// ============================================================
+// ГОЛОСОВАНИЕ
+// ============================================================
+
+async function voteForNominee(
+    category,
+    nominee,
+    buttonElement
+) {
+    if (!currentUser) {
+        showLoginModal();
+        return;
+    }
+
+    const isIndie =
+        category.id === "indie";
+
+    if (!userVotes[category.id]) {
+        userVotes[category.id] = [];
+    }
+
+    // ========================================================
+    // ВИЗУАЛЬНОЕ СОСТОЯНИЕ
+    // ========================================================
+
+    if (isIndie) {
+        buttonElement.classList.toggle(
+            "selected"
+        );
+    } else {
+        document
+            .querySelectorAll(".nominee")
+            .forEach(el => {
+                el.classList.remove(
+                    "selected"
+                );
+            });
+
+        buttonElement.classList.add(
+            "selected"
+        );
+    }
+
+    voteMessage.textContent =
+        "Сохраняем голос...";
+
+    voteMessage.classList.add(
+        "visible"
+    );
+
+    // ========================================================
+    // ОТПРАВКА ГОЛОСА В SUPABASE
+    // ========================================================
+
+    const { data: action, error } =
+        await supabaseClient.rpc(
+            "cast_vote",
+            {
+                p_category_id: category.id,
+                p_nominee_id: nominee
+            }
+        );
+
+    // ========================================================
+    // ОШИБКА
+    // ========================================================
+
+    if (error) {
+        console.error(
+            "Ошибка голосования:",
+            error
+        );
+
+        voteMessage.textContent =
+            "Не удалось сохранить голос: " +
+            error.message;
+
+        // Возвращаем визуальное состояние
+        if (isIndie) {
+            buttonElement.classList.toggle(
+                "selected"
+            );
+        } else {
+            buttonElement.classList.remove(
+                "selected"
+            );
+        }
+
+        return;
+    }
+
+    // ========================================================
+    // ОБНОВЛЯЕМ ЛОКАЛЬНОЕ СОСТОЯНИЕ
+    // ========================================================
+
+    if (isIndie) {
+        if (action === "removed") {
+            userVotes[category.id] =
+                userVotes[category.id].filter(
+                    name => name !== nominee
+                );
+
+            voteMessage.textContent =
+                "Голос убран!";
+        } else {
+            userVotes[category.id].push(
+                nominee
+            );
+
+            voteMessage.textContent =
+                "✓ Голос добавлен!";
+        }
+    } else {
+        userVotes[category.id] = [nominee];
+
+        voteMessage.textContent =
+            "✓ Голос сохранён!";
+    }
+}
+
+// ============================================================
+// СОБЫТИЯ
+// ============================================================
+
+// ------------------------------
+// Закрытие обычной модалки
+// ------------------------------
+
+document
+    .getElementById("close-modal")
+    .addEventListener(
+        "click",
+        closeModal
+    );
+
+document
+    .querySelector("#modal .modal-overlay")
+    .addEventListener(
+        "click",
+        closeModal
+    );
+
+// ------------------------------
+// Закрытие login modal
+// ------------------------------
+
+document
+    .getElementById("close-login-modal")
+    .addEventListener(
+        "click",
+        closeLoginModal
+    );
+
+document
+    .querySelector("#login-modal .modal-overlay")
+    .addEventListener(
+        "click",
+        closeLoginModal
+    );
+
+// ------------------------------
+// Google Login
+// ------------------------------
+
+loginButton.addEventListener(
+    "click",
+    loginWithGoogle
+);
+
+googleLoginModal.addEventListener(
+    "click",
+    loginWithGoogle
+);
+
+// ============================================================
+// НАЗАД / ДАЛЕЕ
+// ============================================================
+
+if (prevCategoryButton) {
+    prevCategoryButton.addEventListener(
+        "click",
+        openPreviousCategory
+    );
+}
+
+if (nextCategoryButton) {
+    nextCategoryButton.addEventListener(
+        "click",
+        openNextCategory
+    );
+}
+
+// ============================================================
+// КЛАВИАТУРА
+// ============================================================
+
+document.addEventListener(
+    "keydown",
+    event => {
+        // ESC — закрыть модалку
+        if (event.key === "Escape") {
+            if (modal.classList.contains("active")) {
+                closeModal();
+            }
+
+            if (loginModal.classList.contains("active")) {
+                closeLoginModal();
+            }
+
+            return;
+        }
+
+        // Если модалка номинации не открыта,
+        // стрелки ничего не делают
+        if (!modal.classList.contains("active")) {
+            return;
+        }
+
+        // ← — предыдущая номинация
+        if (event.key === "ArrowLeft") {
+            openPreviousCategory();
+        }
+
+        // → — следующая номинация
+        if (event.key === "ArrowRight") {
+            openNextCategory();
+        }
+    }
+);
+
+// ============================================================
+// СТАРТ
+// ============================================================
+
+createCategoryCards();
+
+loadCurrentUser();
