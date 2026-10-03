@@ -68,86 +68,80 @@ const TEMP_IMAGE = "./photo_2025-11-10_21-02-06.png";
 // ============================================================
 
 const CATEGORIES = [
+
     {
         id: "choice-buldzhat",
-        name: "Выбор БУЛДЖАТь",
+        name: "Выбор Булджать",
         image: TEMP_IMAGE,
         nominees: [
-            "WWE 2025",
-            "Madden 2025",
-            "Dokapon! Ikari no Tekken",
-            "MLB The Show 25",
-            "Тетрис"
+            "Grand Theft Auto VI",
+            "The Blood of Dawnwalker",
+            "PRAGMATA",
+            "Resident Evil Requiem",
+            "Control: Resonant",
+            "007: First Light"
         ]
     },
+
 
     {
         id: "game-of-the-year",
         name: "Игра Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Clair Obscur: Expedition 33",
-            "Death Stranding 2",
-            "NINJA GAIDEN 4",
-            "Split Fiction",
-            "Kingdom Come: Deliverance II",
-            "Hollow Knight: Silksong"
+            "Grand Theft Auto VI",
+            "The Blood of Dawnwalker",
+            "PRAGMATA",
+            "Resident Evil Requiem",
+            "Control: Resonant",
+            "007: First Light"
         ]
     },
 
-    {
-        id: "real-game-of-the-year",
-        name: "НАСТОЯЩАЯ ИГРА ГОДА",
-        image: TEMP_IMAGE,
-        nominees: [
-            "FEMBOY FUTA HOUSE",
-            "ТИХИЙ ДЭН",
-            "Земский Собор",
-            "РУСЫ ПРОТИВ ЯЩЕРОВ 2",
-            "ВАША МАТЬ",
-            "Mindseye"
-        ]
-    },
 
     {
         id: "single-player",
-        name: "Single-player Года",
+        name: "Single-Player Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Clair Obscur: Expedition 33",
-            "DOOM: The Dark Ages",
-            "Kingdom Come: Deliverance II",
-            "Donkey Kong Bananza",
-            "Death Stranding 2",
-            "NINJA GAIDEN 4",
-            "Like a Dragon: Pirate Yakuza in Hawaii"
+            "PRAGMATA",
+            "Resident Evil Requiem",
+            "007: First Light",
+            "Control: Resonant",
+            "The Blood of Dawnwalker",
+            "Gears of War: E-Day",
+            "Grand Theft Auto VI",
+            "ACE COMBAT 8: WINGS OF THEVE",
+            "Onimusha: Way of the Sword",
+            "Crimson Desert"
         ]
     },
+
 
     {
         id: "multiplayer",
         name: "Multiplayer Года",
         image: TEMP_IMAGE,
         nominees: [
-            "ARC Raiders",
-            "Call of Duty: Black Ops 7",
-            "Battlefield 6",
-            "REMATCH",
-            "Escape from Tarkov"
+            "Call of Duty: Modern Warfare 4",
+            "Gears of War: E-Day",
+            "Star Wars: Galactic Racer",
+            "AION 2",
+            "Marvel Tōkon: Fighting Souls",
+            "2XKO"
         ]
     },
 
+
     {
-        id: "coop",
-        name: "Кооп Года",
+        id: "friend-slop",
+        name: "Френдслоп Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Split Fiction",
-            "LEGO Voyagers",
-            "Abiotic Factor",
-            "PEAK",
-            "Supermarket Simulator",
-            "ELDEN RING NIGHTREIGN"
+            "Big Walk",
+            "How to Fish",
+            "Bombanana",
+            "Grain Rot"
         ]
     },
 
@@ -175,16 +169,16 @@ const CATEGORIES = [
         ]
     },
 
+
     {
         id: "shooter",
         name: "Шутер Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Call of Duty: Black Ops 7",
-            "Battlefield",
-            "Escape from Tarkov",
-            "ARC Raiders",
-            "Borderlands 4"
+            "Marathon",
+            "Call of Duty: Modern Warfare 4",
+            "PRAGMATA",
+            "Gears of War: E-Day"
         ]
     },
 
@@ -193,13 +187,9 @@ const CATEGORIES = [
         name: "Стратегия Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Sid Meier's Civilization VII",
-            "Europa Universalis V",
-            "Stormgate",
-            "Anno 117",
-            "Jurassic World Evolution 3",
-            "Tempest Rising",
-            "Farthest Frontier"
+            "Star Wars: Zero Company",
+            "Mewgenics",
+            "Dawn of War IV"
         ]
     },
 
@@ -208,12 +198,13 @@ const CATEGORIES = [
         name: "RPG Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Kingdom Come: Deliverance II",
-            "Clair Obscur: Expedition 33",
-            "The Outer Worlds 2",
-            "Avowed",
-            "Tainted Grail: The Fall of Avalon",
-            "Digimon Story Time Stranger"
+            "The Blood of Dawnwalker",
+            "PRAGMATA",
+            "Phantom Blade Zero",
+            "Control: Resonant",
+            "Trails in the Sky 2nd Chapter",
+            "Nioh 3",
+            "Crimson Desert"
         ]
     },
 
@@ -222,11 +213,9 @@ const CATEGORIES = [
         name: "Симулятор Года",
         image: TEMP_IMAGE,
         nominees: [
-            "PowerWash Simulator 2",
-            "Beholder: Conductor",
-            "Supermarket Simulator",
-            "RoadCraft",
-            "Football Manager 26"
+            "Maid Cafe Simulator",
+            "Low-Budget Repairs",
+            "Cheap Car Repair"
         ]
     },
 
@@ -235,12 +224,9 @@ const CATEGORIES = [
         name: "Хоррор Года",
         image: TEMP_IMAGE,
         nominees: [
-            "No, I’m not a Human",
-            "SILENT HILL f",
-            "Cronos: The New Dawn",
-            "Five Nights at Freddy's: Secret of the Mimic",
-            "Escape the Backrooms",
-            "Little Nightmares III"
+            "Resident Evil Requiem",
+            "Silent Hill: Townfall",
+            "Reanimal"
         ]
     },
 
@@ -249,11 +235,10 @@ const CATEGORIES = [
         name: "F2P Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Umamusume: Pretty Derby",
-            "Battlefield REDSEC",
-            "FragPunk",
-            "Mecha BREAK",
-            "Terminull Brigade"
+            "AION 2",
+            "2XKO",
+            "Neverness to Everness",
+            "Aniimo"
         ]
     },
 
@@ -262,32 +247,25 @@ const CATEGORIES = [
         name: "Remaster/Remake Года",
         image: TEMP_IMAGE,
         nominees: [
-            "The Elder Scrolls IV: Oblivion Remastered",
-            "METAL GEAR SOLID Δ: SNAKE EATER",
-            "Trails in the Sky 1st Chapter",
-            "Warhammer 40,000: Dawn of War",
-            "NINJA GAIDEN 2 Black",
-            "RAIDOU Remastered",
-            "Stronghold Crusader: Definitive Edition",
-            "FINAL FANTASY TACTICS - The Ivalice Chronicles",
-            "Tales of Xillia Remastered"
+            "The Witcher 3: Wild Hunt — Remastered",
+            "Gothic 1 Remake",
+            "Assassin's Creed IV: Black Flag Resynced",
+            "Trails in the Sky 2nd Chapter",
+            "Dynasty Warriors 3: Complete Edition Remastered"
         ]
     },
 
     {
         id: "early-access",
-        name: "Early Access Года",
+        name: "Ранний Доступ Года",
         image: TEMP_IMAGE,
         nominees: [
-            "R.E.P.O.",
-            "Schedule I",
-            "inZOI",
-            "Grounded 2",
-            "2XKO",
-            "RuneScape: Dragonwilds",
-            "Endless Legend II",
-            "Hollywood Animal",
-            "Jump Space"
+            "Roadside Research",
+            "Slay the Spire 2",
+            "Subnautica 2",
+            "Solasta II",
+            "Hytale",
+            "Ashes of Creation"
         ]
     },
 
@@ -296,12 +274,10 @@ const CATEGORIES = [
         name: "DLC Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Lies of P: Overture",
-            "Crusader Kings III: All Under Heaven",
-            "RimWorld: Odyssey",
-            "Atomic Heart - Enchantment Under the Sea",
-            "Destiny 2: The Edge of Fate",
-            "Rain World: The Watcher"
+            "Elden Ring Nightreign - The Forsaken Hollows",
+            "Frostpunk 2 - Fractured Utopias",
+            "Dragon's Dogma 2 — Dark Arisen",
+            "Crimson Desert Enhanced: Charting the Unknown"
         ]
     },
 
@@ -310,39 +286,11 @@ const CATEGORIES = [
         name: "Лучший Саундтрек",
         image: TEMP_IMAGE,
         nominees: [
-            "Clair Obscur: Expedition 33",
-            "Hollow Knight: Silksong",
-            "DOOM: The Dark Ages",
-            "Deltarune chapters 3 & 4",
-            "Hades II",
-            "NINJA GAIDEN 4",
-            "Like a Dragon: Pirate Yakuza in Hawaii"
-        ]
-    },
-
-    {
-        id: "chinese-casino",
-        name: "Китайское Казино Года",
-        image: TEMP_IMAGE,
-        nominees: [
-            "Duet Night Abyss",
-            "GIRLS' FRONTLINE 2: EXILIUM",
-            "Destiny: Rising",
-            "Persona 5: The Phantom X ( Global )"
-        ]
-    },
-
-    {
-        id: "shame",
-        name: "Позор Года",
-        image: TEMP_IMAGE,
-        nominees: [
-            "Оптимизация Borderlands 4",
-            "Plants vs. Zombies: Replanted",
-            "Vampire: The Masquerade - Bloodlines 2",
-            "Mindseye",
-            "FBC: Firebreak",
-            "South of Midnight"
+            "Resident Evil Requiem",
+            "Trails in the Sky 2nd Chapter",
+            "Onimusha: Way of the Sword",
+            "Control Resonant",
+            "007: First Light"
         ]
     },
 
@@ -351,18 +299,23 @@ const CATEGORIES = [
         name: "Ожидание Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Resident Evil Requiem",
-            "007: First Light",
-            "PRAGMATA",
-            "Halo: Campaign Evolved",
-            "Persona 4 Revival",
-            "LEGO Batman: Legacy of the Dark Knight",
-            "Marvel's Wolverine",
-            "Heroes of Might and Magic: Olden Era",
-            "Grand Theft Auto VI",
-            "Пчелиная Война 2",
-            "Ведьмак 4",
-            "Star Citizen"
+            "Persona 6",
+            "Tides of Annihilation",
+            "Stellar Blade Blood Rain",
+            "Ananta",
+            "Final Fantasy VII Revelation",
+            "Fable",
+            "God of War: Laufey",
+            "Stranger Than Heaven"
+        ]
+    },
+
+    {
+        id: "shame",
+        name: "Позор Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Hytale"
         ]
     },
 
@@ -371,12 +324,10 @@ const CATEGORIES = [
         name: "Мужчина Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Гюстав (Expedition 33)",
-            "Ясуке (Assassin's Creed Shadows)",
-            "Якумо (Ninja Gaiden 4)",
-            "Кайл Крейн (Dying Light: The Beast)",
-            "Маджима (Like a Dragon: Pirate Yakuza in Hawaii)",
-            "Сонар (Dispatch)"
+            "Миямото Мусаси - Onimusha: Way of the Sword",
+            "Джеймс Бонд - 007: First Light",
+            "Дилан Фейден - Control Resonant",
+            "Леон Кеннеди - Resident Evil Requiem"
         ]
     },
 
@@ -385,19 +336,34 @@ const CATEGORIES = [
         name: "Женщина Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Сэори (Ninja Gaiden 4)",
-            "Твоя мама (ВАША МАТЬ)",
-            "Невидива (Dispatch)",
-            "Люнэ (Expedition 33)",
-            "Фрэджайл (Death Stranding 2)",
-            "Катерина (Kingdom Come: Deliverance II)",
-            "Блонди Блейзер (Dispatch)",
-            "Мишель (Beholder: Conductor)",
-            "Хорнет (Hollow Knight Silksong)"
+            "Грейс Эшкрофт - Resident Evil Requiem",
+            "Диана - PRAGMATA"
+        ]
+    },
+
+    {
+        id: "last-studio-release",
+        name: "Последний Релиз Студии",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Luna Abyss - Bonsai Collective"
+        ]
+    },
+
+    {
+        id: "sort-10000-shit",
+        name: "Отсортируй 10000 ГОВНА!",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Librarian: Tidy Up the Arcane Library!",
+            "Never Sort By Color",
+            "Cellar Keeper",
+            "Storehand",
+            "LIMINAL SORTING"
         ]
     }
-];
 
+];
 
 // ============================================================
 // DOM
