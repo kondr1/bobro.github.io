@@ -155,7 +155,6 @@ const CATEGORIES = [
             "PRAGMATA",
             "Phantom Blade Zero",
             "Control: Resonant",
-            "Trails in the Sky 2nd Chapter",
             "Nioh 3",
             "Crimson Desert"
         ]
@@ -229,7 +228,7 @@ const CATEGORIES = [
         nominees: [
             "Elden Ring Nightreign - The Forsaken Hollows",
             "Frostpunk 2 - Fractured Utopias",
-            "Dragon's Dogma 2 — Dark Arisen",
+            "Dragon's Dogma 2 - Dark Arisen",
             "Crimson Desert Enhanced: Charting the Unknown"
         ]
     },
