@@ -132,7 +132,7 @@ const CATEGORIES = [
             "Gears of War: E-Day",
             "High on Life 2",
             "Highguard",
-            "Far Far West"
+            "MOUSE: P.I. For Hire"
         ]
     },
 
@@ -147,7 +147,6 @@ const CATEGORIES = [
             "Going Medieval",
             "Terra Invicta",
             "Pioneers of Pagonia",
-            "Heroes of Might & Magic: Olden Era"
         ]
     },
 
@@ -241,11 +240,11 @@ const CATEGORIES = [
             "Roadside Research",
             "Slay the Spire 2",
             "Subnautica 2",
+            "Dead as Disco",
             "Solasta II",
             "Paralives",
             "WARDOGS",
             "Hytale",
-            "Ashes of Creation",
             "Deep Rock Galactic: Rogue Core",
             "Dead as Disco"
         ]
