@@ -99,6 +99,16 @@ const CATEGORIES = [
         ]
     },
 
+    {
+        id: "game-of-the-year_2024",
+        name: "Игра Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Clair Obscur: Expedition 33"
+        ]
+    },
+
+
 
     {
         id: "single-player",
@@ -161,12 +171,21 @@ const CATEGORIES = [
             "Mewgenics",
             "Pathologic 3",
             "Valheim",
-            "MECCHA CHAMELEON"
-
-            
+            "MECCHA CHAMELEON",
+            "Windrose",
+            "Big Walk",
+            "How to Fish",
+            "Bombanana",
+            "MOUSE: P.I. For Hire",
+            "ReStory: Chill Electronics Repairs",
+            "REPLACED",
+            "Dressmaker",
+            "Grain Rot",
+            "Of Ash and Steel",
+            "Palworld",       
+            "shapez 2 - Factory"     
         ]
     },
-
 
     {
         id: "shooter",
@@ -179,7 +198,8 @@ const CATEGORIES = [
             "Gears of War: E-Day",
             "High on Life 2",
             "Highguard",
-            "Far Far West"
+            "MOUSE: P.I. For Hire",
+            "No More Room in Hell 2"
         ]
     },
 
@@ -194,7 +214,6 @@ const CATEGORIES = [
             "Going Medieval",
             "Terra Invicta",
             "Pioneers of Pagonia",
-            "Heroes of Might & Magic: Olden Era"
         ]
     },
 
@@ -210,7 +229,8 @@ const CATEGORIES = [
             "Code Vein 2",
             "RPG Of Ash and Steel",
             "Mortal Shell II",
-            "Minecraft Dungeons II"
+            "Minecraft Dungeons II",
+            "Monster Hunter Stories 3: Twisted Reflection"
         ]
     },
 
@@ -223,7 +243,9 @@ const CATEGORIES = [
             "Low-Budget Repairs",
             "Cheap Car Repair",
             "Scrap Mechanic",
-            "IRON NEST: Heavy Turret Simulator"
+            "IRON NEST: Heavy Turret Simulator",
+            "TCG Card Shop Simulator",
+            "ReStory: Chill Electronics Repairs"
         ]
     },
 
@@ -286,9 +308,13 @@ const CATEGORIES = [
             "Roadside Research",
             "Slay the Spire 2",
             "Subnautica 2",
+            "Dead as Disco",
             "Solasta II",
+            "Paralives",
+            "WARDOGS",
             "Hytale",
-            "Ashes of Creation"
+            "Deep Rock Galactic: Rogue Core",
+            "Dead as Disco"
         ]
     },
 

@@ -52,6 +52,16 @@ const CATEGORIES = [
         ]
     },
 
+    {
+        id: "game-of-the-year_2024",
+        name: "Игра Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Clair Obscur: Expedition 33"
+        ]
+    },
+
+
 
     {
         id: "single-player",
@@ -125,7 +135,7 @@ const CATEGORIES = [
             "Dressmaker",
             "Grain Rot",
             "Of Ash and Steel",
-            "Streamer Life Simulator 2",       
+            "Palworld",       
             "shapez 2 - Factory"     
         ]
     },
@@ -141,7 +151,8 @@ const CATEGORIES = [
             "Gears of War: E-Day",
             "High on Life 2",
             "Highguard",
-            "MOUSE: P.I. For Hire"
+            "MOUSE: P.I. For Hire",
+            "No More Room in Hell 2"
         ]
     },
 
