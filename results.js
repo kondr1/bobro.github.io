@@ -54,7 +54,7 @@ const CATEGORIES = [
 
     {
         id: "game-of-the-year_2024",
-        name: "Игра Года",
+        name: "Игра Года 2024",
         image: TEMP_IMAGE,
         nominees: [
             "Clair Obscur: Expedition 33"
