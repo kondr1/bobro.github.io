@@ -136,7 +136,8 @@ const CATEGORIES = [
             "Grain Rot",
             "Of Ash and Steel",
             "Palworld",       
-            "shapez 2 - Factory"     
+            "shapez 2 - Factory",
+            "Nivalis Nights"     
         ]
     },
 
@@ -198,7 +199,8 @@ const CATEGORIES = [
             "Scrap Mechanic",
             "IRON NEST: Heavy Turret Simulator",
             "TCG Card Shop Simulator",
-            "ReStory: Chill Electronics Repairs"
+            "ReStory: Chill Electronics Repairs",
+            "Nivalis Nights"
         ]
     },
 
