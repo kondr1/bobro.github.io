@@ -94,7 +94,8 @@ const CATEGORIES = [
             "PRAGMATA",
             "Resident Evil Requiem",
             "Control: Resonant",
-            "007: First Light"
+            "007: First Light",
+            "Forza Horizon 6"
         ]
     },
 
@@ -113,7 +114,8 @@ const CATEGORIES = [
             "Grand Theft Auto VI",
             "ACE COMBAT 8: WINGS OF THEVE",
             "Onimusha: Way of the Sword",
-            "Crimson Desert"
+            "Crimson Desert",
+            "Mortal Shell II"
         ]
     },
 
@@ -124,11 +126,13 @@ const CATEGORIES = [
         image: TEMP_IMAGE,
         nominees: [
             "Call of Duty: Modern Warfare 4",
+            "Marathon",
             "Gears of War: E-Day",
             "Star Wars: Galactic Racer",
-            "AION 2",
+            "Forza Horizon 6",
             "Marvel Tōkon: Fighting Souls",
-            "2XKO"
+            "2XKO",
+            "Avatar Legends: The Fighting Game"
         ]
     },
 
@@ -141,7 +145,11 @@ const CATEGORIES = [
             "Big Walk",
             "How to Fish",
             "Bombanana",
-            "Grain Rot"
+            "Grain Rot",
+            "Crashout Crew",
+            "Dumb Ways to Build",
+            "YAPYAP",
+            "MECCHA CHAMELEON"
         ]
     },
 
@@ -150,22 +158,12 @@ const CATEGORIES = [
         name: "Инди Года",
         image: TEMP_IMAGE,
         nominees: [
-            "Peak",
-            "Megabonk",
-            "Dispatch",
-            "CloverPit",
-            "No, I’m not human",
-            "Beholder: Conductor",
-            "Guilty as Sock",
-            "Hollow Knight: Silksong",
-            "Femboy Futa House",
-            "Power wash Simulator 2",
-            "My Summer Car",
-            "Necesse",
-            "Hades 2",
-            "Supermarket Simulator",
-            "BALL x PITT",
-            "He is coming"
+            "Mewgenics",
+            "Pathologic 3",
+            "Valheim",
+            "MECCHA CHAMELEON"
+
+            
         ]
     },
 
@@ -178,7 +176,10 @@ const CATEGORIES = [
             "Marathon",
             "Call of Duty: Modern Warfare 4",
             "PRAGMATA",
-            "Gears of War: E-Day"
+            "Gears of War: E-Day",
+            "High on Life 2",
+            "Highguard",
+            "Far Far West"
         ]
     },
 
@@ -189,7 +190,11 @@ const CATEGORIES = [
         nominees: [
             "Star Wars: Zero Company",
             "Mewgenics",
-            "Dawn of War IV"
+            " Anno 117: Pax Romana",
+            "Going Medieval",
+            "Terra Invicta",
+            "Pioneers of Pagonia",
+            "Heroes of Might & Magic: Olden Era"
         ]
     },
 
@@ -199,12 +204,13 @@ const CATEGORIES = [
         image: TEMP_IMAGE,
         nominees: [
             "The Blood of Dawnwalker",
-            "PRAGMATA",
             "Phantom Blade Zero",
-            "Control: Resonant",
-            "Trails in the Sky 2nd Chapter",
             "Nioh 3",
-            "Crimson Desert"
+            "Crimson Desert",
+            "Code Vein 2",
+            "RPG Of Ash and Steel",
+            "Mortal Shell II",
+            "Minecraft Dungeons II"
         ]
     },
 
@@ -215,7 +221,9 @@ const CATEGORIES = [
         nominees: [
             "Maid Cafe Simulator",
             "Low-Budget Repairs",
-            "Cheap Car Repair"
+            "Cheap Car Repair",
+            "Scrap Mechanic",
+            "IRON NEST: Heavy Turret Simulator"
         ]
     },
 
@@ -226,7 +234,9 @@ const CATEGORIES = [
         nominees: [
             "Resident Evil Requiem",
             "Silent Hill: Townfall",
-            "Reanimal"
+            "Reanimal",
+            "Pathologic 3",
+            "Halloween: The Game"
         ]
     },
 
@@ -238,7 +248,19 @@ const CATEGORIES = [
             "AION 2",
             "2XKO",
             "Neverness to Everness",
-            "Aniimo"
+            "Aniimo",
+            "Pokemon Champions",
+            "Arknights: Endfield",
+            "Duet Night Abyss"
+        ]
+    },
+
+    {
+        id: "wolverine",
+        name: "Росомаха Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Marvel's Wolverine"
         ]
     },
 
@@ -251,7 +273,8 @@ const CATEGORIES = [
             "Gothic 1 Remake",
             "Assassin's Creed IV: Black Flag Resynced",
             "Trails in the Sky 2nd Chapter",
-            "Dynasty Warriors 3: Complete Edition Remastered"
+            "Dynasty Warriors 3: Complete Edition Remastered",
+            "Halo: Campaign Evolved"
         ]
     },
 
@@ -276,8 +299,23 @@ const CATEGORIES = [
         nominees: [
             "Elden Ring Nightreign - The Forsaken Hollows",
             "Frostpunk 2 - Fractured Utopias",
-            "Dragon's Dogma 2 — Dark Arisen",
-            "Crimson Desert Enhanced: Charting the Unknown"
+            "Dragon's Dogma 2 - Dark Arisen",
+            "Crimson Desert Enhanced: Charting the Unknown",
+            "DOOM: The Dark Ages Revelations"
+        ]
+    },
+
+    {
+        id: "shame",
+        name: "Позор Года",
+        image: TEMP_IMAGE,
+        nominees: [
+            "Tiny Bunny",
+            "s&box",
+            "Highguard",
+            "Ashes of Creation",
+            "Life is Strange: Reunion",
+            "Mixtape"
         ]
     },
 
@@ -306,16 +344,8 @@ const CATEGORIES = [
             "Final Fantasy VII Revelation",
             "Fable",
             "God of War: Laufey",
-            "Stranger Than Heaven"
-        ]
-    },
-
-    {
-        id: "shame",
-        name: "Позор Года",
-        image: TEMP_IMAGE,
-        nominees: [
-            "Hytale"
+            "Stranger Than Heaven",
+            "The Witcher 4"
         ]
     },
 
@@ -327,7 +357,9 @@ const CATEGORIES = [
             "Миямото Мусаси - Onimusha: Way of the Sword",
             "Джеймс Бонд - 007: First Light",
             "Дилан Фейден - Control Resonant",
-            "Леон Кеннеди - Resident Evil Requiem"
+            "Леон Кеннеди - Resident Evil Requiem",
+            "Логан - Wolverine",
+            "Джейсон Дюваль - GTA VI"
         ]
     },
 
@@ -337,16 +369,9 @@ const CATEGORIES = [
         image: TEMP_IMAGE,
         nominees: [
             "Грейс Эшкрофт - Resident Evil Requiem",
-            "Диана - PRAGMATA"
-        ]
-    },
-
-    {
-        id: "last-studio-release",
-        name: "Последний Релиз Студии",
-        image: TEMP_IMAGE,
-        nominees: [
-            "Luna Abyss - Bonsai Collective"
+            "Диана - PRAGMATA",
+            "Люсия Кэминос - GTA VI",
+            "Мистик - Wolverine",
         ]
     },
 
