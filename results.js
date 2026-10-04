@@ -163,7 +163,8 @@ const CATEGORIES = [
             "Code Vein 2",
             "RPG Of Ash and Steel",
             "Mortal Shell II",
-            "Minecraft Dungeons II"
+            "Minecraft Dungeons II",
+            "Monster Hunter Stories 3: Twisted Reflection"
         ]
     },
 
@@ -176,7 +177,8 @@ const CATEGORIES = [
             "Low-Budget Repairs",
             "Cheap Car Repair",
             "Scrap Mechanic",
-            "IRON NEST: Heavy Turret Simulator"
+            "IRON NEST: Heavy Turret Simulator",
+            "TCG Card Shop Simulator"
         ]
     },
 
@@ -240,8 +242,12 @@ const CATEGORIES = [
             "Slay the Spire 2",
             "Subnautica 2",
             "Solasta II",
+            "Paralives",
+            "WARDOGS",
             "Hytale",
-            "Ashes of Creation"
+            "Ashes of Creation",
+            "Deep Rock Galactic: Rogue Core",
+            "Dead as Disco"
         ]
     },
 
