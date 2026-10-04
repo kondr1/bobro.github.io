@@ -324,7 +324,10 @@ const CATEGORIES = [
             "Fable",
             "God of War: Laufey",
             "Stranger Than Heaven",
-            "The Witcher 4"
+            "The Witcher 4",
+            "Squadron 42",
+            "Star Citizen"
+
         ]
     },
 
