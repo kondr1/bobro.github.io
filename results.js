@@ -114,12 +114,21 @@ const CATEGORIES = [
             "Mewgenics",
             "Pathologic 3",
             "Valheim",
-            "MECCHA CHAMELEON"
-
-            
+            "MECCHA CHAMELEON",
+            "Windrose",
+            "Big Walk",
+            "How to Fish",
+            "Bombanana",
+            "MOUSE: P.I. For Hire",
+            "ReStory: Chill Electronics Repairs",
+            "REPLACED",
+            "Dressmaker",
+            "Grain Rot",
+            "Of Ash and Steel",
+            "Streamer Life Simulator 2",       
+            "shapez 2 - Factory"     
         ]
     },
-
 
     {
         id: "shooter",
@@ -177,7 +186,8 @@ const CATEGORIES = [
             "Cheap Car Repair",
             "Scrap Mechanic",
             "IRON NEST: Heavy Turret Simulator",
-            "TCG Card Shop Simulator"
+            "TCG Card Shop Simulator",
+            "ReStory: Chill Electronics Repairs"
         ]
     },
 
