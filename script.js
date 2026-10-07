@@ -91,7 +91,7 @@ function createCategoryCards() {
         <div class="category-card" data-index="${index}">
             <div class="category-number">НОМИНАЦИЯ ${pad(index + 1)}</div>
             <div class="category-name">${escapeHTML(category.name)}</div>
-            <div class="category-bottom"><span class="category-arrow">→</span></div>
+            <div class="category-bottom" data-num="${pad(index + 1)}"><span class="category-arrow">→</span></div>
         </div>
     `).join("");
 
@@ -339,10 +339,12 @@ async function voteForNominee(category, nominee, button) {
         } else {
             userVotes[category.id] = [...list, nominee];
             voteMessage.textContent = "✓ Голос добавлен!";
+            burst(button);
         }
     } else {
         userVotes[category.id] = [nominee];
         voteMessage.textContent = "✓ Голос сохранён!";
+        burst(button);
     }
 }
 
@@ -401,8 +403,64 @@ document.addEventListener("keydown", event => {
 // ============================================================
 
 createCategoryCards();
+revealCards(categoriesGrid);
 updateCountdown();
 
 // Скрытая вкладка таймер не обновляет, при возврате обновит сразу
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 document.addEventListener("visibilitychange", updateCountdown);
+
+// ============================================================
+// ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК ПРИ ПРОКРУТКЕ
+// ============================================================
+
+function revealCards(container) {
+    if (!container || !("IntersectionObserver" in window) ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const cards = container.querySelectorAll(".category-card");
+    document.documentElement.classList.add("reveal-on");
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+            }
+        });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 });
+
+    cards.forEach(card => io.observe(card));
+
+    // Страховка: если что-то не сработало, карточки всё равно появятся
+    setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
+}
+
+
+// ============================================================
+// КОНФЕТТИ ПОСЛЕ ГОЛОСА (14 частиц, ~1 секунда)
+// ============================================================
+
+function burst(el) {
+    if (!el.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const r = el.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const colors = ["#fbbf24", "#ffe08a", "#e12cff", "#c084fc", "#8b3dff"];
+
+    for (let i = 0; i < 14; i++) {
+        const p = document.createElement("i");
+        p.className = "confetti";
+        p.style.cssText = `left:${x}px;top:${y}px;background:${colors[i % colors.length]}`;
+        document.body.appendChild(p);
+
+        const a = Math.random() * Math.PI * 2;
+        const d = 45 + Math.random() * 70;
+
+        p.animate([
+            { transform: "translate(0, 0) rotate(0deg)", opacity: 1 },
+            { transform: `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d + 35}px) rotate(${Math.random() * 540}deg)`, opacity: 0 }
+        ], { duration: 700 + Math.random() * 300, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" }).onfinish = () => p.remove();
+    }
+}

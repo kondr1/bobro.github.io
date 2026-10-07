@@ -3514,3 +3514,205 @@ body:has(.results-modal.active)::before {
         transform: none;
     }
 }
+
+
+/* =========================================================
+   NEW DESIGN: фоновые эффекты (только transform/opacity)
+========================================================= */
+
+.bg-fx {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Лучи прожектора */
+.beam {
+    position: absolute;
+    top: -10%;
+    width: 34vw;
+    height: 120vh;
+    transform-origin: 50% 0;
+    clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+    background: linear-gradient(180deg, rgba(192, 132, 252, 0.17), rgba(225, 44, 255, 0.05) 55%, transparent 85%);
+    will-change: transform;
+}
+
+.b1 { left: 6%;  transform: rotate(14deg);  animation: sway1 14s ease-in-out infinite alternate; }
+
+.b2 {
+    right: 4%;
+    transform: rotate(-16deg);
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.12), rgba(225, 44, 255, 0.04) 55%, transparent 85%);
+    animation: sway2 17s ease-in-out infinite alternate;
+}
+
+@keyframes sway1 { from { transform: rotate(11deg); }  to { transform: rotate(19deg); } }
+@keyframes sway2 { from { transform: rotate(-12deg); } to { transform: rotate(-20deg); } }
+
+/* Плавающие фигуры */
+.sh { position: absolute; display: block; }
+
+.ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; will-change: transform; }
+.r1 { width: 150px; height: 150px; left: -40px; top: 22%; animation: fl1 26s ease-in-out infinite alternate; }
+.r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); animation: fl2 22s ease-in-out infinite alternate; }
+
+.dia { width: 46px; height: 46px; border: 1px solid rgba(225, 44, 255, 0.30); transform: rotate(45deg); will-change: transform; }
+.d1 { left: 12%; top: 72%; animation: fl3 30s ease-in-out infinite alternate; }
+.d2 { right: 14%; top: 18%; width: 30px; height: 30px; border-color: rgba(251, 191, 36, 0.28); animation: fl3 24s ease-in-out infinite alternate-reverse; }
+
+.plus {
+    width: 22px; height: 22px; left: 80%; top: 44%;
+    background:
+        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 100% 1px no-repeat,
+        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 1px 100% no-repeat;
+    animation: fl2 20s ease-in-out infinite alternate;
+}
+
+.spark {
+    width: 14px; height: 14px;
+    background: var(--gold-bright);
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+    opacity: 0.2;
+    animation: twinkle 4s ease-in-out infinite;
+}
+.s1 { left: 22%; top: 30%; }
+.s2 { left: 70%; top: 12%; width: 10px; height: 10px; animation-delay: 1.3s; }
+.s3 { left: 90%; top: 78%; width: 12px; height: 12px; animation-delay: 2.4s; }
+
+@keyframes fl1 { from { transform: translate3d(0, 0, 0) rotate(0); }       to { transform: translate3d(50px, -70px, 0) rotate(40deg); } }
+@keyframes fl2 { from { transform: translate3d(0, 0, 0) rotate(0); }       to { transform: translate3d(-40px, 60px, 0) rotate(-60deg); } }
+@keyframes fl3 { from { transform: translate3d(0, 0, 0) rotate(45deg); }   to { transform: translate3d(40px, -50px, 0) rotate(135deg); } }
+@keyframes twinkle { 0%, 100% { opacity: 0.12; transform: scale(0.7); } 50% { opacity: 0.85; transform: scale(1.15); } }
+
+/* Пока открыто окно, фон не виден — пауза */
+body:has(.modal.active) .bg-fx *,
+body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
+
+/* Телефоны: меньше фигур, без движения (только мерцание искр) */
+@media (max-width: 650px) {
+    .b2, .r2, .d2, .s3 { display: none; }
+    .beam { width: 70vw; will-change: auto; animation: none; }
+    .ring, .dia, .plus { will-change: auto; animation: none; }
+    .r1 { width: 100px; height: 100px; left: -30px; }
+}
+
+
+/* =========================================================
+   NEW DESIGN: карточки (уголки, водяной номер, появление)
+========================================================= */
+
+.category-card {
+    --co: 11px;
+    --cs: 14px;
+    --ca: 0.40;
+    --cg: linear-gradient(135deg, rgba(71, 27, 112, 0.86), rgba(17, 7, 30, 0.94));
+}
+
+.category-card:hover {
+    --ca: 0.90;
+    --cg: linear-gradient(135deg, rgba(83, 29, 131, 0.90), rgba(20, 7, 34, 0.95));
+}
+
+/* Золотые уголки — прямо в background, без лишних элементов */
+.category-card,
+.category-card:hover {
+    background:
+        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / var(--cs) 1px no-repeat,
+        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / 1px var(--cs) no-repeat,
+        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / var(--cs) 1px no-repeat,
+        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / 1px var(--cs) no-repeat,
+        var(--cg),
+        #0c0515;
+}
+
+/* Большой контурный номер на фоне */
+.category-bottom { z-index: 0; }
+.category-name,
+.category-number { z-index: 2; }
+
+.category-bottom::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -4px;
+    bottom: -24px;
+    z-index: -1;
+    font-size: 92px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -4px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(192, 132, 252, 0.20);
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.category-card:hover .category-bottom::before {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+/* Появление карточек при прокрутке */
+.reveal-on .category-card:not(.in) { opacity: 0; }
+
+.category-card.in { animation: cardIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
+.category-card.in:nth-child(3n + 2) { animation-delay: 0.07s; }
+.category-card.in:nth-child(3n)     { animation-delay: 0.14s; }
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 650px) {
+    .category-card { --co: 6px; --cs: 9px; }
+    .category-card.in:nth-child(3n + 2),
+    .category-card.in:nth-child(3n) { animation-delay: 0s; }
+    .category-card.in:nth-child(2n) { animation-delay: 0.06s; }
+    .category-bottom::before { font-size: 54px; bottom: -13px; left: -2px; letter-spacing: -2px; }
+}
+
+
+/* =========================================================
+   NEW DESIGN: заголовок, конфетти, результаты
+========================================================= */
+
+/* Разделитель с ромбом */
+.section-title::after { width: 200px; }
+
+.section-title::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: translateX(-50%) rotate(45deg);
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
+}
+
+/* Конфетти после голоса */
+.confetti {
+    position: fixed;
+    z-index: 2000;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+/* Полоски результатов «заполняются» при открытии окна */
+.results-list.animate .progress-bar {
+    transform-origin: left;
+    animation: barGrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Победитель чуть светится */
+.result-item.first { box-shadow: 0 0 28px rgba(251, 191, 36, 0.14), inset 0 0 20px rgba(251, 191, 36, 0.04); }

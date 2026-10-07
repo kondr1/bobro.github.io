@@ -73,7 +73,7 @@ function renderCategoryCards() {
         <div class="category-card" data-index="${index}">
             <div class="category-number">НОМИНАЦИЯ ${String(index + 1).padStart(2, "0")}</div>
             <div class="category-name">${escapeHtml(category.name)}</div>
-            <div class="category-bottom"><span class="category-arrow">→</span></div>
+            <div class="category-bottom" data-num="${String(index + 1).padStart(2, "0")}"><span class="category-arrow">→</span></div>
         </div>
     `).join("");
 
@@ -139,7 +139,7 @@ function openCategory(category) {
     openedCategoryId = category.id;
     modalTitle.textContent = category.name;
 
-    renderModalResults(category);
+    renderModalResults(category, true);
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
@@ -151,7 +151,9 @@ function closeModal() {
     openedCategoryId = null;
 }
 
-function renderModalResults(category) {
+function renderModalResults(category, animate = false) {
+    resultsList.classList.toggle("animate", animate);
+
     const results = category.nominees
         .map(nominee => ({ nominee, votes: voteResults[category.id]?.[nominee] || 0 }))
         .sort((a, b) => b.votes - a.votes || a.nominee.localeCompare(b.nominee, "ru"));
@@ -208,8 +210,35 @@ document.addEventListener("keydown", event => {
 // =========================================================
 
 renderCategoryCards();
+revealCards(categoriesContainer);
 loadResults();
 
 // Скрытая вкладка не опрашивает сервер
 setInterval(() => { if (!document.hidden) loadResults(); }, REFRESH_MS);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) loadResults(); });
+
+// ============================================================
+// ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК ПРИ ПРОКРУТКЕ
+// ============================================================
+
+function revealCards(container) {
+    if (!container || !("IntersectionObserver" in window) ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const cards = container.querySelectorAll(".category-card");
+    document.documentElement.classList.add("reveal-on");
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+            }
+        });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 });
+
+    cards.forEach(card => io.observe(card));
+
+    // Страховка: если что-то не сработало, карточки всё равно появятся
+    setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
+}
