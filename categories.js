@@ -1,8 +1,3 @@
-// Общий список номинаций для index.html и result.html.
-// Редактировать нужно ТОЛЬКО здесь. Названия номинантов не менять после начала голосования:
-// голоса в базе хранятся по тексту названия.
-
-// Совет: сожми картинку в WebP (squoosh.app) и поменяй путь здесь и в HTML.
 const IMAGE = "./photo_2025-11-10_21-02-06.png";
 
 const CATEGORIES = [
@@ -12,7 +7,7 @@ const CATEGORIES = [
 
     { id: "game-of-the-year", name: "Игра Года", nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
-        "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6"] },
+        "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword"] },
 
 
     { id: "single-player", name: "Single-Player Года", nominees: [
@@ -34,15 +29,14 @@ const CATEGORIES = [
         "Mewgenics", "Pathologic 3", "Valheim", "MECCHA CHAMELEON", "Windrose",
         "Big Walk", "How to Fish", "Bombanana", "MOUSE: P.I. For Hire",
         "ReStory: Chill Electronics Repairs", "REPLACED", "Dressmaker", "Grain Rot",
-        "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights"] },
+        "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights", "Mina the Hollower"] },
 
     { id: "shooter", name: "Шутер Года", nominees: [
         "Marathon", "Call of Duty: Modern Warfare 4", "PRAGMATA", "Gears of War: E-Day",
         "High on Life 2", "Highguard", "MOUSE: P.I. For Hire", "No More Room in Hell 2"] },
 
-    // Внимание: у "Anno 117" пробел в начале намеренно оставлен, чтобы совпасть с уже сохранёнными голосами.
     { id: "strategy", name: "Стратегия Года", nominees: [
-        "Star Wars: Zero Company", "Mewgenics", " Anno 117: Pax Romana",
+        "Star Wars: Zero Company", "Mewgenics", "Anno 117: Pax Romana",
         "Going Medieval", "Terra Invicta", "Pioneers of Pagonia"] },
 
     { id: "rpg", name: "RPG Года", nominees: [
