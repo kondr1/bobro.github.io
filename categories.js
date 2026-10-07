@@ -14,8 +14,6 @@ const CATEGORIES = [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
         "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6"] },
 
-    { id: "game-of-the-year_2024", name: "Игра Года 2024", nominees: [
-        "Clair Obscur: Expedition 33"] },
 
     { id: "single-player", name: "Single-Player Года", nominees: [
         "PRAGMATA", "Resident Evil Requiem", "007: First Light", "Control: Resonant",

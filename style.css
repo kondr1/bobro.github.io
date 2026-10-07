@@ -3542,7 +3542,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 
 /* Телефоны: меньше фигур, без движения (только мерцание искр) */
 @media (max-width: 650px) {
-    .b2, .s3 { display: none; }
+    .b2, .r2, .d2, .s3 { display: none; }
     .beam { width: 70vw; will-change: auto; animation: none; }
 }
 
@@ -3666,40 +3666,31 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 
 
 /* =========================================================
-   NEW DESIGN v2: диагональные «грани» (как на The Game Awards)
-   Статичные слои: ничего не анимируется, на телефонах так же.
+   NEW DESIGN: плавающие фигуры
 ========================================================= */
 
-.fc { position: absolute; inset: 0; display: block; }
+.ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; will-change: transform; }
+.r1 { width: 150px; height: 150px; left: -40px; top: 22%; animation: fl1 26s ease-in-out infinite alternate; }
+.r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); animation: fl2 22s ease-in-out infinite alternate; }
 
-.fc1 {
-    clip-path: polygon(0 0, 38% 0, 8% 100%, 0 100%);
-    background: linear-gradient(160deg, rgba(192, 132, 252, 0.085), rgba(139, 61, 255, 0.015));
+.dia { width: 46px; height: 46px; border: 1px solid rgba(225, 44, 255, 0.30); transform: rotate(45deg); will-change: transform; }
+.d1 { left: 12%; top: 72%; animation: fl3 30s ease-in-out infinite alternate; }
+.d2 { right: 14%; top: 18%; width: 30px; height: 30px; border-color: rgba(251, 191, 36, 0.28); animation: fl3 24s ease-in-out infinite alternate-reverse; }
+
+.plus {
+    width: 22px; height: 22px; left: 80%; top: 44%;
+    background:
+        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 100% 1px no-repeat,
+        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 1px 100% no-repeat;
+    animation: fl2 20s ease-in-out infinite alternate;
 }
 
-.fc2 {
-    clip-path: polygon(38% 0, 64% 0, 30% 100%, 8% 100%);
-    background: linear-gradient(160deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.05));
-}
+@keyframes fl1 { from { transform: translate3d(0, 0, 0) rotate(0); }     to { transform: translate3d(50px, -70px, 0) rotate(40deg); } }
+@keyframes fl2 { from { transform: translate3d(0, 0, 0) rotate(0); }     to { transform: translate3d(-40px, 60px, 0) rotate(-60deg); } }
+@keyframes fl3 { from { transform: translate3d(0, 0, 0) rotate(45deg); } to { transform: translate3d(40px, -50px, 0) rotate(135deg); } }
 
-.fc3 {
-    clip-path: polygon(64% 0, 100% 0, 100% 46%, 52% 100%, 30% 100%);
-    background: linear-gradient(200deg, rgba(225, 44, 255, 0.075), rgba(139, 61, 255, 0.01) 75%);
+/* Телефоны: фигуры статичные */
+@media (max-width: 650px) {
+    .ring, .dia, .plus { will-change: auto; animation: none; }
+    .r1 { width: 100px; height: 100px; left: -30px; }
 }
-
-.fc4 {
-    clip-path: polygon(100% 46%, 100% 100%, 52% 100%);
-    background: linear-gradient(180deg, rgba(79, 124, 255, 0.08), rgba(0, 0, 0, 0.14));
-}
-
-/* Тонкие светящиеся линии на стыках граней */
-.ln {
-    position: absolute;
-    inset: 0;
-    display: block;
-    background: linear-gradient(180deg, rgba(192, 132, 252, 0), rgba(192, 132, 252, 0.32) 30%, rgba(251, 191, 36, 0.16) 70%, rgba(251, 191, 36, 0));
-}
-
-.ln1 { clip-path: polygon(38% 0, 38.12% 0, 8.12% 100%, 8% 100%); }
-.ln2 { clip-path: polygon(64% 0, 64.12% 0, 30.12% 100%, 30% 100%); }
-.ln3 { clip-path: polygon(100% 46%, 100% 46.4%, 52.1% 100%, 52% 100%); }
