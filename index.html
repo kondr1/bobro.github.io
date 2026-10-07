@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Булджать Awards 2026</title>
 
+    <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- defer: скрипты не блокируют показ страницы, порядок сохраняется -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="categories.js"></script>
+    <script defer src="script.js"></script>
 </head>
 
 <body>
@@ -23,277 +25,102 @@
         </div>
 
         <div class="header-right">
-
             <div class="countdown-block">
-                <span class="countdown-label">
-                    До окончания голосования
-                </span>
-
-                <span id="countdown">
-                    Загрузка...
-                </span>
+                <span class="countdown-label">До окончания голосования</span>
+                <span id="countdown">Загрузка...</span>
             </div>
 
             <div class="account-wrapper">
+                <button id="login-button" class="login-button" type="button">Авторизация</button>
 
-    <button id="login-button" class="login-button" type="button">
-        Авторизация
-    </button>
-
-    <div id="account-menu" class="account-menu">
-
-        <div class="account-menu-name" id="account-menu-name">
-            Пользователь
-        </div>
-
-        <button
-            id="logout-button"
-            class="logout-button"
-            type="button"
-        >
-            Выйти из аккаунта
-        </button>
-
-    </div>
-
-</div>
-
-</div>
-
+                <div id="account-menu" class="account-menu">
+                    <div class="account-menu-name" id="account-menu-name">Пользователь</div>
+                    <button id="logout-button" class="logout-button" type="button">Выйти из аккаунта</button>
+                </div>
+            </div>
         </div>
 
     </div>
 </header>
 
-
 <main>
 
-    <!-- Большая картинка -->
     <section class="top-image">
-        <img
-            src="./photo_2025-11-10_21-02-06.png"
-            alt="Булджать Awards"
-        >
+        <img src="./photo_2025-11-10_21-02-06.png" alt="Булджать Awards" decoding="async" fetchpriority="high">
     </section>
 
-
-    <!-- НОМИНАЦИИ -->
     <section class="nominations-section">
-
         <div class="section-title">
-
             <h2>Номинации</h2>
-
-            <p>
-                Выбирай своих фаворитов
-            </p>
-
+            <p>Выбирай своих фаворитов</p>
         </div>
 
-        <div
-            id="categories-grid"
-            class="categories-grid"
-        ></div>
-
+        <div id="categories-grid" class="categories-grid"></div>
     </section>
 
 </main>
 
-
-<!-- =====================================================
-     МОДАЛЬНОЕ ОКНО НОМИНАЦИИ
-===================================================== -->
-
+<!-- Модалка номинации -->
 <div id="modal" class="modal">
-
     <div class="modal-overlay"></div>
 
     <div class="modal-content">
-
-        <button
-            id="close-modal"
-            class="close-modal"
-            type="button"
-        >
-            ×
-        </button>
+        <button id="close-modal" class="close-modal" type="button">×</button>
 
         <div class="nomination-image">
-
-            <img
-                id="modal-image"
-                src=""
-                alt=""
-            >
-
+            <img id="modal-image" src="" alt="" decoding="async">
         </div>
 
-        <div
-            class="modal-number"
-            id="modal-number"
-        ></div>
-
+        <div class="modal-number" id="modal-number"></div>
         <h2 id="modal-title"></h2>
+        <p id="modal-description" class="modal-description">Выберите одного кандидата.</p>
 
-        <p
-            id="modal-description"
-            class="modal-description"
-        >
-            Выберите одного кандидата.
-        </p>
-
-        <div
-            id="nominees-list"
-            class="nominees-list"
-        ></div>
-
-        <div
-            id="vote-message"
-            class="vote-message"
-        ></div>
+        <div id="nominees-list" class="nominees-list"></div>
+        <div id="vote-message" class="vote-message"></div>
 
         <div class="modal-navigation">
-
-            <button
-                id="prev-category"
-                class="modal-nav-button"
-                type="button"
-            >
-                ← Предыдущее
-            </button>
-
-            <button
-                id="next-category"
-                class="modal-nav-button"
-                type="button"
-            >
-                Следующее →
-            </button>
-
+            <button id="prev-category" class="modal-nav-button" type="button">← Предыдущее</button>
+            <button id="next-category" class="modal-nav-button" type="button">Следующее →</button>
         </div>
-
     </div>
-
 </div>
 
-
-<!-- =====================================================
-     МОДАЛЬНОЕ ОКНО АВТОРИЗАЦИИ
-===================================================== -->
-
+<!-- Модалка авторизации -->
 <div id="login-modal" class="modal">
-
     <div class="modal-overlay"></div>
 
     <div class="login-modal-content">
+        <button id="close-login-modal" class="close-modal" type="button">×</button>
 
-        <button
-            id="close-login-modal"
-            class="close-modal"
-            type="button"
-        >
-            ×
+        <h2>Авторизация</h2>
+        <p>Войдите через Google или Discord, чтобы голосовать.</p>
+
+        <button id="google-login-modal" class="auth-provider-button google-auth-button" type="button">
+            <span class="auth-provider-icon">G</span>
+            <span>Войти через Google</span>
         </button>
 
-        <h2>
-            Авторизация
-        </h2>
-
-        <p>
-            Войдите через Google или Discord,
-            чтобы голосовать.
-        </p>
-
-
-        <!-- GOOGLE -->
-
-        <button
-            id="google-login-modal"
-            class="auth-provider-button google-auth-button"
-            type="button"
-        >
-            <span class="auth-provider-icon">
-                G
-            </span>
-
-            <span>
-                Войти через Google
-            </span>
+        <button id="discord-login-modal" class="auth-provider-button discord-auth-button" type="button">
+            <span class="auth-provider-icon">☁</span>
+            <span>Войти через Discord</span>
         </button>
-
-
-        <!-- DISCORD -->
-
-        <button
-            id="discord-login-modal"
-            class="auth-provider-button discord-auth-button"
-            type="button"
-        >
-            <span class="auth-provider-icon">
-                ☁
-            </span>
-
-            <span>
-                Войти через Discord
-            </span>
-        </button>
-
     </div>
-
 </div>
 
-
 <footer>
-
     <div class="footer-inner">
-
         <div>
-
-            <strong>
-                Булджать Awards 2026
-            </strong>
-
-            <p>
-                Вы чувствуете влияние бисексуальных цветов на вас?
-            </p>
-
+            <strong>Булджать Awards 2026</strong>
+            <p>Вы чувствуете влияние бисексуальных цветов на вас?</p>
         </div>
-
 
         <div class="footer-links">
-
-            <a
-                href="https://www.youtube.com/@buldjat"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                YouTube
-            </a>
-
-            <a
-                href="https://discord.com/invite/buldzhat-reborn-756512042827120641"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Discord
-            </a>
-
-            <a
-                href="https://t.me/buldj"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Telegram
-            </a>
-
+            <a href="https://www.youtube.com/@buldjat" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://discord.com/invite/buldzhat-reborn-756512042827120641" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://t.me/buldj" target="_blank" rel="noopener noreferrer">Telegram</a>
         </div>
-
     </div>
-
 </footer>
-
-
-<script src="script.js"></script>
 
 </body>
 </html>
