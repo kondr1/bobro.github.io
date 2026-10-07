@@ -7,13 +7,14 @@ const CATEGORIES = [
 
     { id: "game-of-the-year", name: "Игра Года", nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
-        "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword"] },
+        "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword",
+        "ACE COMBAT 8: WINGS OF THEVE","Nioh 3","Mewgenics", "Resonance: A Plague Tale Legacy"] },
 
 
     { id: "single-player", name: "Single-Player Года", nominees: [
         "PRAGMATA", "Resident Evil Requiem", "007: First Light", "Control: Resonant",
         "The Blood of Dawnwalker", "Gears of War: E-Day", "Grand Theft Auto VI",
-        "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword",
+        "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
         "Crimson Desert", "Mortal Shell II"] },
 
     { id: "multiplayer", name: "Multiplayer Года", nominees: [
