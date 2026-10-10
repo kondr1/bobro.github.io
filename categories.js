@@ -65,7 +65,6 @@ const CATEGORIES = [
         "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter",
         "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved"] },
 
-    // Дубль "Dead as Disco" удалён.
     { id: "early-access", name: "Ранний Доступ Года", nominees: [
         "Roadside Research", "Slay the Spire 2", "Subnautica 2", "Dead as Disco",
         "Solasta II", "Paralives", "WARDOGS", "Hytale", "Deep Rock Galactic: Rogue Core"] },
@@ -96,7 +95,7 @@ const CATEGORIES = [
     { id: "woman-of-the-year", name: "Женщина Года", nominees: [
         "Грейс Эшкрофт - Resident Evil Requiem", "Диана - PRAGMATA",
         "Люсия Кэминос - GTA VI", "Мистик - Wolverine", "Таша Северская - Ace Combat 8", 
-        "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker"] },
+        "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker", "Тереза Лорка - 007: First Light"] },
 
     { id: "sort-10000-shit", name: "Отсортируй 10000 ГОВНА!", nominees: [
         "Librarian: Tidy Up the Arcane Library!", "Never Sort By Color",
