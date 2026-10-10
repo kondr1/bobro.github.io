@@ -90,7 +90,7 @@ const CATEGORIES = [
     { id: "man-of-the-year", name: "Мужчина Года", nominees: [
         "Миямото Мусаси - Onimusha: Way of the Sword", "Джеймс Бонд - 007: First Light",
         "Дилан Фейден - Control Resonant", "Леон Кеннеди - Resident Evil Requiem",
-        "Логан - Wolverine", "Джейсон Дюваль - GTA VI"] },
+        "Логан - Wolverine", "Джейсон Дюваль - GTA VI", "Хью - Pragmata"] },
 
     { id: "woman-of-the-year", name: "Женщина Года", nominees: [
         "Грейс Эшкрофт - Resident Evil Requiem", "Диана - PRAGMATA",
