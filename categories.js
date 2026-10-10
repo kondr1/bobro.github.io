@@ -52,7 +52,7 @@ const CATEGORIES = [
 
     { id: "horror", name: "Хоррор Года", nominees: [
         "Resident Evil Requiem", "Silent Hill: Townfall", "Reanimal",
-        "Pathologic 3", "Halloween: The Game"] },
+        "Pathologic 3", "Halloween: The Game", "Clive Barker's Hellraiser: Revival"] },
 
     { id: "f2p", name: "F2P Года", nominees: [
         "AION 2", "2XKO", "Neverness to Everness", "Aniimo",
