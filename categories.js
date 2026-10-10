@@ -58,8 +58,6 @@ const CATEGORIES = [
         "AION 2", "2XKO", "Neverness to Everness", "Aniimo",
         "Pokemon Champions", "Arknights: Endfield", "Duet Night Abyss"] },
 
-    { id: "wolverine", name: "Росомаха Года", nominees: ["Marvel's Wolverine"] },
-
     { id: "remaster-remake", name: "Remaster/Remake Года", nominees: [
         "The Witcher 3: Wild Hunt — Remastered", "Gothic 1 Remake",
         "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter",
@@ -99,5 +97,10 @@ const CATEGORIES = [
 
     { id: "sort-10000-shit", name: "Отсортируй 10000 ГОВНА!", nominees: [
         "Librarian: Tidy Up the Arcane Library!", "Never Sort By Color",
-        "Cellar Keeper", "Storehand", "LIMINAL SORTING"] }
+        "Cellar Keeper", "Storehand", "LIMINAL SORTING"] },
+
+    { id: "pw2-date", name: "Дата Выхода PW2", nominees: [
+        "31 декабря 2027", "«Надо бы этого чела забанить» - Булджать",
+        "3 сентября (вставить число) года", "Когда забудут про нее", "Когда руки дотянутся"] }
+        
 ];
