@@ -99,7 +99,7 @@ const CATEGORIES = [
         "Librarian: Tidy Up the Arcane Library!", "Never Sort By Color",
         "Cellar Keeper", "Storehand", "LIMINAL SORTING"] },
 
-    { id: "pw2-date", name: "Дата Выхода PW2", nominees: [
+    { id: "pw2-date", name: "Дата Выхода ПВ2", nominees: [
         "31 декабря 2027", "«Надо бы этого чела забанить» - Булджать",
         "3 сентября (вставить число) года", "Когда забудут про нее", "Когда руки дотянутся"] }
         
