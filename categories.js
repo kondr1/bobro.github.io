@@ -63,7 +63,7 @@ const CATEGORIES = [
     { id: "remaster-remake", name: "Remaster/Remake Года", nominees: [
         "The Witcher 3: Wild Hunt — Remastered", "Gothic 1 Remake",
         "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter",
-        "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved"] },
+        "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved", "The Legend of Zelda: Ocarina of Time"] },
 
     { id: "early-access", name: "Ранний Доступ Года", nominees: [
         "Roadside Research", "Slay the Spire 2", "Subnautica 2", "Dead as Disco",
