@@ -17,7 +17,13 @@ const CATEGORIES = [
         "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
         "Crimson Desert", "Mortal Shell II", "Lego Batman: Legacy of the Dark Knight"] },
 
-    { id: "multiplayer", name: "Multiplayer Года", nominees: [
+    { id: "multiplayer", name: "Multiplayer Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Call of Duty: Modern Warfare 4": "Pictures/call.webp", "Marathon": "Pictures/marathon.webp",
+        "Gears of War: E-Day": "Pictures/gears.webp", "Star Wars: Galactic Racer": "Pictures/star.webp",
+        "Forza Horizon 6": "Pictures/forza.webp", "Marvel Tōkon: Fighting Souls": "Pictures/marvel.webp",
+        "2XKO": "Pictures/2xko.webp", "Avatar Legends: The Fighting Game": "Pictures/avatar.webp" },
+        nominees: [
         "Call of Duty: Modern Warfare 4", "Marathon", "Gears of War: E-Day",
         "Star Wars: Galactic Racer", "Forza Horizon 6", "Marvel Tōkon: Fighting Souls",
         "2XKO", "Avatar Legends: The Fighting Game"] },
@@ -32,7 +38,13 @@ const CATEGORIES = [
         "ReStory: Chill Electronics Repairs", "REPLACED", "Dressmaker", "Grain Rot",
         "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights", "Mina the Hollower"] },
 
-    { id: "shooter", name: "Шутер Года", nominees: [
+    { id: "shooter", name: "Шутер Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Marathon": "Pictures/marathon.webp", "Call of Duty: Modern Warfare 4": "Pictures/call.webp",
+        "PRAGMATA": "Pictures/pragmata.webp", "Gears of War: E-Day": "Pictures/gears.webp",
+        "High on Life 2": "Pictures/high.webp", "Highguard": "Pictures/highguard.webp",
+        "MOUSE: P.I. For Hire": "Pictures/mouse.webp", "No More Room in Hell 2": "Pictures/no.webp" },  
+        nominees: [
         "Marathon", "Call of Duty: Modern Warfare 4", "PRAGMATA", "Gears of War: E-Day",
         "High on Life 2", "Highguard", "MOUSE: P.I. For Hire", "No More Room in Hell 2"] },
 
