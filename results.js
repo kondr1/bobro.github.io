@@ -65,6 +65,30 @@ function createEmptyResults() {
 
 
 // =========================================================
+// КАРТИНКИ КАНДИДАТОВ (те же правила, что и в script.js)
+// =========================================================
+
+const normKey = v => String(v).toLowerCase().replace(/[\u2010-\u2015\u2212]/g, "-").replace(/\s+/g, " ").trim();
+
+function findImage(category, nominee) {
+    if (!category.images) return undefined;
+
+    if (!category._imgMap) {
+        category._imgMap = {};
+        Object.entries(category.images).forEach(([key, path]) => { category._imgMap[normKey(key)] = path; });
+    }
+
+    return category._imgMap[normKey(nominee)];
+}
+
+// "Мистик - Wolverine" -> имя "Мистик", игра "Wolverine"
+function splitNominee(nominee) {
+    const [title, ...rest] = nominee.split(" - ");
+    return { title, game: rest.join(" - ") };
+}
+
+
+// =========================================================
 // КАРТОЧКИ
 // =========================================================
 
@@ -143,6 +167,8 @@ function openCategory(category) {
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    loadResults(); // свежие данные при открытии
 }
 
 function closeModal() {
@@ -151,14 +177,76 @@ function closeModal() {
     openedCategoryId = null;
 }
 
-function renderModalResults(category, animate = false) {
-    resultsList.classList.toggle("animate", animate);
+function resultRowHTML(item, index, percentage, rank) {
+    const medals = ["🥇", "🥈", "🥉"];
 
+    return `
+        <div class="result-item${index === 0 ? " first" : ""}${rank}">
+            <div class="result-header">
+                <span class="place">${medals[index] || `${index + 1}.`}</span>
+                <span class="nominee-name">${escapeHtml(item.nominee)}</span>
+                <span class="votes">${item.votes} ${getVoteWord(item.votes)}</span>
+            </div>
+
+            <div class="progress-background">
+                <div class="progress-bar" style="width: ${percentage}%"></div>
+            </div>
+
+            <div class="percentage">${percentage.toFixed(1)}%</div>
+        </div>`;
+}
+
+function resultCardHTML(category, item, index, percentage, rank) {
+    const { title, game } = splitNominee(item.nominee);
+    const own = findImage(category, item.nominee);
+    const hasOwnImages = category.images && Object.keys(category.images).length > 0;
+    const tile = !own && hasOwnImages; // нет картинки: плитка с первой буквой
+    const letter = escapeHtml(([...title.trim()][0] || "?").toUpperCase());
+
+    return `
+        <div class="result-card${rank}" style="--d:${index * 70}ms">
+            <div class="card-photo${tile ? " no-img" : ""}">
+                ${tile ? "" : `<img src="${escapeHtml(own || IMAGE)}" alt="" loading="lazy" decoding="async">`}
+                <span class="card-ph" aria-hidden="true">${letter}</span>
+                <span class="rank-badge">${index + 1}</span>
+            </div>
+
+            <div class="card-text">
+                <span class="card-name">${escapeHtml(title)}</span>
+                ${game ? `<span class="card-game">${escapeHtml(game)}</span>` : ""}
+
+                <div class="result-meta">
+                    <span>${item.votes} ${getVoteWord(item.votes)}</span>
+                    <span>${percentage.toFixed(1)}%</span>
+                </div>
+
+                <div class="progress-background">
+                    <div class="progress-bar" style="width: ${percentage}%"></div>
+                </div>
+            </div>
+        </div>`;
+}
+
+function renderModalResults(category, animate = false) {
     const results = category.nominees
         .map(nominee => ({ nominee, votes: voteResults[category.id]?.[nominee] || 0 }))
         .sort((a, b) => b.votes - a.votes || a.nominee.localeCompare(b.nominee, "ru"));
 
     const totalVotes = results.reduce((sum, item) => sum + item.votes, 0);
+    const useCards = Boolean(category.cards) && totalVotes > 0;
+
+    // Данные не изменились (плановое обновление): ничего не перерисовываем,
+    // иначе картинки моргали бы каждые 10 секунд.
+    const signature = category.id + "|" + results.map(item => item.nominee + ":" + item.votes).join("|");
+
+    if (!animate && resultsList.dataset.sig === signature) return;
+
+    resultsList.dataset.sig = signature;
+    resultsList.className = "results-list" + (useCards ? " cards" : "") + (animate ? " animate" : "");
+    resultsList.style.setProperty("--ratio", category.ratio || "3 / 4");
+
+    const total = category.nominees.length;
+    resultsList.style.setProperty("--cols", total <= 6 ? Math.max(total, 3) : Math.ceil(total / 2));
 
     if (totalVotes === 0) {
         resultsList.innerHTML = `
@@ -168,25 +256,13 @@ function renderModalResults(category, animate = false) {
         return;
     }
 
-    const medals = ["🥇", "🥈", "🥉"];
-
     resultsList.innerHTML = results.map((item, index) => {
         const percentage = (item.votes / totalVotes) * 100;
+        const rank = index < 3 ? ` rank-${index + 1}` : ""; // золото, серебро, бронза
 
-        return `
-            <div class="result-item${index === 0 ? " first" : ""}">
-                <div class="result-header">
-                    <span class="place">${medals[index] || `${index + 1}.`}</span>
-                    <span class="nominee-name">${escapeHtml(item.nominee)}</span>
-                    <span class="votes">${item.votes} ${getVoteWord(item.votes)}</span>
-                </div>
-
-                <div class="progress-background">
-                    <div class="progress-bar" style="width: ${percentage}%"></div>
-                </div>
-
-                <div class="percentage">${percentage.toFixed(1)}%</div>
-            </div>`;
+        return useCards
+            ? resultCardHTML(category, item, index, percentage, rank)
+            : resultRowHTML(item, index, percentage, rank);
     }).join("");
 }
 
@@ -214,8 +290,8 @@ revealCards(categoriesContainer);
 loadResults();
 
 // Скрытая вкладка не опрашивает сервер
-setInterval(() => { if (!document.hidden) loadResults(); }, REFRESH_MS);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) loadResults(); });
+setInterval(() => { if (!document.hidden && openedCategoryId) loadResults(); }, REFRESH_MS);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && openedCategoryId) loadResults(); });
 
 // ============================================================
 // ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК ПРИ ПРОКРУТКЕ
@@ -242,3 +318,12 @@ function revealCards(container) {
     // Страховка: если что-то не сработало, карточки всё равно появятся
     setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
 }
+
+
+// Файл картинки не загрузился: плитка с буквой
+resultsList.addEventListener("error", event => {
+    if (event.target.tagName === "IMG") {
+        console.warn("[images] Файл не загрузился (проверь путь и регистр):", event.target.src);
+        event.target.closest(".card-photo")?.classList.add("no-img");
+    }
+}, true);
