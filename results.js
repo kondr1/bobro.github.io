@@ -5,7 +5,14 @@
 const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
 const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let supabaseClient = null;
+
+try {
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch (error) {
+    // Библиотека не загрузилась (VPN, блокировщик, сеть): сайт всё равно покажет номинации
+    console.error("Supabase недоступен:", error);
+}
 
 // Список номинаций (CATEGORIES) берётся из categories.js
 
@@ -119,6 +126,8 @@ async function loadResults() {
     errorMessage.style.display = "none";
 
     try {
+        if (!supabaseClient) throw new Error("не загрузилась библиотека Supabase (возможно, её блокирует VPN или расширение браузера)");
+
         const { data, error } = await supabaseClient.rpc("get_vote_results");
 
         if (error) throw error;
@@ -177,11 +186,16 @@ function closeModal() {
     openedCategoryId = null;
 }
 
+// Яркость по месту: 1-3 места на полную, дальше каждое следующее тусклее (не ниже 0.5)
+function dimFor(index) {
+    return index < 3 ? 1 : Math.max(0.5, 1 - (index - 2) * 0.1).toFixed(2);
+}
+
 function resultRowHTML(item, index, percentage, rank) {
     const medals = ["🥇", "🥈", "🥉"];
 
     return `
-        <div class="result-item${index === 0 ? " first" : ""}${rank}">
+        <div class="result-item${index === 0 ? " first" : ""}${rank}" style="--dim:${dimFor(index)}">
             <div class="result-header">
                 <span class="place">${medals[index] || `${index + 1}.`}</span>
                 <span class="nominee-name">${escapeHtml(item.nominee)}</span>
@@ -204,7 +218,7 @@ function resultCardHTML(category, item, index, percentage, rank) {
     const letter = escapeHtml(([...title.trim()][0] || "?").toUpperCase());
 
     return `
-        <div class="result-card${rank}" style="--d:${index * 70}ms">
+        <div class="result-card${rank}" style="--d:${index * 70}ms;--dim:${dimFor(index)}">
             <div class="card-photo${tile ? " no-img" : ""}">
                 ${tile ? "" : `<img src="${escapeHtml(own || IMAGE)}" alt="" loading="lazy" decoding="async">`}
                 <span class="card-ph" aria-hidden="true">${letter}</span>

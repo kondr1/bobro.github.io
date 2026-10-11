@@ -5,7 +5,14 @@
 const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
 const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let supabaseClient = null;
+
+try {
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch (error) {
+    // Библиотека не загрузилась (VPN, блокировщик, сеть): сайт всё равно покажет номинации
+    console.error("Supabase недоступен:", error);
+}
 
 
 // ============================================================
@@ -55,6 +62,8 @@ const accountMenu      = $("account-menu");
 const accountMenuName  = $("account-menu-name");
 const prevButton       = $("prev-category");
 const nextButton       = $("next-category");
+
+if (!supabaseClient) loginButton.textContent = "Вход недоступен";
 
 
 // ============================================================
@@ -121,6 +130,43 @@ function updateCategoryNavigation() {
 }
 
 // ============================================================
+// ПОИСК КАРТИНКИ КАНДИДАТА
+// Сравнение терпимое: регистр, лишние пробелы и разные виды тире не мешают
+// ("Мистик – Wolverine" найдётся по ключу "Мистик - Wolverine").
+// ============================================================
+
+const normKey = v => String(v).toLowerCase().replace(/[\u2010-\u2015\u2212]/g, "-").replace(/\s+/g, " ").trim();
+
+function findImage(category, nominee) {
+    if (!category.images) return undefined;
+
+    if (!category._imgMap) {
+        category._imgMap = {};
+        Object.entries(category.images).forEach(([key, path]) => { category._imgMap[normKey(key)] = path; });
+    }
+
+    return category._imgMap[normKey(nominee)];
+}
+
+// Подсказки в консоли (F12), если в categories.js что-то не сходится
+CATEGORIES.forEach(category => {
+    if (!category.images) return;
+
+    if (!category.cards) {
+        console.warn(`[images] В номинации «${category.name}» задан images, но нет cards: true`);
+    }
+
+    const known = new Set(category.nominees.map(normKey));
+
+    Object.keys(category.images).forEach(key => {
+        if (!known.has(normKey(key))) {
+            console.warn(`[images] Ключ «${key}» в номинации «${category.name}» не совпадает ни с одним кандидатом`);
+        }
+    });
+});
+
+
+// ============================================================
 // КАРТОЧКА КАНДИДАТА (режим «голосование картинками»)
 // Название в базе остаётся прежним (полная строка), поэтому уже
 // поданные голоса не теряются. Текст делится по первому " - ":
@@ -130,17 +176,22 @@ function updateCategoryNavigation() {
 function nomineeCardHTML(category, nominee, i, isSelected) {
     const [title, ...rest] = nominee.split(" - ");
     const game = rest.join(" - ");
-    const img = category.images?.[nominee];
+    const own = findImage(category, nominee);
+    const hasOwnImages = category.images && Object.keys(category.images).length > 0;
 
-    // Пока нет своих картинок, на всех стоит одна: сдвигаем кадр,
-    // чтобы карточки отличались друг от друга.
+    // Нет своей картинки:
+    //  - если у других кандидатов номинации картинки уже есть: плитка с первой буквой,
+    //  - если картинок нет ни у кого (временный режим): общая картинка со сдвигом кадра.
+    const tile = !own && hasOwnImages;
     const pos = category.nominees.length > 1 ? Math.round(i * 100 / (category.nominees.length - 1)) : 50;
-    const style = img ? "" : ` style="object-position:${pos}% 50%"`;
+    const style = own ? "" : ` style="object-position:${pos}% 50%"`;
+    const letter = escapeHTML(([...title.trim()][0] || "?").toUpperCase());
 
     return `
         <button class="nominee nominee-card${isSelected ? " selected" : ""}" data-i="${i}" type="button">
-            <span class="card-photo">
-                <img src="${escapeHTML(img || IMAGE)}" alt="" loading="lazy" decoding="async"${style}>
+            <span class="card-photo${tile ? " no-img" : ""}">
+                ${tile ? "" : `<img src="${escapeHTML(own || IMAGE)}" alt="" loading="lazy" decoding="async"${style}>`}
+                <span class="card-ph" aria-hidden="true">${letter}</span>
                 <span class="nominee-check"><span>✓</span></span>
             </span>
             <span class="card-text">
@@ -162,7 +213,7 @@ function openCategory(category) {
         ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
         : "Выберите одного кандидата.";
 
-    modalImage.src = IMAGE;
+    modalImage.src = category.banner || IMAGE; // свой баннер номинации или общий
     modalImage.alt = category.name;
 
     voteMessage.classList.remove("visible");
@@ -174,6 +225,7 @@ function openCategory(category) {
 
     nomineesList.className = "nominees-list" + (useCards ? " cards" : "") + (useCards && selected.length ? " has-selected" : "");
     nomineesList.style.setProperty("--cols", cols);
+    nomineesList.style.setProperty("--ratio", category.ratio || "3 / 4"); // пропорция карточек: "2 / 3" для постеров игр
 
     nomineesList.innerHTML = category.nominees.map((nominee, i) => {
         const isSelected = selected.includes(nominee);
@@ -242,6 +294,11 @@ function closeLoginModal() {
 // ============================================================
 
 async function loginWith(provider, title) {
+    if (!supabaseClient) {
+        alert("Вход сейчас недоступен: не удалось связаться с сервером. Попробуй отключить VPN или блокировщик рекламы и обновить страницу.");
+        return;
+    }
+
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider,
         options: { redirectTo: window.location.origin + window.location.pathname }
@@ -254,6 +311,8 @@ async function loginWith(provider, title) {
 }
 
 async function logout() {
+    if (!supabaseClient) return;
+
     const { error } = await supabaseClient.auth.signOut({ scope: "local" });
 
     if (error) {
@@ -314,7 +373,7 @@ async function loadUserVotes() {
 
 // onAuthStateChange сам срабатывает при загрузке страницы (INITIAL_SESSION),
 // поэтому отдельный getUser() не нужен. Запросы к Supabase выносим из колбэка.
-supabaseClient.auth.onAuthStateChange((event, session) => {
+supabaseClient?.auth.onAuthStateChange((event, session) => {
     currentUser = session?.user || null;
     updateLoginButton();
 
@@ -509,3 +568,12 @@ function burst(el) {
         ], { duration: 700 + Math.random() * 300, easing: "cubic-bezier(0.2, 0.7, 0.3, 1)" }).onfinish = () => p.remove();
     }
 }
+
+
+// Если файл картинки не загрузился (опечатка в пути, 404): показываем плитку с буквой
+nomineesList.addEventListener("error", event => {
+    if (event.target.tagName === "IMG") {
+        console.warn("[images] Файл не загрузился (проверь путь и регистр):", event.target.src);
+        event.target.closest(".card-photo")?.classList.add("no-img");
+    }
+}, true);

@@ -3938,7 +3938,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 
 /* Появление карточек по очереди */
 .results-list.animate .result-card {
-    animation: cardIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+    animation: resultIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
     animation-delay: var(--d, 0ms);
 }
 
@@ -3961,4 +3961,23 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 
 @media (max-width: 380px) {
     .result-card .card-photo { width: 64px; }
+}
+
+
+/* Чем ниже место, тем тусклее (--dim задаётся в results.js) */
+.result-card,
+.result-item {
+    opacity: var(--dim, 1);
+    transition: opacity 0.25s ease;
+}
+
+@keyframes resultIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to   { opacity: var(--dim, 1); transform: none; }
+}
+
+/* Наведение мышью возвращает полную яркость */
+@media (hover: hover) {
+    .result-card:hover,
+    .result-item:hover { opacity: 1; }
 }
