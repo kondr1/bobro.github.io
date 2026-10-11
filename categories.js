@@ -96,7 +96,7 @@ const CATEGORIES = [
         "Логан - Wolverine", "Джейсон Дюваль - GTA VI", "Хью - Pragmata"] },
 
     { id: "woman-of-the-year", name: "Женщина Года",cards: true, 
-        images: { "Грейс Эшкрофт - Resident Evil Requiem": "img/mystique.webp", "Диана - PRAGMATA": "img/diana.webp",
+        images: { "Грейс Эшкрофт - Resident Evil Requiem": "Characters/grace.webp", "Диана - PRAGMATA": "img/diana.webp",
                 "Люсия Кэминос - GTA VI": "img/mystique.webp", "Мистик - Wolverine": "img/mystique.webp",
                 "Таша Северская - Ace Combat 8": "img/mystique.webp", "Эмма - Beast of Reincarnation": "img/mystique.webp",
                 "Лакра - The Blood of Dawnwalker": "img/mystique.webp", "Тереза Лорка - 007: First Light": "img/mystique.webp" },
