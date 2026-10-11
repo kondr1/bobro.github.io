@@ -76,7 +76,13 @@ const CATEGORIES = [
         "Tiny Bunny", "s&box", "Highguard", "Ashes of Creation",
         "Life is Strange: Reunion", "Mixtape"] },
 
-    { id: "soundtrack", name: "Лучший Саундтрек", nominees: [
+    { id: "soundtrack", name: "Лучший Саундтрек", cards: true, ratio: "2 / 3",
+        images: {
+        "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
+        "Control: Resonant": "Pictures/trails.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
+        "007: First Light": "Pictures/007.webp" },
+
+        nominees: [
         "Resident Evil Requiem", "Trails in the Sky 2nd Chapter",
         "Onimusha: Way of the Sword", "Control Resonant", "007: First Light"] },
 
