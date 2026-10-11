@@ -74,7 +74,7 @@ const CATEGORIES = [
 
     { id: "shame", name: "Позор Года", cards: true, ratio: "2 / 3",
         images: {
-         "Tiny Bunny": "Pictures/tiny.webp", "s&box": "Pictures/sbox.webp", "Highguard": "Pictures/highguard.webp",
+         "Tiny Bunny": "Pictures/tiny.webp", "s&box": "Pictures/s&box.webp", "Highguard": "Pictures/highguard.webp",
          "Ashes of Creation": "Pictures/ashes.webp", "Life is Strange: Reunion": "Pictures/life.webp",
          "Mixtape": "Pictures/mixtape.webp"  },
         
