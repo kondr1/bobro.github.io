@@ -86,10 +86,10 @@ const CATEGORIES = [
         "Stranger Than Heaven", "The Witcher 4", "Squadron 42", "Star Citizen"] },
 
     { id: "man-of-the-year", name: "Мужчина Года",cards: true,
-        images: { "Миямото Мусаси - Onimusha: Way of the Sword": "img/mystique.webp", "Джеймс Бонд - 007: First Light": "Characters/007.webp",
-                "Дилан Фейден - Control Resonant": "Characters/Dilan.webp", "Леон Кеннеди - Resident Evil Requiem": "img/Characters/leon.webp",
+        images: { "Миямото Мусаси - Onimusha: Way of the Sword": "Characters/miyamoto.webp", "Джеймс Бонд - 007: First Light": "Characters/007.webp",
+                "Дилан Фейден - Control Resonant": "Characters/Dilan.webp", "Леон Кеннеди - Resident Evil Requiem": "Characters/leon.webp",
                 "Логан - Wolverine": "Characters/logan.webp", "Джейсон Дюваль - GTA VI": "Characters/jason.webp",
-                "Хью - Pragmata": "" },
+                "Хью - Pragmata": "Characters/hugh.webp" },
         nominees: [
         "Миямото Мусаси - Onimusha: Way of the Sword", "Джеймс Бонд - 007: First Light",
         "Дилан Фейден - Control Resonant", "Леон Кеннеди - Resident Evil Requiem",
