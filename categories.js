@@ -85,12 +85,22 @@ const CATEGORIES = [
         "Final Fantasy VII Revelation", "Fable", "God of War: Laufey",
         "Stranger Than Heaven", "The Witcher 4", "Squadron 42", "Star Citizen"] },
 
-    { id: "man-of-the-year", name: "Мужчина Года", nominees: [
+    { id: "man-of-the-year", name: "Мужчина Года",cards: true,
+        images: { "Миямото Мусаси - Onimusha: Way of the Sword": "img/mystique.webp", "Джеймс Бонд - 007: First Light": "img/diana.webp",
+                "Дилан Фейден - Control Resonant": "img/mystique.webp", "Леон Кеннеди - Resident Evil Requiem": "img/mystique.webp",
+                "Логан - Wolverine": "img/mystique.webp", "Джейсон Дюваль - GTA VI": "img/mystique.webp",
+                "Хью - Pragmata": "img/mystique.webp" },
+        nominees: [
         "Миямото Мусаси - Onimusha: Way of the Sword", "Джеймс Бонд - 007: First Light",
         "Дилан Фейден - Control Resonant", "Леон Кеннеди - Resident Evil Requiem",
         "Логан - Wolverine", "Джейсон Дюваль - GTA VI", "Хью - Pragmata"] },
 
-    { id: "woman-of-the-year", name: "Женщина Года", nominees: [
+    { id: "woman-of-the-year", name: "Женщина Года",cards: true, 
+        images: { "Грейс Эшкрофт - Resident Evil Requiem": "img/mystique.webp", "Диана - PRAGMATA": "img/diana.webp",
+                "Люсия Кэминос - GTA VI": "img/mystique.webp", "Мистик - Wolverine": "img/mystique.webp",
+                "Таша Северская - Ace Combat 8": "img/mystique.webp", "Эмма - Beast of Reincarnation": "img/mystique.webp",
+                "Лакра - The Blood of Dawnwalker": "img/mystique.webp", "Тереза Лорка - 007: First Light": "img/mystique.webp" },
+        nominees: [
         "Грейс Эшкрофт - Resident Evil Requiem", "Диана - PRAGMATA",
         "Люсия Кэминос - GTA VI", "Мистик - Wolverine", "Таша Северская - Ace Combat 8", 
         "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker", "Тереза Лорка - 007: First Light"] },

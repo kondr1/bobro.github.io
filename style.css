@@ -3694,3 +3694,115 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .ring, .dia, .plus { will-change: auto; animation: none; }
     .r1 { width: 100px; height: 100px; left: -30px; }
 }
+
+
+.nominees-list.cards {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
+    gap: 14px;
+    padding: 6px 4px 10px;
+}
+
+.nominees-list .nominee-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    border: 2px solid rgba(192, 132, 252, 0.16);
+    border-radius: 16px;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.nominee-card:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+.card-photo {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #06020b;
+}
+
+.card-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 58%, rgba(8, 3, 14, 0.8));
+    pointer-events: none;
+}
+
+.card-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    padding: 12px 12px 14px;
+}
+
+.card-name { color: #fff; font-size: 15px; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
+.card-game { color: #b9a9ca; font-size: 12px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+
+.nominee-card .nominee-check { position: absolute; top: 8px; right: 8px; z-index: 2; }
+.nominee-card .nominee-check span { display: none; }
+
+.nominees-list .nominee-card.selected {
+    z-index: 2;
+    transform: scale(1.04);
+    border-color: var(--gold) !important;
+    background: rgba(251, 191, 36, 0.10) !important;
+    box-shadow:
+        0 0 0 1px rgba(251, 191, 36, 0.45),
+        0 0 34px rgba(251, 191, 36, 0.45),
+        0 20px 44px rgba(0, 0, 0, 0.55) !important;
+}
+
+.nominee-card.selected .card-photo img { transform: scale(1.07); filter: brightness(1.1) saturate(1.12); }
+.nominee-card.selected .card-name { color: #ffe47e; }
+
+.nominees-list.cards.has-selected .nominee-card:not(.selected) { opacity: 0.55; }
+
+@media (hover: hover) {
+    .nominees-list .nominee-card:hover { transform: translateY(-5px); border-color: rgba(225, 44, 255, 0.5); }
+    .nominees-list .nominee-card.selected:hover { transform: scale(1.04) translateY(-3px); }
+    .nominee-card:hover .card-photo img { transform: scale(1.05); }
+    .nominees-list.cards.has-selected .nominee-card:not(.selected):hover { opacity: 0.95; }
+}
+
+/* Планшет: 3 в ряд */
+@media (max-width: 1000px) and (min-width: 651px) {
+    .nominees-list.cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Телефон: список «картинка слева, текст справа» */
+@media (max-width: 650px) {
+    .nominees-list.cards { grid-template-columns: 1fr; gap: 8px; padding: 4px 3px 6px; }
+
+    .nominees-list .nominee-card { flex-direction: row; align-items: center; border-radius: 13px; padding: 0; gap: 0; }
+
+    .card-photo { width: 76px; flex-shrink: 0; }
+    .card-text { justify-content: center; padding: 8px 12px; }
+    .card-name { font-size: 15px; }
+    .card-game { font-size: 12px; }
+
+    .nominee-card .nominee-check { top: auto; bottom: 4px; left: 4px; right: 4px; justify-content: center; }
+
+    .nominees-list .nominee-card.selected { transform: scale(1.02); }
+}
+
+@media (max-width: 380px) {
+    .card-photo { width: 64px; }
+    .card-name { font-size: 14px; }
+}

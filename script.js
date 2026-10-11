@@ -120,6 +120,36 @@ function updateCategoryNavigation() {
     nextButton.style.visibility = atEnd ? "hidden" : "visible";
 }
 
+// ============================================================
+// КАРТОЧКА КАНДИДАТА (режим «голосование картинками»)
+// Название в базе остаётся прежним (полная строка), поэтому уже
+// поданные голоса не теряются. Текст делится по первому " - ":
+// "Мистик - Wolverine" -> имя "Мистик", игра "Wolverine".
+// ============================================================
+
+function nomineeCardHTML(category, nominee, i, isSelected) {
+    const [title, ...rest] = nominee.split(" - ");
+    const game = rest.join(" - ");
+    const img = category.images?.[nominee];
+
+    // Пока нет своих картинок, на всех стоит одна: сдвигаем кадр,
+    // чтобы карточки отличались друг от друга.
+    const pos = category.nominees.length > 1 ? Math.round(i * 100 / (category.nominees.length - 1)) : 50;
+    const style = img ? "" : ` style="object-position:${pos}% 50%"`;
+
+    return `
+        <button class="nominee nominee-card${isSelected ? " selected" : ""}" data-i="${i}" type="button">
+            <span class="card-photo">
+                <img src="${escapeHTML(img || IMAGE)}" alt="" loading="lazy" decoding="async"${style}>
+                <span class="nominee-check"><span>✓</span></span>
+            </span>
+            <span class="card-text">
+                <span class="card-name">${escapeHTML(title)}</span>
+                ${game ? `<span class="card-game">${escapeHTML(game)}</span>` : ""}
+            </span>
+        </button>`;
+}
+
 function openCategory(category) {
     currentCategory = category;
 
@@ -138,12 +168,24 @@ function openCategory(category) {
     voteMessage.classList.remove("visible");
     voteMessage.textContent = "";
 
-    nomineesList.innerHTML = category.nominees.map((nominee, i) => `
-        <button class="nominee${selected.includes(nominee) ? " selected" : ""}" data-i="${i}" type="button">
-            <span class="nominee-name">${escapeHTML(nominee)}</span>
-            <div class="nominee-check"><span>✓</span></div>
-        </button>
-    `).join("");
+    const useCards = Boolean(category.cards);
+    const total = category.nominees.length;
+    const cols = total <= 6 ? Math.max(total, 3) : Math.ceil(total / 2); // 7-8 кандидатов: два ряда
+
+    nomineesList.className = "nominees-list" + (useCards ? " cards" : "") + (useCards && selected.length ? " has-selected" : "");
+    nomineesList.style.setProperty("--cols", cols);
+
+    nomineesList.innerHTML = category.nominees.map((nominee, i) => {
+        const isSelected = selected.includes(nominee);
+
+        if (useCards) return nomineeCardHTML(category, nominee, i, isSelected);
+
+        return `
+            <button class="nominee${isSelected ? " selected" : ""}" data-i="${i}" type="button">
+                <span class="nominee-name">${escapeHTML(nominee)}</span>
+                <div class="nominee-check"><span>✓</span></div>
+            </button>`;
+    }).join("");
 
     updateCategoryNavigation();
 
@@ -304,6 +346,9 @@ async function voteForNominee(category, nominee, button) {
         nomineesList.querySelectorAll(".nominee.selected").forEach(el => el.classList.remove("selected"));
         button.classList.add("selected");
     }
+
+    // Карточки: остальные притухают, выбранная выходит на передний план
+    nomineesList.classList.toggle("has-selected", Boolean(nomineesList.querySelector(".nominee.selected")));
 
     voteMessage.textContent = "Сохраняем голос...";
     voteMessage.classList.add("visible");
