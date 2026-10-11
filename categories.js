@@ -72,11 +72,18 @@ const CATEGORIES = [
         "Dragon's Dogma 2 - Dark Arisen", "Crimson Desert Enhanced: Charting the Unknown",
         "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echos of Sekigahara", "Lego Batman: Legacy of the Dark Knight Mayhem Mode"] },
 
-    { id: "shame", name: "Позор Года", nominees: [
+    { id: "shame", name: "Позор Года", cards: true, ratio: "2 / 3",
+        images: {
+         "Tiny Bunny": "Pictures/tiny.webp", "s&box": "Pictures/sbox.webp", "Highguard": "Pictures/highguard.webp",
+         "Ashes of Creation": "Pictures/ashes.webp", "Life is Strange: Reunion": "Pictures/life.webp",
+         "Mixtape": "Pictures/mixtape.webp"  },
+        
+        nominees: [
         "Tiny Bunny", "s&box", "Highguard", "Ashes of Creation",
         "Life is Strange: Reunion", "Mixtape"] },
 
-    { id: "soundtrack", name: "Лучший Саундтрек", cards: true, ratio: "2 / 3",
+    
+        { id: "soundtrack", name: "Лучший Саундтрек", cards: true, ratio: "2 / 3",
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
         "Control: Resonant": "Pictures/trails.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
