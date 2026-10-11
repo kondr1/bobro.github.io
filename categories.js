@@ -66,7 +66,12 @@ const CATEGORIES = [
         "IRON NEST: Heavy Turret Simulator", "TCG Card Shop Simulator",
         "ReStory: Chill Electronics Repairs", "Nivalis Nights"] },
 
-    { id: "horror", name: "Хоррор Года", nominees: [
+    { id: "horror", name: "Хоррор Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Resident Evil Requiem": "Pictures/resident.webp", "Silent Hill: Townfall": "Pictures/silent.webp",
+        "Reanimal": "Pictures/reanimal.webp", "Pathologic 3": "Pictures/pathologic.webp",
+        "Halloween: The Game": "Pictures/halloween.webp", "Clive Barker's Hellraiser: Revival": "Pictures/hellraiser.webp" }, 
+        nominees: [
         "Resident Evil Requiem", "Silent Hill: Townfall", "Reanimal",
         "Pathologic 3", "Halloween: The Game", "Clive Barker's Hellraiser: Revival"] },
 
