@@ -67,7 +67,14 @@ const CATEGORIES = [
         "Code Vein 2", "RPG Of Ash and Steel", "Mortal Shell II",
         "Minecraft Dungeons II", "Monster Hunter Stories 3: Twisted Reflection"] },
 
-    { id: "simulator", name: "Симулятор Года", nominees: [
+    { id: "simulator", name: "Симулятор Года", cards: true, ratio: "2 / 3",
+        images: { "Maid Cafe Simulator": "Pictures/maid.webp", "Low-Budget Repairs": "Pictures/low.webp",
+        "Cheap Car Repair": "Pictures/cheap.webp", "Scrap Mechanic": "Pictures/scrap.webp",
+        "IRON NEST: Heavy Turret Simulator": "Pictures/iron.webp", "TCG Card Shop Simulator": "Pictures/tcg.webp",
+        "ReStory: Chill Electronics Repairs": "Pictures/restory.webp", "Nivalis Nights": "Pictures/nivalis.webp"
+         }, 
+        
+        nominees: [
         "Maid Cafe Simulator", "Low-Budget Repairs", "Cheap Car Repair", "Scrap Mechanic",
         "IRON NEST: Heavy Turret Simulator", "TCG Card Shop Simulator",
         "ReStory: Chill Electronics Repairs", "Nivalis Nights"] },
@@ -163,9 +170,14 @@ const CATEGORIES = [
         "Люсия Кэминос - GTA VI", "Мистик - Wolverine", "Таша Северская - Ace Combat 8", 
         "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker", "Тереза Лорка - 007: First Light"] },
 
-    { id: "sort-10000-shit", name: "Отсортируй 10000 ГОВНА!", nominees: [
+    { id: "sort-10000-shit", name: "Отсортируй 10000 ГОВНА!", cards: true, ratio: "2 / 3",
+        images: {
+        "Librarian: Tidy Up the Arcane Library!": "Pictures/librarian.webp", "Never Sort By Color": "Pictures/never.webp",
+        "Cellar Keeper": "Pictures/cellar.webp", "Storehand": "Pictures/storehand.webp", "Sort Them Ducks": "Pictures/ducks.webp"     },
+        
+        nominees: [
         "Librarian: Tidy Up the Arcane Library!", "Never Sort By Color",
-        "Cellar Keeper", "Storehand", "LIMINAL SORTING"] },
+        "Cellar Keeper", "Storehand", "Sort Them Ducks"] },
 
     { id: "pw2-date", name: "Дата Выхода ПВ2", nominees: [
         "31 декабря 2027", "«Надо бы этого чела забанить» - Булджать",
