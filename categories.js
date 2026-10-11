@@ -48,7 +48,11 @@ const CATEGORIES = [
         "Marathon", "Call of Duty: Modern Warfare 4", "PRAGMATA", "Gears of War: E-Day",
         "High on Life 2", "Highguard", "MOUSE: P.I. For Hire", "No More Room in Hell 2"] },
 
-    { id: "strategy", name: "Стратегия Года", nominees: [
+    { id: "strategy", name: "Стратегия Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Star Wars: Zero Company": "Pictures/zero.webp", "Mewgenics": "Pictures/mewgenics.webp", "Anno 117: Pax Romana": "Pictures/anno.webp",
+        "Going Medieval": "Pictures/medieval.webp", "Terra Invicta": "Pictures/terra.webp", "Pioneers of Pagonia": "Pictures/pioneers.webp" },  
+        nominees: [
         "Star Wars: Zero Company", "Mewgenics", "Anno 117: Pax Romana",
         "Going Medieval", "Terra Invicta", "Pioneers of Pagonia"] },
 
