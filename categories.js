@@ -86,7 +86,7 @@ const CATEGORIES = [
         { id: "soundtrack", name: "Лучший Саундтрек", cards: true, ratio: "2 / 3",
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
-        "Control: Resonant": "Pictures/control.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
+        "Control Resonant": "Pictures/control.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
         "007: First Light": "Pictures/007.webp" },
 
         nominees: [
