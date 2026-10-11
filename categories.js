@@ -121,15 +121,14 @@ const CATEGORIES = [
 
     { id: "dlc", name: "DLC Года", cards: true, ratio: "2 / 3",
         images: {
-         "Elden Ring Nightreign - The Forsaken Hollows": "Pictures/elden.webp", "Frostpunk 2 - Fractured Utopias": "Pictures/frostpunk.webp",
+        "Elden Ring Nightreign - The Forsaken Hollows": "Pictures/elden.webp", "Frostpunk 2 - Fractured Utopias": "Pictures/frostpunk.webp",
         "Dragon's Dogma 2 - Dark Arisen": "Pictures/dragons.webp", "Crimson Desert Enhanced: Charting the Unknown": "Pictures/crimsonc.webp",
-        "DOOM: The Dark Ages Revelations": "Pictures/doom.webp", "Ghost of Yotei: Echos of Sekigahara": "Pictures/ghost.webp",
-        "Lego Batman: Legacy of the Dark Knight Mayhem Mode": "Pictures/lego.webp" },
+        "DOOM: The Dark Ages Revelations": "Pictures/doom.webp", "Ghost of Yotei: Echos of Sekigahara": "Pictures/ghost.webp" },
 
         nominees: [
         "Elden Ring Nightreign - The Forsaken Hollows", "Frostpunk 2 - Fractured Utopias",
         "Dragon's Dogma 2 - Dark Arisen", "Crimson Desert Enhanced: Charting the Unknown",
-        "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echos of Sekigahara", "Lego Batman: Legacy of the Dark Knight Mayhem Mode"] },
+        "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echos of Sekigahara"] },
 
     { id: "shame", name: "Позор Года", cards: true, ratio: "2 / 3",
         images: {
