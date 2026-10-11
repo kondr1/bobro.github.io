@@ -1,6 +1,4 @@
-// =========================================================
-// SUPABASE
-// =========================================================
+// Supabase
 
 const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
 const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
@@ -10,16 +8,14 @@ let supabaseClient = null;
 try {
     supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 } catch (error) {
-    // Библиотека не загрузилась (VPN, блокировщик, сеть): сайт всё равно покажет номинации
+    // библиотека не загрузилась (VPN, блокировщик): номинации всё равно покажем
     console.error("Supabase недоступен:", error);
 }
 
 // Список номинаций (CATEGORIES) берётся из categories.js
 
 
-// =========================================================
-// DOM
-// =========================================================
+// Dom
 
 const categoriesContainer = document.getElementById("categoriesContainer");
 const modal               = document.getElementById("resultModal");
@@ -39,9 +35,7 @@ let loading = false;
 let lastLoadAt = 0;
 
 
-// =========================================================
-// ВСПОМОГАТЕЛЬНЫЕ
-// =========================================================
+// Вспомогательные
 
 function escapeHtml(text) {
     return String(text)
@@ -75,9 +69,7 @@ function createEmptyResults() {
 }
 
 
-// =========================================================
-// КАРТИНКИ КАНДИДАТОВ (те же правила, что и в script.js)
-// =========================================================
+// Картинки кандидатов
 
 const normKey = v => String(v).toLowerCase().replace(/[\u2010-\u2015\u2212]/g, "-").replace(/\s+/g, " ").trim();
 
@@ -99,9 +91,7 @@ function splitNominee(nominee) {
 }
 
 
-// =========================================================
-// КАРТОЧКИ
-// =========================================================
+// Карточки
 
 function renderCategoryCards() {
     categoriesContainer.innerHTML = CATEGORIES.map((category, index) => `
@@ -119,9 +109,7 @@ function renderCategoryCards() {
 }
 
 
-// =========================================================
-// ЗАГРУЗКА РЕЗУЛЬТАТОВ
-// =========================================================
+// Загрузка результатов
 
 async function loadResults() {
     if (loading) return; // не запускаем новый запрос, пока не закончился прошлый
@@ -169,9 +157,7 @@ async function loadResults() {
 }
 
 
-// =========================================================
-// МОДАЛКА
-// =========================================================
+// Модалка
 
 function openCategory(category) {
     openedCategoryId = category.id;
@@ -189,9 +175,7 @@ function openCategory(category) {
     if (Date.now() - lastLoadAt > 3000) loadResults();
 }
 
-// ---------------------------------------------------------
-// ПЕРЕКЛЮЧЕНИЕ МЕЖДУ НОМИНАЦИЯМИ
-// ---------------------------------------------------------
+// Переключение между номинациями
 
 function currentIndex() {
     return CATEGORIES.findIndex(item => item.id === openedCategoryId);
@@ -220,7 +204,7 @@ function closeModal() {
     openedCategoryId = null;
 }
 
-// Яркость по месту: 1-3 места на полную, дальше каждое следующее тусклее (не ниже 0.5)
+// 1-3 места на полную яркость, дальше тусклее (не ниже 0.5)
 function dimFor(index) {
     return index < 3 ? 1 : Math.max(0.5, 1 - (index - 2) * 0.1).toFixed(2);
 }
@@ -283,8 +267,7 @@ function renderModalResults(category, animate = false) {
     const totalVotes = results.reduce((sum, item) => sum + item.votes, 0);
     const useCards = Boolean(category.cards) && totalVotes > 0;
 
-    // Данные не изменились (плановое обновление): ничего не перерисовываем,
-    // иначе картинки моргали бы каждые 10 секунд.
+    // данные не изменились: не перерисовываем (картинки не должны моргать)
     const signature = category.id + "|" + results.map(item => item.nominee + ":" + item.votes).join("|");
 
     if (!animate && resultsList.dataset.sig === signature) return;
@@ -315,13 +298,11 @@ function renderModalResults(category, animate = false) {
 }
 
 
-// =========================================================
-// СОБЫТИЯ
-// =========================================================
+// События
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
 
-// Клик по затемнению закрывает окно (раньше не срабатывал, т.к. overlay перекрывал modal)
+// клик по затемнению закрывает окно
 document.getElementById("resultsModalOverlay").addEventListener("click", closeModal);
 
 prevButton.addEventListener("click", () => stepCategory(-1));
@@ -337,21 +318,17 @@ document.addEventListener("keydown", event => {
 });
 
 
-// =========================================================
-// ЗАПУСК
-// =========================================================
+// Запуск
 
 renderCategoryCards();
 revealCards(categoriesContainer);
 loadResults();
 
-// Скрытая вкладка не опрашивает сервер
+// обновляем только пока открыто окно с результатами
 setInterval(() => { if (!document.hidden && openedCategoryId) loadResults(); }, REFRESH_MS);
 document.addEventListener("visibilitychange", () => { if (!document.hidden && openedCategoryId) loadResults(); });
 
-// ============================================================
-// ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК ПРИ ПРОКРУТКЕ
-// ============================================================
+// Плавное появление карточек при прокрутке
 
 function revealCards(container) {
     if (!container || !("IntersectionObserver" in window) ||

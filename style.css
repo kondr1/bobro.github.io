@@ -11,497 +11,320 @@ html {
 :root {
     --bg: #10051f;
     --bg-deep: #07030e;
-
     --panel: rgba(31, 13, 52, 0.72);
     --panel-strong: rgba(20, 8, 36, 0.90);
-
     --purple: #8b3dff;
     --purple-soft: #c084fc;
     --purple-dark: #5b21b6;
-
     --magenta: #e12cff;
     --magenta-soft: #f0a3ff;
-
     --blue: #4f7cff;
     --blue-soft: #8aa7ff;
-
     --gold: #fbbf24;
     --gold-bright: #ffe08a;
-
     --text: #faf7ff;
     --muted: #b7a8c8;
 }
 
-/* =========================================================
-   BODY
-========================================================= */
-
+/* Body */
 body {
     position: relative;
     isolation: isolate;
     min-height: 100vh;
     overflow-x: hidden;
-
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
     color: var(--text);
-
     background:
-        radial-gradient(
-            circle at 50% -20%,
-            rgba(139, 61, 255, 0.18),
-            transparent 38%
-        ),
-        linear-gradient(
-            180deg,
-            #17082a 0%,
-            #0e061b 48%,
-            #07030e 100%
-        );
+    radial-gradient(
+        circle at 50% -20%,
+        rgba(139, 61, 255, 0.18),
+        transparent 38%
+    ),
+    linear-gradient(
+        180deg,
+        #17082a 0%,
+        #0e061b 48%,
+        #07030e 100%
+    );
 }
 
-/* =========================================================
-   БОЛЬШИЕ ДВИГАЮЩИЕСЯ СВЕТОВЫЕ ПЯТНА
-========================================================= */
-
+/* Световые пятна на фоне */
 body::before {
     content: "";
-
     position: fixed;
     inset: -15%;
-
     z-index: -3;
     pointer-events: none;
-
     background:
-        radial-gradient(
-            circle at 18% 22%,
-            rgba(139, 61, 255, 0.27) 0,
-            transparent 22%
-        ),
-
-        radial-gradient(
-            circle at 78% 18%,
-            rgba(225, 44, 255, 0.20) 0,
-            transparent 19%
-        ),
-
-        radial-gradient(
-            circle at 72% 76%,
-            rgba(79, 124, 255, 0.22) 0,
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 24% 86%,
-            rgba(192, 84, 252, 0.18) 0,
-            transparent 21%
-        ),
-
-        radial-gradient(
-            circle at 52% 48%,
-            rgba(225, 44, 255, 0.08) 0,
-            transparent 25%
-        );
-
-
+    radial-gradient(
+        circle at 18% 22%,
+        rgba(139, 61, 255, 0.27) 0,
+        transparent 22%
+    ),
+    radial-gradient(
+        circle at 78% 18%,
+        rgba(225, 44, 255, 0.20) 0,
+        transparent 19%
+    ),
+    radial-gradient(
+        circle at 72% 76%,
+        rgba(79, 124, 255, 0.22) 0,
+        transparent 25%
+    ),
+    radial-gradient(
+        circle at 24% 86%,
+        rgba(192, 84, 252, 0.18) 0,
+        transparent 21%
+    ),
+    radial-gradient(
+        circle at 52% 48%,
+        rgba(225, 44, 255, 0.08) 0,
+        transparent 25%
+    );
     transform: translate3d(0, 0, 0) scale(1);
-
-    animation:
-        ambientMove 18s ease-in-out infinite alternate;
+    animation: ambientMove 18s ease-in-out infinite alternate;
     will-change: transform;
 }
 
-/* =========================================================
-   ТЕХНОЛОГИЧНАЯ СЕТКА
-========================================================= */
-
+/* Сетка на фоне */
 body::after {
     content: "";
-
     position: fixed;
     inset: 0;
-
     z-index: -2;
     pointer-events: none;
-
     opacity: 0.32;
-
     background-image:
-        linear-gradient(
-            rgba(192, 132, 252, 0.035) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(192, 132, 252, 0.035) 1px,
-            transparent 1px
-        ),
-
-        linear-gradient(
-            135deg,
-            transparent 0 48%,
-            rgba(251, 191, 36, 0.025) 50%,
-            transparent 52%
-        );
-
+    linear-gradient(
+        rgba(192, 132, 252, 0.035) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        90deg,
+        rgba(192, 132, 252, 0.035) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        135deg,
+        transparent 0 48%,
+        rgba(251, 191, 36, 0.025) 50%,
+        transparent 52%
+    );
     background-size:
-        55px 55px,
-        55px 55px,
-        180px 180px;
-
+    55px 55px,
+    55px 55px,
+    180px 180px;
     mask-image:
-        linear-gradient(
-            to bottom,
-            black,
-            transparent 88%
-        );
+    linear-gradient(
+        to bottom,
+        black,
+        transparent 88%
+    );
 }
 
-/* =========================================================
-   АНИМАЦИЯ ФОНА
-========================================================= */
-
+/* Анимация фона */
 @keyframes ambientMove {
     0% {
         transform:
-            translate3d(-2%, -1%, 0)
-            scale(1);
+        translate3d(-2%, -1%, 0)
+        scale(1);
     }
 
     50% {
         transform:
-            translate3d(3%, 2%, 0)
-            scale(1.04);
+        translate3d(3%, 2%, 0)
+        scale(1.04);
     }
 
     100% {
         transform:
-            translate3d(-1%, 4%, 0)
-            scale(1.02);
+        translate3d(-1%, 4%, 0)
+        scale(1.02);
     }
 }
 
-/* =========================================================
-   ДЕКОР ПО КРАЯМ
-========================================================= */
-
+/* Main */
 main {
     position: relative;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
+/* Header */
 .header {
     position: sticky;
     top: 0;
-
     z-index: 100;
-
     background: rgba(10, 4, 19, 0.95);
-
-
-
-    border-bottom:
-        1px solid rgba(192, 132, 252, 0.14);
-
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(192, 132, 252, 0.14);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
 }
 
 .header::after {
     content: "";
-
     position: absolute;
-
     left: 0;
     right: 0;
     bottom: -1px;
-
     height: 1px;
-
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(139, 61, 255, 0.65),
-            rgba(225, 44, 255, 0.55),
-            rgba(251, 191, 36, 0.45),
-            transparent
-        );
-
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 61, 255, 0.65),
+        rgba(225, 44, 255, 0.55),
+        rgba(251, 191, 36, 0.45),
+        transparent
+    );
     opacity: 0.8;
 }
 
 .header-inner {
     width:
-        min(
-            1400px,
-            calc(100% - 40px)
-        );
-
+    min(
+        1400px,
+        calc(100% - 40px)
+    );
     min-height: 88px;
-
     margin: 0 auto;
     padding: 15px 0;
-
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     gap: 30px;
 }
 
-/* =========================================================
-   ЛОГО
-========================================================= */
-
+/* Лого */
 .logo-block h1 {
     margin-bottom: 3px;
-
     font-size: 27px;
     font-weight: 900;
-
     letter-spacing: 0.4px;
-
     background:
-        linear-gradient(
-            135deg,
-            #ffffff 10%,
-            #d8b4fe 42%,
-            #f0a3ff 70%,
-            #ffe08a 100%
-        );
-
+    linear-gradient(
+        135deg,
+        #ffffff 10%,
+        #d8b4fe 42%,
+        #f0a3ff 70%,
+        #ffe08a 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .logo-block span {
     color: var(--purple-soft);
-
     font-size: 12px;
     font-weight: 600;
-
     letter-spacing: 1.4px;
-
     text-transform: uppercase;
 }
 
-/* =========================================================
-   HEADER RIGHT
-========================================================= */
-
+/* Header right */
 .header-right {
     display: flex;
-
     align-items: center;
-
     gap: 16px;
 }
 
-/* =========================================================
-   ТАЙМЕР
-========================================================= */
-
+/* Таймер */
 .countdown-block {
     position: relative;
-
     display: flex;
     flex-direction: column;
-
     align-items: flex-end;
-
     padding: 8px 15px;
-
     overflow: hidden;
-
     border-radius: 12px;
-
-    background:
-        rgba(139, 61, 255, 0.08);
-
-    border:
-        1px solid rgba(192, 132, 252, 0.16);
+    background: rgba(139, 61, 255, 0.08);
+    border: 1px solid rgba(192, 132, 252, 0.16);
 }
 
 .countdown-block::before {
     content: "";
-
     position: absolute;
-
     width: 55px;
     height: 55px;
-
     right: -25px;
     top: -30px;
-
     border-radius: 50%;
-
     background: radial-gradient(circle, rgba(225, 44, 255, 0.18), transparent 70%);
-
 }
 
 .countdown-label {
     color: #d8b4fe;
-
     font-size: 10px;
-
     text-transform: uppercase;
-
     letter-spacing: 0.7px;
 }
 
 #countdown {
     color: var(--gold-bright);
-
     font-weight: 850;
-
     font-size: 15px;
-
     font-variant-numeric: tabular-nums;
-
-    text-shadow:
-        0 0 12px rgba(251, 191, 36, 0.18);
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.18);
 }
 
-/* =========================================================
-   КНОПКА РЕЗУЛЬТАТОВ
-========================================================= */
-
-.results-button {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 11px 18px;
-
-    color: #ffe7a3;
-
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 750;
-
-    border-radius: 12px;
-
-    background:
-        rgba(251, 191, 36, 0.08);
-
-    border:
-        1px solid rgba(251, 191, 36, 0.28);
-
-    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.results-button:hover {
-    transform: translateY(-2px);
-
-    background:
-        rgba(251, 191, 36, 0.15);
-
-    border-color:
-        rgba(251, 191, 36, 0.65);
-
-    box-shadow:
-        0 0 25px rgba(251, 191, 36, 0.16);
-}
-
-/* =========================================================
-   HERO IMAGE
-========================================================= */
-
+/* Hero image */
 .top-image {
     position: relative;
-
     isolation: isolate;
-
     width:
-        min(
-            1200px,
-            calc(100% - 40px)
-        );
-
-    margin:
-        42px auto 68px;
-
+    min(
+        1200px,
+        calc(100% - 40px)
+    );
+    margin: 42px auto 68px;
     padding: 1px;
-
     overflow: hidden;
-
     border-radius: 26px;
-
     background:
-        linear-gradient(
-            135deg,
-            rgba(192, 132, 252, 0.45),
-            rgba(225, 44, 255, 0.30),
-            rgba(79, 124, 255, 0.32),
-            rgba(251, 191, 36, 0.18)
-        );
-
+    linear-gradient(
+        135deg,
+        rgba(192, 132, 252, 0.45),
+        rgba(225, 44, 255, 0.30),
+        rgba(79, 124, 255, 0.32),
+        rgba(251, 191, 36, 0.18)
+    );
     box-shadow:
-        0 28px 80px rgba(0, 0, 0, 0.55),
-        0 0 55px rgba(139, 61, 255, 0.15);
+    0 28px 80px rgba(0, 0, 0, 0.55),
+    0 0 55px rgba(139, 61, 255, 0.15);
 }
 
 .top-image::before {
     content: "";
-
     position: absolute;
-
     z-index: 2;
-
     width: 45%;
     height: 180%;
-
     top: -40%;
     left: -60%;
-
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.12),
-            transparent
-        );
-
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.12),
+        transparent
+    );
     transform: translateX(0) rotate(18deg);
-
-    animation:
-        heroShine 9s ease-in-out infinite;
-
+    animation: heroShine 9s ease-in-out infinite;
     pointer-events: none;
     will-change: transform, opacity;
 }
 
 .top-image::after {
     content: "";
-
     position: absolute;
-
     inset: 1px;
-
     z-index: 1;
-
     border-radius: 25px;
-
-    box-shadow:
-        inset 0 0 70px rgba(0, 0, 0, 0.40);
-
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.40);
     pointer-events: none;
 }
 
@@ -525,215 +348,146 @@ main {
 
 .top-image img {
     position: relative;
-
     z-index: 0;
-
     display: block;
-
     width: 100%;
     height: auto;
-
     max-height: 650px;
-
     object-fit: contain;
-
     border-radius: 25px;
 }
 
-/* =========================================================
-   NOMINATIONS
-========================================================= */
-
+/* Nominations */
 .nominations-section {
     width:
-        min(
-            1400px,
-            calc(100% - 40px)
-        );
-
-    margin:
-        0 auto 90px;
+    min(
+        1400px,
+        calc(100% - 40px)
+    );
+    margin: 0 auto 90px;
 }
 
 .section-title {
     position: relative;
-
     text-align: center;
-
     margin-bottom: 48px;
 }
 
 .section-title::after {
     content: "";
-
     display: block;
-
     width: 90px;
     height: 2px;
-
-    margin:
-        17px auto 0;
-
+    margin: 17px auto 0;
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold),
-            transparent
-        );
-
-    box-shadow:
-        0 0 18px rgba(251, 191, 36, 0.28);
+    linear-gradient(
+        90deg,
+        transparent,
+        var(--gold),
+        transparent
+    );
+    box-shadow: 0 0 18px rgba(251, 191, 36, 0.28);
 }
 
 .section-title h2 {
     font-size: 43px;
-
     font-weight: 900;
-
     letter-spacing: -0.8px;
-
     background:
-        linear-gradient(
-            135deg,
-            #ffffff 25%,
-            #d8b4fe 55%,
-            #f0a3ff 80%,
-            #ffe08a 100%
-        );
-
+    linear-gradient(
+        135deg,
+        #ffffff 25%,
+        #d8b4fe 55%,
+        #f0a3ff 80%,
+        #ffe08a 100%
+    );
     -webkit-background-clip: text;
-
     -webkit-text-fill-color: transparent;
 }
 
 .section-title p {
     margin-top: 9px;
-
     color: #b9a9ca;
-
     font-size: 17px;
 }
 
 .categories-grid {
     display: grid;
-
     grid-template-columns:
-        repeat(
-            3,
-            minmax(0, 1fr)
-        );
-
+    repeat(
+        3,
+        minmax(0, 1fr)
+    );
     gap: 22px;
 }
 
-/* =========================================================
-   CATEGORY CARD
-========================================================= */
-
+/* Category card */
 .category-card {
     position: relative;
-
     min-height: 190px;
-
-    padding:
-        27px 26px 24px;
-
+    padding: 27px 26px 24px;
     overflow: hidden;
-
     border-radius: 21px;
-
     background: linear-gradient(135deg, rgba(71, 27, 112, 0.86), rgba(17, 7, 30, 0.94)), #0c0515;
-
-
-
-    border:
-        1px solid rgba(192, 132, 252, 0.15);
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.28);
-
+    border: 1px solid rgba(192, 132, 252, 0.15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
     cursor: pointer;
-
     display: flex;
     flex-direction: column;
-
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.35s ease;
     content-visibility: auto;
     contain-intrinsic-size: auto 190px;
 }
 
 /* Световое пятно */
-
 .category-card::before {
     content: "";
-
     position: absolute;
-
     width: 270px;
     height: 270px;
-
     top: -160px;
     right: -120px;
-
     border-radius: 50%;
-
     background: radial-gradient(circle, rgba(225, 44, 255, 0.24), transparent 68%);
-
-
     transition: transform 0.4s ease, opacity 0.4s ease;
     opacity: 0.8;
 }
 
 /* Линия сверху */
-
 .category-card::after {
     content: "";
-
     position: absolute;
-
     top: 0;
     left: 9%;
-
     width: 82%;
     height: 2px;
-
     border-radius: 999px;
-
     background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(139, 61, 255, 0.75),
-            rgba(225, 44, 255, 0.80),
-            rgba(251, 191, 36, 0.80),
-            transparent
-        );
-
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 61, 255, 0.75),
+        rgba(225, 44, 255, 0.80),
+        rgba(251, 191, 36, 0.80),
+        transparent
+    );
     opacity: 0.50;
-
     transition: opacity 0.3s ease, left 0.3s ease, width 0.3s ease;
 }
 
 .category-card:hover {
-    transform:
-        translateY(-7px);
-
-    border-color:
-        rgba(225, 44, 255, 0.40);
-
+    transform: translateY(-7px);
+    border-color: rgba(225, 44, 255, 0.40);
     background: linear-gradient(135deg, rgba(83, 29, 131, 0.90), rgba(20, 7, 34, 0.95)), #0c0515;
-
     box-shadow:
-        0 24px 55px rgba(0, 0, 0, 0.40),
-        0 0 35px rgba(139, 61, 255, 0.13);
+    0 24px 55px rgba(0, 0, 0, 0.40),
+    0 0 35px rgba(139, 61, 255, 0.13);
 }
 
 .category-card:hover::before {
     transform:
-        scale(1.35)
-        translate(-15px, 12px);
-
+    scale(1.35)
+    translate(-15px, 12px);
     background: radial-gradient(circle, rgba(225, 44, 255, 0.24), transparent 68%);
     opacity: 1;
 }
@@ -741,161 +495,82 @@ main {
 .category-card:hover::after {
     left: 4%;
     width: 92%;
-
     opacity: 1;
 }
 
-/* =========================================================
-   НОМЕР КАТЕГОРИИ
-========================================================= */
-
+/* Номер категории */
 .category-number {
     position: relative;
-
     z-index: 1;
-
     display: inline-block;
-
     align-self: flex-start;
-
     margin-bottom: 17px;
-
-    padding:
-        4px 9px;
-
+    padding: 4px 9px;
     border-radius: 7px;
-
     color: #ffd96a;
-
-    background:
-        rgba(251, 191, 36, 0.08);
-
-    border:
-        1px solid rgba(251, 191, 36, 0.23);
-
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.23);
     font-size: 10px;
-
     font-weight: 850;
-
     letter-spacing: 1.1px;
 }
 
-/* =========================================================
-   НАЗВАНИЕ НОМИНАЦИИ
-========================================================= */
-
+/* Название номинации */
 .category-name {
     position: relative;
-
     z-index: 1;
-
     margin-bottom: 0;
-
     color: #ffffff;
-
     font-size: 29px;
-
     font-weight: 850;
-
     line-height: 1.18;
-
     letter-spacing: -0.4px;
-
     max-width: 90%;
 }
 
-/* =========================================================
-   НИЖНЯЯ ЧАСТЬ КАРТОЧКИ
-========================================================= */
-
+/* Нижняя часть карточки */
 .category-bottom {
     position: relative;
-
     z-index: 1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: flex-end;
-
     margin-top: auto;
-
     padding-top: 18px;
-
     border-top: none;
 }
 
-/* =========================================================
-   КОЛИЧЕСТВО КАНДИДАТОВ — УБРАНО
-========================================================= */
-
-.nominee-count {
-    display: none;
-}
-
-/* =========================================================
-   СТРЕЛКА
-========================================================= */
-
+/* Стрелка */
 .category-arrow {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     width: 38px;
     height: 38px;
-
     border-radius: 50%;
-
     color: #fbcf58;
-
-    background:
-        rgba(255, 255, 255, 0.045);
-
-    border:
-        1px solid rgba(255, 255, 255, 0.07);
-
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     font-size: 18px;
-
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 }
 
 .category-card:hover .category-arrow {
     color: #160b03;
-
-    background:
-        var(--gold);
-
-    border-color:
-        var(--gold);
-
-    transform:
-        translateX(5px);
-
-    box-shadow:
-        0 0 18px rgba(251, 191, 36, 0.25);
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: translateX(5px);
+    box-shadow: 0 0 18px rgba(251, 191, 36, 0.25);
 }
 
-/* =========================================================
-   MODAL
-========================================================= */
-
+/* Modal */
 .modal {
     position: fixed;
-
     inset: 0;
-
     z-index: 1000;
-
     display: none;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
 }
 
@@ -905,249 +580,148 @@ main {
 
 .modal-overlay {
     position: absolute;
-
     inset: 0;
-
     background: rgba(5, 1, 12, 0.93);
-
-
-
 }
 
-/* =========================================================
-   MODAL CONTENT
-========================================================= */
-
+/* Modal content */
 .modal-content {
     position: relative;
-
     z-index: 2;
-
     width:
-        min(
-            1050px,
-            100%
-        );
-
+    min(
+        1050px,
+        100%
+    );
     max-height: 92vh;
-
     overflow-y: auto;
-
     padding: 30px;
-
     border-radius: 25px;
-
     background:
-        radial-gradient(
-            circle at 85% 0%,
-            rgba(225, 44, 255, 0.14),
-            transparent 32%
-        ),
-
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(79, 124, 255, 0.09),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            145deg,
-            #24103d,
-            #0b0414 75%
-        );
-
-    border:
-        1px solid rgba(192, 132, 252, 0.28);
-
+    radial-gradient(
+        circle at 85% 0%,
+        rgba(225, 44, 255, 0.14),
+        transparent 32%
+    ),
+    radial-gradient(
+        circle at 10% 100%,
+        rgba(79, 124, 255, 0.09),
+        transparent 30%
+    ),
+    linear-gradient(
+        145deg,
+        #24103d,
+        #0b0414 75%
+    );
+    border: 1px solid rgba(192, 132, 252, 0.28);
     box-shadow:
-        0 35px 110px rgba(0, 0, 0, 0.82),
-        0 0 45px rgba(139, 61, 255, 0.13);
+    0 35px 110px rgba(0, 0, 0, 0.82),
+    0 0 45px rgba(139, 61, 255, 0.13);
 }
 
-/* =========================================================
-   КАРТИНКА В MODAL
-========================================================= */
-
+/* Картинка в modal */
 .nomination-image {
     width: 100%;
-
     margin-bottom: 25px;
-
     overflow: hidden;
-
     border-radius: 18px;
-
-    background:
-        #06020b;
-
-    border:
-        1px solid rgba(192, 132, 252, 0.15);
-
-    box-shadow:
-        0 0 35px rgba(139, 61, 255, 0.07);
+    background: #06020b;
+    border: 1px solid rgba(192, 132, 252, 0.15);
+    box-shadow: 0 0 35px rgba(139, 61, 255, 0.07);
 }
 
 .nomination-image img {
     display: block;
-
     width: 100%;
-
     height: auto;
-
     max-height: 550px;
-
     object-fit: contain;
 }
 
-/* =========================================================
-   НОМЕР В MODAL
-========================================================= */
-
+/* Номер в modal */
 .modal-number {
     display: inline-block;
-
     margin-bottom: 10px;
-
-    padding:
-        4px 12px;
-
+    padding: 4px 12px;
     border-radius: 8px;
-
     color: #ffd96a;
-
-    background:
-        rgba(251, 191, 36, 0.09);
-
-    border:
-        1px solid rgba(251, 191, 36, 0.28);
-
+    background: rgba(251, 191, 36, 0.09);
+    border: 1px solid rgba(251, 191, 36, 0.28);
     font-size: 11px;
-
     font-weight: 850;
-
     letter-spacing: 1px;
 }
 
 .modal-content h2 {
     margin-bottom: 8px;
-
     color: #ffffff;
-
     font-size: 34px;
-
     font-weight: 900;
 }
 
 .modal-description {
     margin-bottom: 24px;
-
     color: #d1b8e9;
-
     font-size: 15px;
 }
 
-/* =========================================================
-   NOMINEES
-========================================================= */
-
+/* Nominees */
 .nominees-list {
     display: flex;
-
     flex-direction: column;
-
     gap: 12px;
 }
 
 .nominee {
     width: 100%;
-
-    padding:
-        18px 21px;
-
-    border:
-        1px solid rgba(192, 132, 252, 0.14);
-
+    padding: 18px 21px;
+    border: 1px solid rgba(192, 132, 252, 0.14);
     border-radius: 14px;
-
-    background:
-        rgba(31, 12, 52, 0.66);
-
+    background: rgba(31, 12, 52, 0.66);
     color: white;
-
     cursor: pointer;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .nominee:hover {
-    transform:
-        translateX(5px);
-
-    background:
-        rgba(61, 21, 91, 0.74);
-
-    border-color:
-        rgba(225, 44, 255, 0.38);
-
-    box-shadow:
-        0 0 20px rgba(139, 61, 255, 0.07);
+    transform: translateX(5px);
+    background: rgba(61, 21, 91, 0.74);
+    border-color: rgba(225, 44, 255, 0.38);
+    box-shadow: 0 0 20px rgba(139, 61, 255, 0.07);
 }
 
-/* =========================================================
-   SELECTED NOMINEE
-========================================================= */
-
+/* Selected nominee */
 .nominee.selected {
-    border:
-        2px solid var(--gold) !important;
-
-    background:
-        rgba(251, 191, 36, 0.10) !important;
-
+    border: 2px solid var(--gold) !important;
+    background: rgba(251, 191, 36, 0.10) !important;
     box-shadow:
-        0 0 24px rgba(251, 191, 36, 0.28),
-        inset 0 0 13px rgba(251, 191, 36, 0.08) !important;
-
-    transform:
-        scale(1.01);
+    0 0 24px rgba(251, 191, 36, 0.28),
+    inset 0 0 13px rgba(251, 191, 36, 0.08) !important;
+    transform: scale(1.01);
 }
 
 .nominee-name {
     font-size: 17px;
-
     font-weight: 600;
 }
 
 .nominee.selected .nominee-name {
     color: #ffe47e;
-
     font-weight: 800;
 }
 
 .nominee-check {
     display: flex;
-
     align-items: center;
-
     gap: 8px;
-
-    color:
-        var(--gold);
-
+    color: var(--gold);
     font-size: 20px;
-
     font-weight: bold;
-
     opacity: 0;
-
-    transition:
-        opacity 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
 .nominee.selected .nominee-check {
@@ -1156,95 +730,49 @@ main {
 
 .nominee.selected .nominee-check::before {
     content: "ВЫБРАНО";
-
-    padding:
-        3px 9px;
-
+    padding: 3px 9px;
     border-radius: 6px;
-
-    background:
-        var(--gold);
-
-    color:
-        #160b03;
-
+    background: var(--gold);
+    color: #160b03;
     font-size: 10px;
-
     font-weight: 900;
-
     letter-spacing: 1px;
 }
 
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
+/* Close button */
 .close-modal {
     position: absolute;
-
     top: 17px;
     right: 19px;
-
     z-index: 10;
-
     width: 40px;
     height: 40px;
-
     border: none;
-
     border-radius: 50%;
-
-    background:
-        rgba(0, 0, 0, 0.46);
-
+    background: rgba(0, 0, 0, 0.46);
     color: white;
-
     font-size: 26px;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
 .close-modal:hover {
-    background:
-        var(--gold);
-
-    color:
-        #160b03;
-
-    transform:
-        rotate(4deg);
-
-    box-shadow:
-        0 0 20px rgba(251, 191, 36, 0.25);
+    background: var(--gold);
+    color: #160b03;
+    transform: rotate(4deg);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
 }
 
-/* =========================================================
-   СООБЩЕНИЕ О ГОЛОСЕ
-========================================================= */
-
+/* Сообщение о голосе */
 .vote-message {
     display: none;
-
     margin-top: 20px;
-
-    padding:
-        14px 18px;
-
+    padding: 14px 18px;
     border-radius: 12px;
-
-    background:
-        rgba(27, 10, 43, 0.88);
-
-    border:
-        1px solid rgba(192, 132, 252, 0.22);
-
-    color:
-        #d8b4fe;
-
+    background: rgba(27, 10, 43, 0.88);
+    border: 1px solid rgba(192, 132, 252, 0.22);
+    color: #d8b4fe;
     font-size: 14px;
-
     font-weight: 600;
 }
 
@@ -1252,315 +780,199 @@ main {
     display: block;
 }
 
-/* =========================================================
-   НАВИГАЦИЯ ПО НОМИНАЦИЯМ
-========================================================= */
-
+/* Навигация по номинациям */
 .modal-navigation {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 12px;
-
     margin-top: 24px;
-
     padding-top: 20px;
-
-    border-top:
-        1px solid rgba(192, 132, 252, 0.12);
+    border-top: 1px solid rgba(192, 132, 252, 0.12);
 }
 
 .modal-nav-button {
     min-width: 135px;
-
-    padding:
-        12px 18px;
-
-    border:
-        1px solid rgba(192, 132, 252, 0.25);
-
+    padding: 12px 18px;
+    border: 1px solid rgba(192, 132, 252, 0.25);
     border-radius: 12px;
-
-    background:
-        rgba(139, 61, 255, 0.10);
-
-    color:
-        #d8b4fe;
-
+    background: rgba(139, 61, 255, 0.10);
+    color: #d8b4fe;
     font-size: 14px;
-
     font-weight: 750;
-
     cursor: pointer;
-
     transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .modal-nav-button:hover:not(:disabled) {
-    transform:
-        translateY(-2px);
-
-    background:
-        rgba(139, 61, 255, 0.20);
-
-    border-color:
-        rgba(225, 44, 255, 0.55);
-
-    color:
-        #ffffff;
-
-    box-shadow:
-        0 0 22px rgba(139, 61, 255, 0.16);
+    transform: translateY(-2px);
+    background: rgba(139, 61, 255, 0.20);
+    border-color: rgba(225, 44, 255, 0.55);
+    color: #ffffff;
+    box-shadow: 0 0 22px rgba(139, 61, 255, 0.16);
 }
 
 .modal-nav-button:disabled {
     opacity: 0.25;
-
     cursor: default;
 }
 
 #next-category {
-    color:
-        #ffe08a;
-
-    border-color:
-        rgba(251, 191, 36, 0.25);
-
-    background:
-        rgba(251, 191, 36, 0.07);
+    color: #ffe08a;
+    border-color: rgba(251, 191, 36, 0.25);
+    background: rgba(251, 191, 36, 0.07);
 }
 
 #next-category:hover:not(:disabled) {
-    background:
-        rgba(251, 191, 36, 0.15);
-
-    border-color:
-        rgba(251, 191, 36, 0.55);
-
-    color:
-        #fff1b8;
-
-    box-shadow:
-        0 0 22px rgba(251, 191, 36, 0.15);
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.55);
+    color: #fff1b8;
+    box-shadow: 0 0 22px rgba(251, 191, 36, 0.15);
 }
 
-/* =========================================================
-   LOGIN MODAL
-========================================================= */
-
+/* Login modal */
 .login-modal-content {
     position: relative;
-
     z-index: 2;
-
     width:
-        min(
-            440px,
-            100%
-        );
-
-    padding:
-        38px 30px;
-
+    min(
+        440px,
+        100%
+    );
+    padding: 38px 30px;
     border-radius: 24px;
-
     text-align: center;
-
     background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(225, 44, 255, 0.13),
-            transparent 45%
-        ),
-
-        linear-gradient(
-            145deg,
-            #24103d,
-            #0b0414
-        );
-
-    border:
-        1px solid rgba(192, 132, 252, 0.27);
-
+    radial-gradient(
+        circle at 50% 0%,
+        rgba(225, 44, 255, 0.13),
+        transparent 45%
+    ),
+    linear-gradient(
+        145deg,
+        #24103d,
+        #0b0414
+    );
+    border: 1px solid rgba(192, 132, 252, 0.27);
     box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.82),
-        0 0 40px rgba(139, 61, 255, 0.12);
+    0 30px 100px rgba(0, 0, 0, 0.82),
+    0 0 40px rgba(139, 61, 255, 0.12);
 }
 
 .login-modal-content h2 {
     margin-bottom: 12px;
-
-    color:
-        #ffffff;
-
+    color: #ffffff;
     font-size: 26px;
 }
 
 .login-modal-content p {
     margin-bottom: 28px;
-
-    color:
-        #d1b8e9;
-
+    color: #d1b8e9;
     line-height: 1.6;
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
-
+/* Footer */
 footer {
     position: relative;
-
-    background:
-        rgba(6, 2, 11, 0.90);
-
-    border-top:
-        1px solid rgba(192, 132, 252, 0.11);
-
-    padding:
-        38px 25px;
-
+    background: rgba(6, 2, 11, 0.90);
+    border-top: 1px solid rgba(192, 132, 252, 0.11);
+    padding: 38px 25px;
     overflow: hidden;
 }
 
 footer::before {
     content: "";
-
     position: absolute;
-
     left: 50%;
     top: -90px;
-
     width: 300px;
     height: 130px;
-
-    transform:
-        translateX(-50%);
-
+    transform: translateX(-50%);
     background: radial-gradient(ellipse, rgba(139, 61, 255, 0.16), transparent 70%);
-
-
     pointer-events: none;
 }
 
 .footer-inner {
     position: relative;
-
     z-index: 1;
-
     max-width: 1400px;
-
     margin: 0 auto;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 25px;
 }
 
 .footer-inner strong {
-    color:
-        #f7cf65;
-
+    color: #f7cf65;
     font-size: 16px;
 }
 
 .footer-inner p {
     margin-top: 6px;
-
-    color:
-        #a78bc4;
-
+    color: #a78bc4;
     font-size: 13px;
 }
 
 .footer-links {
     display: flex;
-
     gap: 20px;
 }
 
 .footer-links a {
-    color:
-        #c8b2dd;
-
+    color: #c8b2dd;
     text-decoration: none;
-
     font-weight: 600;
-
-    transition:
-        0.2s ease;
+    transition: 0.2s ease;
 }
 
 .footer-links a:hover {
-    color:
-        var(--gold-bright);
-
-    text-shadow:
-        0 0 12px rgba(251, 191, 36, 0.25);
+    color: var(--gold-bright);
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
 }
 
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background:
-        #08030e;
+    background: #08030e;
 }
 
 ::-webkit-scrollbar-thumb {
     background:
-        linear-gradient(
-            180deg,
-            #7c3aed,
-            #c026d3
-        );
-
-    border-radius:
-        999px;
-
-    border:
-        2px solid #08030e;
+    linear-gradient(
+        180deg,
+        #7c3aed,
+        #c026d3
+    );
+    border-radius: 999px;
+    border: 2px solid #08030e;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background:
-        linear-gradient(
-            180deg,
-            #a855f7,
-            #e12cff
-        );
+    linear-gradient(
+        180deg,
+        #a855f7,
+        #e12cff
+    );
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
+/* Responsive */
 @media (max-width: 1000px) {
 
     .categories-grid {
         grid-template-columns:
-            repeat(
-                2,
-                minmax(0, 1fr)
-            );
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
     }
 
     .header-inner {
-        padding:
-            14px 0;
+        padding: 14px 0;
     }
 
     .countdown-block {
@@ -1568,809 +980,470 @@ footer::before {
     }
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* Mobile */
 @media (max-width: 650px) {
 
     body::after {
         background-size:
-            42px 42px,
-            42px 42px,
-            140px 140px;
-
-        opacity:
-            0.22;
+        42px 42px,
+        42px 42px,
+        140px 140px;
+        opacity: 0.22;
     }
 
     .header-inner {
-        width:
-            calc(100% - 20px);
-
-        flex-direction:
-            column;
-
-        align-items:
-            stretch;
-
-        gap:
-            13px;
+        width: calc(100% - 20px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 13px;
     }
 
     .header-right {
-        justify-content:
-            space-between;
+        justify-content: space-between;
     }
 
     .logo-block {
-        text-align:
-            center;
+        text-align: center;
     }
 
     .logo-block h1 {
-        font-size:
-            24px;
+        font-size: 24px;
     }
 
     .logo-block span {
-        font-size:
-            10px;
+        font-size: 10px;
     }
 
     .login-button {
-        flex:
-            1;
+        flex: 1;
     }
 
     .top-image {
-        width:
-            calc(100% - 20px);
-
-        margin-top:
-            22px;
-
-        margin-bottom:
-            42px;
-
-        border-radius:
-            18px;
+        width: calc(100% - 20px);
+        margin-top: 22px;
+        margin-bottom: 42px;
+        border-radius: 18px;
     }
 
     .top-image img {
-        border-radius:
-            17px;
+        border-radius: 17px;
     }
 
     .nominations-section {
-        width:
-            calc(100% - 20px);
-
-        margin-bottom:
-            65px;
+        width: calc(100% - 20px);
+        margin-bottom: 65px;
     }
 
     .section-title {
-        margin-bottom:
-            34px;
+        margin-bottom: 34px;
     }
 
     .section-title h2 {
-        font-size:
-            31px;
+        font-size: 31px;
     }
 
     .section-title p {
-        font-size:
-            15px;
+        font-size: 15px;
     }
 
     .categories-grid {
-        grid-template-columns:
-            1fr;
-
-        gap:
-            15px;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .category-card {
-        min-height:
-            165px;
-
-        padding:
-            23px 21px 19px;
+        min-height: 165px;
+        padding: 23px 21px 19px;
     }
 
     .category-name {
-        font-size:
-            24px;
-
-        max-width:
-            92%;
+        font-size: 24px;
+        max-width: 92%;
     }
 
     .category-number {
-        margin-bottom:
-            14px;
+        margin-bottom: 14px;
     }
 
     .category-arrow {
-        width:
-            36px;
-
-        height:
-            36px;
+        width: 36px;
+        height: 36px;
     }
 
     .modal {
-        padding:
-            10px;
+        padding: 10px;
     }
 
     .modal-content {
-        padding:
-            20px 16px;
-
-        border-radius:
-            18px;
+        padding: 20px 16px;
+        border-radius: 18px;
     }
 
     .modal-content h2 {
-        font-size:
-            24px;
+        font-size: 24px;
     }
 
     .modal-navigation {
-        gap:
-            8px;
+        gap: 8px;
     }
 
     .modal-nav-button {
-        min-width:
-            0;
-
-        flex:
-            1;
-
-        padding:
-            11px 10px;
-
-        font-size:
-            13px;
+        min-width: 0;
+        flex: 1;
+        padding: 11px 10px;
+        font-size: 13px;
     }
 
     .footer-inner {
-        flex-direction:
-            column;
-
-        text-align:
-            center;
+        flex-direction: column;
+        text-align: center;
     }
 
     .footer-links {
-        justify-content:
-            center;
-
-        flex-wrap:
-            wrap;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-        scroll-behavior:
-            auto !important;
-
-        animation-duration:
-            0.01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-
-        transition-duration:
-            0.01ms !important;
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
 
-/* =========================================================
-   STATUS RESULT PAGE
-========================================================= */
-
+/* Status result page */
 .results-update-status {
     min-height: 18px;
-
     margin-top: 10px;
-
     color: rgba(255, 255, 255, 0.40);
-
     font-size: 12px;
 }
 
-
-/* =========================================================
-   ERROR
-========================================================= */
-
+/* Error */
 .results-error {
     width: min(900px, calc(100% - 40px));
-
     margin: -20px auto 35px;
-
     padding: 16px 20px;
-
     display: none;
-
     text-align: center;
-
     color: #fecaca;
-
-    background:
-        rgba(127, 29, 29, 0.22);
-
-    border:
-        1px solid rgba(248, 113, 113, 0.30);
-
+    background: rgba(127, 29, 29, 0.22);
+    border: 1px solid rgba(248, 113, 113, 0.30);
     border-radius: 14px;
 }
 
-
-/* =========================================================
-   RESULT MODAL
-========================================================= */
-
+/* Result modal */
 .results-modal {
 
     position: fixed;
-
     inset: 0;
-
     z-index: 1000;
-
     display: none;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
-
     background: rgba(5, 1, 12, 0.93);
-
-
-
 }
-
 
 .results-modal.active {
     display: flex;
 }
 
-
-/* =========================================================
-   OVERLAY
-========================================================= */
-
+/* Overlay */
 .results-modal-overlay {
 
     position: absolute;
-
     inset: 0;
-
     cursor: pointer;
 }
 
-
-/* =========================================================
-   MODAL CONTENT
-========================================================= */
-
+/* Modal content */
 .results-modal-content {
 
     position: relative;
-
     z-index: 2;
-
     width:
-        min(
-            1050px,
-            100%
-        );
-
+    min(
+        1050px,
+        100%
+    );
     max-height: 92vh;
-
     overflow-y: auto;
-
     padding: 30px;
-
     border-radius: 25px;
-
     background:
-
-        radial-gradient(
-            circle at 85% 0%,
-            rgba(225, 44, 255, 0.14),
-            transparent 32%
-        ),
-
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(79, 124, 255, 0.09),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            145deg,
-            #24103d,
-            #0b0414 75%
-        );
-
-    border:
-        1px solid rgba(192, 132, 252, 0.28);
-
+    radial-gradient(
+        circle at 85% 0%,
+        rgba(225, 44, 255, 0.14),
+        transparent 32%
+    ),
+    radial-gradient(
+        circle at 10% 100%,
+        rgba(79, 124, 255, 0.09),
+        transparent 30%
+    ),
+    linear-gradient(
+        145deg,
+        #24103d,
+        #0b0414 75%
+    );
+    border: 1px solid rgba(192, 132, 252, 0.28);
     box-shadow:
-        0 35px 110px rgba(0, 0, 0, 0.82),
-        0 0 45px rgba(139, 61, 255, 0.13);
+    0 35px 110px rgba(0, 0, 0, 0.82),
+    0 0 45px rgba(139, 61, 255, 0.13);
 }
 
-
-/* =========================================================
-   CLOSE
-========================================================= */
-
+/* Close */
 .results-modal-close {
 
     position: absolute;
-
     top: 17px;
-
     right: 19px;
-
     z-index: 10;
-
     width: 40px;
-
     height: 40px;
-
     border: none;
-
     border-radius: 50%;
-
-    background:
-        rgba(0, 0, 0, 0.46);
-
+    background: rgba(0, 0, 0, 0.46);
     color: white;
-
     font-size: 26px;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
-
 .results-modal-close:hover {
 
-    background:
-        var(--gold);
-
-    color:
-        #160b03;
-
-    transform:
-        rotate(4deg);
-
-    box-shadow:
-        0 0 20px rgba(251, 191, 36, 0.25);
+    background: var(--gold);
+    color: #160b03;
+    transform: rotate(4deg);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
 }
 
-
-/* =========================================================
-   MODAL HEADER
-========================================================= */
-
+/* Modal header */
 .results-modal-header {
 
     padding-right: 50px;
-
     margin-bottom: 25px;
 }
-
 
 .results-modal-label {
 
     display: inline-block;
-
     margin-bottom: 9px;
-
-    padding:
-        4px 10px;
-
+    padding: 4px 10px;
     border-radius: 7px;
-
-    color:
-        #ffd96a;
-
-    background:
-        rgba(251, 191, 36, 0.08);
-
-    border:
-        1px solid rgba(251, 191, 36, 0.22);
-
+    color: #ffd96a;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.22);
     font-size: 10px;
-
     font-weight: 850;
-
     letter-spacing: 1.1px;
 }
-
 
 .results-modal-title {
 
     margin: 0;
-
-    color:
-        #ffffff;
-
-    font-size:
-        34px;
-
-    line-height:
-        1.15;
-
-    font-weight:
-        900;
+    color: #ffffff;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 900;
 }
 
-
-/* =========================================================
-   RESULTS LIST
-========================================================= */
-
+/* Results list */
 .results-list {
 
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-
-/* =========================================================
-   RESULT ITEM
-========================================================= */
-
+/* Result item */
 .result-item {
 
-    padding:
-        17px 18px;
-
-    background:
-        rgba(31, 12, 52, 0.66);
-
-    border:
-        1px solid rgba(192, 132, 252, 0.14);
-
-    border-radius:
-        14px;
-
-    transition:
-        0.25s ease;
+    padding: 17px 18px;
+    background: rgba(31, 12, 52, 0.66);
+    border: 1px solid rgba(192, 132, 252, 0.14);
+    border-radius: 14px;
+    transition: 0.25s ease;
 }
-
 
 .result-item:hover {
 
-    background:
-        rgba(61, 21, 91, 0.74);
-
-    border-color:
-        rgba(225, 44, 255, 0.38);
+    background: rgba(61, 21, 91, 0.74);
+    border-color: rgba(225, 44, 255, 0.38);
 }
 
-
-/* =========================================================
-   FIRST PLACE
-========================================================= */
-
+/* First place */
 .result-item.first {
 
     background:
-        linear-gradient(
-            100deg,
-            rgba(251, 191, 36, 0.10),
-            rgba(139, 61, 255, 0.08)
-        );
-
-    border-color:
-        rgba(251, 191, 36, 0.35);
-
-    box-shadow:
-        0 0 22px rgba(251, 191, 36, 0.06);
+    linear-gradient(
+        100deg,
+        rgba(251, 191, 36, 0.10),
+        rgba(139, 61, 255, 0.08)
+    );
+    border-color: rgba(251, 191, 36, 0.35);
+    box-shadow: 0 0 22px rgba(251, 191, 36, 0.06);
 }
 
-
-/* =========================================================
-   RESULT HEADER
-========================================================= */
-
+/* Result header */
 .result-header {
 
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        14px;
-
-    margin-bottom:
-        10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
 }
-
 
 .place {
 
-    min-width:
-        36px;
-
-    color:
-        #fbcf58;
-
-    font-size:
-        20px;
-
-    font-weight:
-        900;
-
-    text-align:
-        center;
+    min-width: 36px;
+    color: #fbcf58;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: center;
 }
-
 
 .result-item.first .place {
-    color:
-        var(--gold);
+    color: var(--gold);
 }
-
 
 .result-item .nominee-name {
 
-    flex:
-        1;
-
-    color:
-        #ffffff;
-
-    font-size:
-        16px;
-
-    font-weight:
-        700;
-
-    line-height:
-        1.25;
+    flex: 1;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
 }
-
 
 .votes {
 
-    white-space:
-        nowrap;
-
-    color:
-        #fbcf58;
-
-    font-size:
-        14px;
-
-    font-weight:
-        800;
+    white-space: nowrap;
+    color: #fbcf58;
+    font-size: 14px;
+    font-weight: 800;
 }
-
 
 .result-item.first .votes {
-    color:
-        var(--gold);
+    color: var(--gold);
 }
 
-
-/* =========================================================
-   PROGRESS BAR
-========================================================= */
-
+/* Progress bar */
 .progress-background {
 
-    width:
-        100%;
-
-    height:
-        8px;
-
-    overflow:
-        hidden;
-
-    border-radius:
-        999px;
-
-    background:
-        rgba(255, 255, 255, 0.055);
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.055);
 }
-
 
 .progress-bar {
 
-    height:
-        100%;
-
-    border-radius:
-        999px;
-
+    height: 100%;
+    border-radius: 999px;
     background:
-        linear-gradient(
-            90deg,
-            var(--purple),
-            var(--magenta),
-            var(--blue)
-        );
-
-    box-shadow:
-        0 0 12px rgba(139, 61, 255, 0.30);
-
-    transition:
-        width 0.5s ease;
+    linear-gradient(
+        90deg,
+        var(--purple),
+        var(--magenta),
+        var(--blue)
+    );
+    box-shadow: 0 0 12px rgba(139, 61, 255, 0.30);
+    transition: width 0.5s ease;
 }
-
 
 .result-item.first .progress-bar {
 
     background:
-        linear-gradient(
-            90deg,
-            var(--gold),
-            #e99b0b,
-            var(--magenta)
-        );
-
-    box-shadow:
-        0 0 12px rgba(251, 191, 36, 0.25);
+    linear-gradient(
+        90deg,
+        var(--gold),
+        #e99b0b,
+        var(--magenta)
+    );
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
 }
 
-
-/* =========================================================
-   PERCENTAGE
-========================================================= */
-
+/* Percentage */
 .percentage {
 
-    margin-top:
-        7px;
-
-    color:
-        rgba(255, 255, 255, 0.38);
-
-    font-size:
-        11px;
-
-    text-align:
-        right;
+    margin-top: 7px;
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 11px;
+    text-align: right;
 }
 
-
-/* =========================================================
-   NO VOTES
-========================================================= */
-
+/* No votes */
 .no-votes {
 
-    padding:
-        40px 20px;
-
-    text-align:
-        center;
-
-    color:
-        rgba(255, 255, 255, 0.48);
-
-    line-height:
-        1.6;
+    padding: 40px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.48);
+    line-height: 1.6;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* Mobile */
 @media (max-width: 650px) {
 
     .results-error {
 
-        width:
-            calc(100% - 20px);
-
-        margin-top:
-            -10px;
+        width: calc(100% - 20px);
+        margin-top: -10px;
     }
-
 
     .results-modal {
 
-        padding:
-            10px;
+        padding: 10px;
     }
-
 
     .results-modal-content {
 
-        padding:
-            20px 16px;
-
-        border-radius:
-            18px;
+        padding: 20px 16px;
+        border-radius: 18px;
     }
-
 
     .results-modal-title {
 
-        font-size:
-            25px;
+        font-size: 25px;
     }
-
 
     .results-modal-header {
 
-        padding-right:
-            42px;
+        padding-right: 42px;
     }
-
 
     .result-header {
 
-        gap:
-            9px;
+        gap: 9px;
     }
-
 
     .place {
 
-        min-width:
-            28px;
-
-        font-size:
-            17px;
+        min-width: 28px;
+        font-size: 17px;
     }
-
 
     .result-item .nominee-name {
 
-        font-size:
-            14px;
+        font-size: 14px;
     }
-
 
     .votes {
 
-        font-size:
-            12px;
+        font-size: 12px;
     }
-
 }
 
-/* =========================================================
-   RESULTS HEADER
-========================================================= */
-
+/* Results header */
 .results-page-header .header-inner {
     justify-content: center;
 }
@@ -2387,1070 +1460,724 @@ footer::before {
     font-size: 15px;
 }
 
-/* =========================================================
-   АВТОРИЗАЦИЯ — GOOGLE + DISCORD
-========================================================= */
-
+/* Авторизация — Google + Discord */
 .auth-provider-button {
     width: 100%;
     min-height: 52px;
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-
     margin-top: 12px;
-
     border-radius: 13px;
-
     padding: 13px 18px;
-
     font-size: 14px;
     font-weight: 800;
-
     cursor: pointer;
-
     transition:
-        transform 0.2s ease,
-        filter 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-
 /* Иконка */
-
 .auth-provider-icon {
     width: 26px;
     height: 26px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
     border-radius: 7px;
-
     font-size: 15px;
     font-weight: 900;
 }
 
-
 /* GOOGLE */
-
 .google-auth-button {
     color: #24152f;
-
     background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #f2edf7
-        );
-
-    border:
-        1px solid rgba(255, 255, 255, 0.65);
-
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.20);
+    linear-gradient(
+        135deg,
+        #ffffff,
+        #f2edf7
+    );
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.20);
 }
 
 .google-auth-button .auth-provider-icon {
     color: #4285f4;
-
-    background:
-        rgba(66, 133, 244, 0.10);
+    background: rgba(66, 133, 244, 0.10);
 }
 
 .google-auth-button:hover {
     transform: translateY(-2px);
-
     filter: brightness(1.05);
-
-    box-shadow:
-        0 8px 28px rgba(255, 255, 255, 0.13);
+    box-shadow: 0 8px 28px rgba(255, 255, 255, 0.13);
 }
 
-
 /* DISCORD */
-
 .discord-auth-button {
     color: #ffffff;
-
     background:
-        linear-gradient(
-            135deg,
-            #5865f2,
-            #4752c4
-        );
-
-    border:
-        1px solid rgba(255, 255, 255, 0.16);
-
-    box-shadow:
-        0 5px 22px rgba(88, 101, 242, 0.25);
+    linear-gradient(
+        135deg,
+        #5865f2,
+        #4752c4
+    );
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 5px 22px rgba(88, 101, 242, 0.25);
 }
 
 .discord-auth-button .auth-provider-icon {
     color: #ffffff;
-
-    background:
-        rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .discord-auth-button:hover {
     transform: translateY(-2px);
-
     filter: brightness(1.08);
-
-    box-shadow:
-        0 8px 30px rgba(88, 101, 242, 0.38);
+    box-shadow: 0 8px 30px rgba(88, 101, 242, 0.38);
 }
 
-
 /* Текст внутри окна */
-
 .login-modal-content p {
     margin-bottom: 22px;
 }
 
-
 /* На телефоне */
-
 @media (max-width: 650px) {
 
     .auth-provider-button {
         min-height: 50px;
         font-size: 13px;
     }
-
 }
 
-/* =========================================================
-   АККАУНТ
-========================================================= */
-
+/* Аккаунт */
 .account-wrapper {
     position: relative;
     z-index: 200;
 }
 
-
 /* Кнопка аккаунта */
-
 .login-button {
     position: relative;
     z-index: 201;
-
     min-width: 170px;
     max-width: 260px;
-
     padding: 11px 18px;
-
     border: 1px solid rgba(251, 191, 36, 0.35);
     border-radius: 12px;
-
-    background:
-        rgba(251, 191, 36, 0.08);
-
+    background: rgba(251, 191, 36, 0.08);
     color: #ffe08a;
-
     font-size: 14px;
     font-weight: 800;
-
     cursor: pointer;
-
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
     transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-
 .login-button:hover {
     transform: translateY(-2px);
-
-    background:
-        rgba(251, 191, 36, 0.15);
-
-    border-color:
-        rgba(251, 191, 36, 0.65);
-
-    box-shadow:
-        0 0 25px rgba(251, 191, 36, 0.16);
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.65);
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.16);
 }
-
 
 /* Когда пользователь вошёл */
-
 .login-button.logged-in {
     color: #ffe08a;
-
-    background:
-        rgba(251, 191, 36, 0.10);
-
-    border-color:
-        rgba(251, 191, 36, 0.38);
+    background: rgba(251, 191, 36, 0.10);
+    border-color: rgba(251, 191, 36, 0.38);
 }
 
-
-/* =========================================================
-   ВЫПАДАЮЩЕЕ МЕНЮ
-========================================================= */
-
+/* Выпадающее меню */
 .account-menu {
     position: absolute;
-
     top: calc(100% + 8px);
     right: 0;
-
     width: 230px;
-
     padding: 8px;
-
     border-radius: 14px;
-
-    background:
-        rgba(18, 8, 31, 0.98);
-
-    border:
-        1px solid rgba(192, 132, 252, 0.25);
-
-    box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.65);
-
-
-
+    background: rgba(18, 8, 31, 0.98);
+    border: 1px solid rgba(192, 132, 252, 0.25);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
     z-index: 9999;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
     transform: translateY(-5px);
-
     transition:
-        opacity 0.18s ease,
-        transform 0.18s ease,
-        visibility 0.18s ease;
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
 }
 
-
 /* Открыто */
-
 .account-menu.active {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
-
     transform: translateY(0);
 }
 
-
 /* Имя пользователя */
-
 .account-menu-name {
     display: block;
-
     width: 100%;
-
-    padding:
-        10px 11px;
-
+    padding: 10px 11px;
     margin-bottom: 5px;
-
-    color:
-        rgba(255, 255, 255, 0.65);
-
+    color: rgba(255, 255, 255, 0.65);
     font-size: 12px;
     font-weight: 700;
-
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-
-/* =========================================================
-   ВЫЙТИ
-========================================================= */
-
+/* Выйти */
 .logout-button {
     display: block;
-
     width: 100%;
-
-    padding:
-        11px 12px;
-
-    border:
-        1px solid transparent;
-
+    padding: 11px 12px;
+    border: 1px solid transparent;
     border-radius: 10px;
-
-    background:
-        rgba(255, 255, 255, 0.05);
-
-    color:
-        #ffffff;
-
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
     font-family: inherit;
-
     font-size: 13px;
     font-weight: 750;
-
     text-align: left;
-
     cursor: pointer;
-
     pointer-events: auto;
-
-    transition:
-        0.2s ease;
+    transition: 0.2s ease;
 }
-
 
 .logout-button:hover {
-    background:
-        rgba(225, 44, 255, 0.14);
-
-    border-color:
-        rgba(225, 44, 255, 0.22);
-
-    color:
-        #ffffff;
-
-    transform:
-        translateX(2px);
+    background: rgba(225, 44, 255, 0.14);
+    border-color: rgba(225, 44, 255, 0.22);
+    color: #ffffff;
+    transform: translateX(2px);
 }
 
-
-/* ---------------------------------------------------------
-MOBILE
---------------------------------------------------------- */
-
+/* Mobile */
 @media (max-width: 650px) {
 
-/* =====================================================
-   GENERAL
-   ===================================================== */
+    /* General */
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
-html,
-body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
+    body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
 
-body {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
+    /* Header */
+    .header-inner {
+        width: calc(100% - 20px);
+        min-height: 0;
+        padding: 11px 0;
+        gap: 10px;
+    }
 
+    .logo-block h1 {
+        font-size: 22px;
+        line-height: 1.1;
+    }
 
-/* =====================================================
-   HEADER
-   ===================================================== */
+    .logo-block span {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
 
-.header-inner {
-    width: calc(100% - 20px);
-    min-height: 0;
-    padding: 11px 0;
-    gap: 10px;
-}
+    .header-right {
+        width: 100%;
+        gap: 8px;
+    }
 
-.logo-block h1 {
-    font-size: 22px;
-    line-height: 1.1;
-}
+    .account-wrapper {
+        width: 100%;
+    }
 
-.logo-block span {
-    font-size: 9px;
-    letter-spacing: 1px;
-}
+    .login-button {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
 
-.header-right {
-    width: 100%;
-    gap: 8px;
-}
+    .account-menu {
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
 
-.account-wrapper {
-    width: 100%;
-}
+    /* Hero image */
+    .top-image {
+        width: calc(100% - 20px);
+        margin: 18px auto 35px;
+        border-radius: 16px;
+    }
 
-.login-button {
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-    padding: 10px 12px;
-    font-size: 13px;
-}
+    .top-image img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        border-radius: 15px;
+    }
 
-.account-menu {
-    left: 0;
-    right: 0;
-    width: 100%;
-}
+    /* Nominations section */
+    .nominations-section {
+        width: calc(100% - 20px);
+        margin-bottom: 55px;
+    }
 
+    .section-title {
+        margin-bottom: 24px;
+    }
 
-/* =====================================================
-   HERO IMAGE
-   ===================================================== */
+    .section-title h2 {
+        font-size: 28px;
+        line-height: 1.1;
+    }
 
-.top-image {
-    width: calc(100% - 20px);
-    margin: 18px auto 35px;
-    border-radius: 16px;
-}
+    .section-title p {
+        margin-top: 7px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
 
-.top-image img {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    border-radius: 15px;
-}
+    /* Two cards per row */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
 
+    /* Category card */
+    .category-card {
+        min-width: 0;
+        min-height: 145px;
+        padding: 15px 13px 12px;
+        border-radius: 14px;
+    }
 
-/* =====================================================
-   NOMINATIONS SECTION
-   ===================================================== */
+    .category-card:hover {
+        transform: none;
+    }
 
-.nominations-section {
-    width: calc(100% - 20px);
-    margin-bottom: 55px;
-}
+    .category-card::before {
+        width: 170px;
+        height: 170px;
+        top: -100px;
+        right: -70px;
+    }
 
-.section-title {
-    margin-bottom: 24px;
-}
+    .category-card::after {
+        left: 8%;
+        width: 84%;
+    }
 
-.section-title h2 {
-    font-size: 28px;
-    line-height: 1.1;
-}
+    /* Category number */
+    .category-number {
+        margin-bottom: 9px;
+        padding: 3px 6px;
+        border-radius: 5px;
+        font-size: 8px;
+        letter-spacing: 0.7px;
+    }
 
-.section-title p {
-    margin-top: 7px;
-    font-size: 13px;
-    line-height: 1.4;
-}
+    /* Category name */
+    .category-name {
+        max-width: 100%;
+        font-size: 17px;
+        line-height: 1.12;
+        letter-spacing: -0.2px;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
 
+    /* Category bottom */
+    .category-bottom {
+        padding-top: 10px;
+    }
 
-/* =====================================================
-   TWO CARDS PER ROW
-   ===================================================== */
+    /* Arrow */
+    .category-arrow {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
 
-.categories-grid {
-    display: grid;
+    .category-card:hover .category-arrow {
+        transform: none;
+    }
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+    /* Nomination modal */
+    .modal {
+        padding: 8px;
+        align-items: center;
+    }
 
-    gap: 10px;
-}
-
-
-/* =====================================================
-   CATEGORY CARD
-   ===================================================== */
-
-.category-card {
-    min-width: 0;
-    min-height: 145px;
-
-    padding:
-        15px 13px 12px;
-
-    border-radius: 14px;
-}
-
-.category-card:hover {
-    transform: none;
-}
-
-.category-card::before {
-    width: 170px;
-    height: 170px;
-    top: -100px;
-    right: -70px;
-}
-
-.category-card::after {
-    left: 8%;
-    width: 84%;
-}
-
-
-/* =====================================================
-   CATEGORY NUMBER
-   ===================================================== */
-
-.category-number {
-    margin-bottom: 9px;
-    padding: 3px 6px;
-
-    border-radius: 5px;
-
-    font-size: 8px;
-    letter-spacing: 0.7px;
-}
-
-
-/* =====================================================
-   CATEGORY NAME
-   ===================================================== */
-
-.category-name {
-    max-width: 100%;
-
-    font-size: 17px;
-    line-height: 1.12;
-    letter-spacing: -0.2px;
-
-    overflow-wrap: anywhere;
-    word-break: normal;
-}
-
-
-/* =====================================================
-   CATEGORY BOTTOM
-   ===================================================== */
-
-.category-bottom {
-    padding-top: 10px;
-}
-
-
-/* =====================================================
-   ARROW
-   ===================================================== */
-
-.category-arrow {
-    width: 28px;
-    height: 28px;
-
-    font-size: 14px;
-}
-
-.category-card:hover .category-arrow {
-    transform: none;
-}
-
-
-/* =====================================================
-   NOMINATION MODAL
-   ===================================================== */
-
-.modal {
-    padding: 8px;
-    align-items: center;
-}
-
-.modal-content {
-    width: 100%;
-    max-width: 100%;
-
-    /*
-     * Не даём окну вылезать за экран.
-     */
-    max-height: calc(100dvh - 16px);
-
-    /*
-     * Если браузер не поддерживает dvh,
-     * vh всё равно сработает.
-     */
-    max-height: calc(100vh - 16px);
-
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    padding:
-        16px 13px 14px;
-
-    border-radius: 17px;
-
-    /*
-     * Убираем чрезмерно большой визуальный эффект
-     * на маленьком экране.
-     */
-    box-shadow:
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 16px);
+        /* запасной вариант, если dvh не поддерживается */
+        max-height: calc(100vh - 16px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 16px 13px 14px;
+        border-radius: 17px;
+        /* на маленьком экране тень поменьше */
+        box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.82),
         0 0 30px rgba(139, 61, 255, 0.12);
+    }
+
+    /* Modal close button */
+    .modal-content .close-modal {
+        top: 9px;
+        right: 9px;
+        width: 34px;
+        height: 34px;
+        font-size: 22px;
+        background: rgba(0, 0, 0, 0.65);
+    }
+
+    /* Modal image */
+    .nomination-image {
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+
+    .nomination-image img {
+        width: 100%;
+        /* чтобы картинка не занимала весь экран телефона */
+        max-height: 27vh;
+        object-fit: contain;
+        border-radius: 11px;
+    }
+
+    /* Modal number */
+    .modal-number {
+        margin-bottom: 6px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 9px;
+        letter-spacing: 0.7px;
+    }
+
+    /* Modal title */
+    .modal-content h2 {
+        margin-bottom: 6px;
+        font-size: 21px;
+        line-height: 1.15;
+        padding-right: 30px;
+    }
+
+    .modal-description {
+        margin-bottom: 14px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    /* Nominees */
+    .nominees-list {
+        gap: 7px;
+    }
+
+    .nominee {
+        min-width: 0;
+        padding: 11px 12px;
+        border-radius: 10px;
+        gap: 8px;
+    }
+
+    .nominee:hover {
+        transform: none;
+    }
+
+    .nominee-name {
+        min-width: 0;
+        font-size: 13px;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+    }
+
+    .nominee.selected {
+        transform: none;
+    }
+
+    .nominee-check {
+        flex-shrink: 0;
+        font-size: 14px;
+    }
+
+    .nominee.selected .nominee-check::before {
+        padding: 2px 5px;
+        font-size: 7px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Vote message */
+    .vote-message {
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 9px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    /* Modal navigation */
+    .modal-navigation {
+        gap: 7px;
+        margin-top: 14px;
+        padding-top: 13px;
+    }
+
+    .modal-nav-button {
+        min-width: 0;
+        width: 50%;
+        padding: 9px 6px;
+        border-radius: 9px;
+        font-size: 11px;
+        line-height: 1.2;
+    }
+
+    /* Login modal */
+    .login-modal-content {
+        width: 100%;
+        max-width: 360px;
+        padding: 28px 18px 20px;
+        border-radius: 17px;
+    }
+
+    .login-modal-content h2 {
+        margin-bottom: 8px;
+        font-size: 22px;
+    }
+
+    .login-modal-content p {
+        margin-bottom: 16px;
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .auth-provider-button {
+        min-height: 46px;
+        margin-top: 8px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    .auth-provider-icon {
+        width: 23px;
+        height: 23px;
+        font-size: 13px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 28px 15px;
+    }
+
+    .footer-inner {
+        gap: 18px;
+    }
+
+    .footer-inner strong {
+        font-size: 14px;
+    }
+
+    .footer-inner p {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .footer-links {
+        gap: 14px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+
+    /* Results page */
+    .results-page-logo h1 {
+        font-size: 24px;
+    }
+
+    .results-page-logo span {
+        font-size: 11px;
+    }
+
+    .results-update-status {
+        font-size: 10px;
+    }
+
+    .results-error {
+        width: calc(100% - 20px);
+        margin: -5px auto 25px;
+        padding: 12px 13px;
+        font-size: 12px;
+    }
+
+    /* Results modal */
+    .results-modal {
+        padding: 8px;
+    }
+
+    .results-modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 16px);
+        max-height: calc(100vh - 16px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 17px 13px 14px;
+        border-radius: 17px;
+    }
+
+    .results-modal-close {
+        top: 9px;
+        right: 9px;
+        width: 34px;
+        height: 34px;
+        font-size: 22px;
+    }
+
+    .results-modal-header {
+        padding-right: 35px;
+        margin-bottom: 17px;
+    }
+
+    .results-modal-label {
+        margin-bottom: 6px;
+        padding: 3px 7px;
+        border-radius: 5px;
+        font-size: 8px;
+        letter-spacing: 0.7px;
+    }
+
+    .results-modal-title {
+        font-size: 21px;
+        line-height: 1.15;
+    }
+
+    /* Result items */
+    .results-list {
+        gap: 7px;
+    }
+
+    .result-item {
+        padding: 11px 10px;
+        border-radius: 10px;
+    }
+
+    .result-header {
+        gap: 7px;
+        margin-bottom: 7px;
+    }
+
+    .place {
+        min-width: 23px;
+        font-size: 15px;
+    }
+
+    .result-item .nominee-name {
+        min-width: 0;
+        font-size: 12px;
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+    }
+
+    .votes {
+        font-size: 10px;
+    }
+
+    .progress-background {
+        height: 6px;
+    }
+
+    .percentage {
+        margin-top: 5px;
+        font-size: 9px;
+    }
+
+    .no-votes {
+        padding: 25px 12px;
+        font-size: 12px;
+    }
 }
 
-
-/* =====================================================
-   MODAL CLOSE BUTTON
-   ===================================================== */
-
-.modal-content .close-modal {
-    top: 9px;
-    right: 9px;
-
-    width: 34px;
-    height: 34px;
-
-    font-size: 22px;
-
-    background:
-        rgba(0, 0, 0, 0.65);
-}
-
-
-/* =====================================================
-   MODAL IMAGE
-   ===================================================== */
-
-.nomination-image {
-    width: 100%;
-
-    margin-bottom: 15px;
-
-    border-radius: 12px;
-}
-
-.nomination-image img {
-    width: 100%;
-
-    /*
-     * Очень важно:
-     * картинка больше не может съесть
-     * почти весь экран телефона.
-     */
-    max-height: 27vh;
-
-    object-fit: contain;
-
-    border-radius: 11px;
-}
-
-
-/* =====================================================
-   MODAL NUMBER
-   ===================================================== */
-
-.modal-number {
-    margin-bottom: 6px;
-    padding: 3px 8px;
-
-    border-radius: 6px;
-
-    font-size: 9px;
-    letter-spacing: 0.7px;
-}
-
-
-/* =====================================================
-   MODAL TITLE
-   ===================================================== */
-
-.modal-content h2 {
-    margin-bottom: 6px;
-
-    font-size: 21px;
-    line-height: 1.15;
-
-    padding-right: 30px;
-}
-
-.modal-description {
-    margin-bottom: 14px;
-
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   NOMINEES
-   ===================================================== */
-
-.nominees-list {
-    gap: 7px;
-}
-
-.nominee {
-    min-width: 0;
-
-    padding:
-        11px 12px;
-
-    border-radius: 10px;
-
-    gap: 8px;
-}
-
-.nominee:hover {
-    transform: none;
-}
-
-.nominee-name {
-    min-width: 0;
-
-    font-size: 13px;
-    line-height: 1.25;
-
-    overflow-wrap: anywhere;
-}
-
-.nominee.selected {
-    transform: none;
-}
-
-.nominee-check {
-    flex-shrink: 0;
-    font-size: 14px;
-}
-
-.nominee.selected .nominee-check::before {
-    padding:
-        2px 5px;
-
-    font-size: 7px;
-    letter-spacing: 0.5px;
-}
-
-
-/* =====================================================
-   VOTE MESSAGE
-   ===================================================== */
-
-.vote-message {
-    margin-top: 12px;
-
-    padding:
-        10px 12px;
-
-    border-radius: 9px;
-
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   MODAL NAVIGATION
-   ===================================================== */
-
-.modal-navigation {
-    gap: 7px;
-
-    margin-top: 14px;
-    padding-top: 13px;
-}
-
-.modal-nav-button {
-    min-width: 0;
-    width: 50%;
-
-    padding:
-        9px 6px;
-
-    border-radius: 9px;
-
-    font-size: 11px;
-    line-height: 1.2;
-}
-
-
-/* =====================================================
-   LOGIN MODAL
-   ===================================================== */
-
-.login-modal-content {
-    width: 100%;
-    max-width: 360px;
-
-    padding:
-        28px 18px 20px;
-
-    border-radius: 17px;
-}
-
-.login-modal-content h2 {
-    margin-bottom: 8px;
-
-    font-size: 22px;
-}
-
-.login-modal-content p {
-    margin-bottom: 16px;
-
-    font-size: 12px;
-    line-height: 1.45;
-}
-
-.auth-provider-button {
-    min-height: 46px;
-
-    margin-top: 8px;
-
-    padding:
-        10px 12px;
-
-    border-radius: 10px;
-
-    font-size: 12px;
-}
-
-.auth-provider-icon {
-    width: 23px;
-    height: 23px;
-
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
-
-footer {
-    padding:
-        28px 15px;
-}
-
-.footer-inner {
-    gap: 18px;
-}
-
-.footer-inner strong {
-    font-size: 14px;
-}
-
-.footer-inner p {
-    font-size: 11px;
-    line-height: 1.4;
-}
-
-.footer-links {
-    gap: 14px;
-}
-
-.footer-links a {
-    font-size: 12px;
-}
-
-
-/* =====================================================
-   RESULTS PAGE
-   ===================================================== */
-
-.results-page-logo h1 {
-    font-size: 24px;
-}
-
-.results-page-logo span {
-    font-size: 11px;
-}
-
-.results-update-status {
-    font-size: 10px;
-}
-
-.results-error {
-    width: calc(100% - 20px);
-
-    margin:
-        -5px auto 25px;
-
-    padding:
-        12px 13px;
-
-    font-size: 12px;
-}
-
-
-/* =====================================================
-   RESULTS MODAL
-   ===================================================== */
-
-.results-modal {
-    padding: 8px;
-}
-
-.results-modal-content {
-    width: 100%;
-    max-width: 100%;
-
-    max-height: calc(100dvh - 16px);
-    max-height: calc(100vh - 16px);
-
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    padding:
-        17px 13px 14px;
-
-    border-radius: 17px;
-}
-
-.results-modal-close {
-    top: 9px;
-    right: 9px;
-
-    width: 34px;
-    height: 34px;
-
-    font-size: 22px;
-}
-
-.results-modal-header {
-    padding-right: 35px;
-    margin-bottom: 17px;
-}
-
-.results-modal-label {
-    margin-bottom: 6px;
-
-    padding:
-        3px 7px;
-
-    border-radius: 5px;
-
-    font-size: 8px;
-    letter-spacing: 0.7px;
-}
-
-.results-modal-title {
-    font-size: 21px;
-    line-height: 1.15;
-}
-
-
-/* =====================================================
-   RESULT ITEMS
-   ===================================================== */
-
-.results-list {
-    gap: 7px;
-}
-
-.result-item {
-    padding:
-        11px 10px;
-
-    border-radius: 10px;
-}
-
-.result-header {
-    gap: 7px;
-    margin-bottom: 7px;
-}
-
-.place {
-    min-width: 23px;
-
-    font-size: 15px;
-}
-
-.result-item .nominee-name {
-    min-width: 0;
-
-    font-size: 12px;
-    line-height: 1.2;
-
-    overflow-wrap: anywhere;
-}
-
-.votes {
-    font-size: 10px;
-}
-
-.progress-background {
-    height: 6px;
-}
-
-.percentage {
-    margin-top: 5px;
-
-    font-size: 9px;
-}
-
-.no-votes {
-    padding:
-        25px 12px;
-
-    font-size: 12px;
-}
-
-}
-
-/* ---------------------------------------------------------
-VERY SMALL PHONES
-320–380px
---------------------------------------------------------- */
-
+/* Very small phones 320–380px */
 @media (max-width: 380px) {
 
-.categories-grid {
-    gap: 8px;
+    .categories-grid {
+        gap: 8px;
+    }
+
+    .category-card {
+        min-height: 132px;
+        padding: 13px 10px 10px;
+    }
+
+    .category-name {
+        font-size: 15px;
+    }
+
+    .category-number {
+        font-size: 7px;
+        padding: 2px 5px;
+    }
+
+    .category-arrow {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+
+    .modal-content {
+        padding: 14px 11px 12px;
+    }
+
+    .nomination-image img {
+        max-height: 23vh;
+    }
+
+    .modal-content h2 {
+        font-size: 19px;
+    }
+
+    .nominee {
+        padding: 9px 10px;
+    }
+
+    .nominee-name {
+        font-size: 12px;
+    }
+
+    .modal-nav-button {
+        font-size: 10px;
+        padding: 8px 4px;
+    }
 }
 
-.category-card {
-    min-height: 132px;
-    padding:
-        13px 10px 10px;
-}
-
-.category-name {
-    font-size: 15px;
-}
-
-.category-number {
-    font-size: 7px;
-    padding:
-        2px 5px;
-}
-
-.category-arrow {
-    width: 25px;
-    height: 25px;
-    font-size: 12px;
-}
-
-.modal-content {
-    padding:
-        14px 11px 12px;
-}
-
-.nomination-image img {
-    max-height: 23vh;
-}
-
-.modal-content h2 {
-    font-size: 19px;
-}
-
-.nominee {
-    padding:
-        9px 10px;
-}
-
-.nominee-name {
-    font-size: 12px;
-}
-
-.modal-nav-button {
-    font-size: 10px;
-    padding:
-        8px 4px;
-}
-
-}
-
-
-/* =========================================================
-   PERFORMANCE
-========================================================= */
+/* Performance */
 
 /* Пока открыта модалка, анимированный фон не виден — пауза */
 body:has(.modal.active)::before,
@@ -3480,11 +2207,7 @@ body:has(.results-modal.active)::before {
     }
 }
 
-
-/* =========================================================
-   NEW DESIGN: фоновые эффекты (только transform/opacity)
-========================================================= */
-
+/* Фоновые эффекты (только transform/opacity) */
 .bg-fx {
     position: fixed;
     inset: 0;
@@ -3520,9 +2243,6 @@ body:has(.results-modal.active)::before {
 /* Плавающие фигуры */
 .sh { position: absolute; display: block; }
 
-
-
-
 .spark {
     width: 14px; height: 14px;
     background: var(--gold-bright);
@@ -3546,11 +2266,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .beam { width: 70vw; will-change: auto; animation: none; }
 }
 
-
-/* =========================================================
-   NEW DESIGN: карточки (уголки, водяной номер, появление)
-========================================================= */
-
+/* Карточки (уголки, водяной номер, появление) */
 .category-card {
     --co: 11px;
     --cs: 14px;
@@ -3567,12 +2283,12 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 .category-card,
 .category-card:hover {
     background:
-        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / var(--cs) 1px no-repeat,
-        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / 1px var(--cs) no-repeat,
-        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / var(--cs) 1px no-repeat,
-        linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / 1px var(--cs) no-repeat,
-        var(--cg),
-        #0c0515;
+    linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / var(--cs) 1px no-repeat,
+    linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) top var(--co) left var(--co) / 1px var(--cs) no-repeat,
+    linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / var(--cs) 1px no-repeat,
+    linear-gradient(rgba(251, 191, 36, var(--ca)), rgba(251, 191, 36, var(--ca))) bottom var(--co) right var(--co) / 1px var(--cs) no-repeat,
+    var(--cg),
+    #0c0515;
 }
 
 /* Большой контурный номер на фоне */
@@ -3622,10 +2338,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .category-bottom::before { -webkit-text-stroke-width: 1px; font-size: 54px; bottom: -13px; left: -2px; letter-spacing: -2px; }
 }
 
-
-/* =========================================================
-   NEW DESIGN: заголовок, конфетти, результаты
-========================================================= */
+/* Заголовок, конфетти, результаты */
 
 /* Разделитель с ромбом */
 .section-title::after { width: 200px; }
@@ -3664,11 +2377,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 /* Победитель чуть светится */
 .result-item.first { box-shadow: 0 0 28px rgba(251, 191, 36, 0.14), inset 0 0 20px rgba(251, 191, 36, 0.04); }
 
-
-/* =========================================================
-   NEW DESIGN: плавающие фигуры
-========================================================= */
-
+/* Плавающие фигуры */
 .ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; will-change: transform; }
 .r1 { width: 150px; height: 150px; left: -40px; top: 22%; animation: fl1 26s ease-in-out infinite alternate; }
 .r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); animation: fl2 22s ease-in-out infinite alternate; }
@@ -3680,8 +2389,8 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 .plus {
     width: 22px; height: 22px; left: 80%; top: 44%;
     background:
-        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 100% 1px no-repeat,
-        linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 1px 100% no-repeat;
+    linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 100% 1px no-repeat,
+    linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 1px 100% no-repeat;
     animation: fl2 20s ease-in-out infinite alternate;
 }
 
@@ -3695,11 +2404,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .r1 { width: 100px; height: 100px; left: -30px; }
 }
 
-
-/* =========================================================
-   ГОЛОСОВАНИЕ КАРТИНКАМИ (category.cards = true)
-   Анимируются только transform / opacity.
-========================================================= */
+/* ГОЛОСОВАНИЕ КАРТИНКАМИ (category.cards = true) Анимируются только transform / opacity. */
 
 /* ПК: ряд вертикальных карточек (7-8 штук: два ряда) */
 .nominees-list.cards {
@@ -3774,9 +2479,9 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     border-color: var(--gold) !important;
     background: rgba(251, 191, 36, 0.10) !important;
     box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.45),
-        0 0 34px rgba(251, 191, 36, 0.45),
-        0 20px 44px rgba(0, 0, 0, 0.55) !important;
+    0 0 0 1px rgba(251, 191, 36, 0.45),
+    0 0 34px rgba(251, 191, 36, 0.45),
+    0 20px 44px rgba(0, 0, 0, 0.55) !important;
 }
 
 .nominee-card.selected .card-photo img { transform: scale(1.07); filter: brightness(1.1) saturate(1.12); }
@@ -3819,7 +2524,6 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .card-name { font-size: 14px; }
 }
 
-
 /* Плитка вместо картинки (нет файла / не загрузился) */
 .card-ph {
     display: none;
@@ -3832,8 +2536,8 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     font-weight: 900;
     text-shadow: 0 0 30px rgba(251, 191, 36, 0.35);
     background:
-        radial-gradient(circle at 30% 18%, rgba(225, 44, 255, 0.38), transparent 62%),
-        linear-gradient(160deg, #3b1670, #12061f 78%);
+    radial-gradient(circle at 30% 18%, rgba(225, 44, 255, 0.38), transparent 62%),
+    linear-gradient(160deg, #3b1670, #12061f 78%);
 }
 
 .card-photo.no-img .card-ph { display: flex; }
@@ -3843,11 +2547,7 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
     .card-ph { font-size: 34px; }
 }
 
-
-/* =========================================================
-   РЕЗУЛЬТАТЫ: золото / серебро / бронза + карточки с картинками
-========================================================= */
-
+/* РЕЗУЛЬТАТЫ: золото / серебро / бронза + карточки с картинками */
 .rank-1 { --rk: #fbbf24; --rk2: #ffe08a; --rkg: rgba(251, 191, 36, 0.45); }
 .rank-2 { --rk: #cbd5e1; --rk2: #f1f5f9; --rkg: rgba(203, 213, 225, 0.36); }
 .rank-3 { --rk: #cd7f32; --rk2: #f0b47a; --rkg: rgba(205, 127, 50, 0.42); }
@@ -3962,7 +2662,6 @@ body:has(.results-modal.active) .bg-fx * { animation-play-state: paused; }
 @media (max-width: 380px) {
     .result-card .card-photo { width: 64px; }
 }
-
 
 /* Чем ниже место, тем тусклее (--dim задаётся в results.js) */
 .result-card,

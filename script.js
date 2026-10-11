@@ -1,6 +1,4 @@
-// ============================================================
-// SUPABASE (ключ publishable: безопасен только при включённом RLS)
-// ============================================================
+// Supabase
 
 const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
 const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
@@ -10,14 +8,12 @@ let supabaseClient = null;
 try {
     supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 } catch (error) {
-    // Библиотека не загрузилась (VPN, блокировщик, сеть): сайт всё равно покажет номинации
+    // библиотека не загрузилась (VPN, блокировщик): номинации всё равно покажем
     console.error("Supabase недоступен:", error);
 }
 
 
-// ============================================================
-// ТАЙМЕР (часовой пояс указан явно: МСК)
-// ============================================================
+// Таймер (по МСК)
 
 const votingEnd = new Date("2026-12-23T23:59:59+03:00");
 const countdownEl = document.getElementById("countdown");
@@ -42,9 +38,7 @@ function updateCountdown() {
 }
 
 
-// ============================================================
-// DOM
-// ============================================================
+// Dom
 
 const $ = id => document.getElementById(id);
 
@@ -66,9 +60,7 @@ const nextButton       = $("next-category");
 if (!supabaseClient) loginButton.textContent = "Вход недоступен";
 
 
-// ============================================================
-// СОСТОЯНИЕ
-// ============================================================
+// Состояние
 
 let currentCategory = null;
 let currentUser = null;
@@ -89,9 +81,7 @@ function escapeHTML(value) {
 }
 
 
-// ============================================================
-// КАРТОЧКИ (один innerHTML + делегирование клика)
-// ============================================================
+// Карточки номинаций
 
 function createCategoryCards() {
     if (!categoriesGrid) return;
@@ -111,9 +101,7 @@ function createCategoryCards() {
 }
 
 
-// ============================================================
-// МОДАЛКА НОМИНАЦИИ
-// ============================================================
+// Модалка номинации
 
 function updateCategoryNavigation() {
     const i = CATEGORIES.indexOf(currentCategory);
@@ -129,11 +117,8 @@ function updateCategoryNavigation() {
     nextButton.style.visibility = atEnd ? "hidden" : "visible";
 }
 
-// ============================================================
-// ПОИСК КАРТИНКИ КАНДИДАТА
-// Сравнение терпимое: регистр, лишние пробелы и разные виды тире не мешают
-// ("Мистик – Wolverine" найдётся по ключу "Мистик - Wolverine").
-// ============================================================
+// Поиск картинки кандидата
+// регистр, пробелы и вид тире не важны
 
 const normKey = v => String(v).toLowerCase().replace(/[\u2010-\u2015\u2212]/g, "-").replace(/\s+/g, " ").trim();
 
@@ -148,7 +133,7 @@ function findImage(category, nominee) {
     return category._imgMap[normKey(nominee)];
 }
 
-// Подсказки в консоли (F12), если в categories.js что-то не сходится
+// предупреждения в консоли, если categories.js заполнен с ошибками
 CATEGORIES.forEach(category => {
     if (!category.images) return;
 
@@ -166,12 +151,8 @@ CATEGORIES.forEach(category => {
 });
 
 
-// ============================================================
-// КАРТОЧКА КАНДИДАТА (режим «голосование картинками»)
-// Название в базе остаётся прежним (полная строка), поэтому уже
-// поданные голоса не теряются. Текст делится по первому " - ":
-// "Мистик - Wolverine" -> имя "Мистик", игра "Wolverine".
-// ============================================================
+// Карточка кандидата (голосование картинками)
+// в базе хранится вся строка, на экране делим по первому " - " (имя и игра)
 
 function nomineeCardHTML(category, nominee, i, isSelected) {
     const [title, ...rest] = nominee.split(" - ");
@@ -179,9 +160,7 @@ function nomineeCardHTML(category, nominee, i, isSelected) {
     const own = findImage(category, nominee);
     const hasOwnImages = category.images && Object.keys(category.images).length > 0;
 
-    // Нет своей картинки:
-    //  - если у других кандидатов номинации картинки уже есть: плитка с первой буквой,
-    //  - если картинок нет ни у кого (временный режим): общая картинка со сдвигом кадра.
+    // нет картинки: плитка с буквой, а если нет ни у кого - общая картинка
     const tile = !own && hasOwnImages;
     const pos = category.nominees.length > 1 ? Math.round(i * 100 / (category.nominees.length - 1)) : 50;
     const style = own ? "" : ` style="object-position:${pos}% 50%"`;
@@ -271,9 +250,7 @@ nomineesList.addEventListener("click", event => {
 });
 
 
-// ============================================================
-// МОДАЛКА ВХОДА
-// ============================================================
+// Модалка входа
 
 function showLoginModal() {
     loginModal.classList.add("active");
@@ -289,9 +266,7 @@ function closeLoginModal() {
 }
 
 
-// ============================================================
-// АВТОРИЗАЦИЯ
-// ============================================================
+// Авторизация
 
 async function loginWith(provider, title) {
     if (!supabaseClient) {
@@ -371,8 +346,7 @@ async function loadUserVotes() {
     }
 }
 
-// onAuthStateChange сам срабатывает при загрузке страницы (INITIAL_SESSION),
-// поэтому отдельный getUser() не нужен. Запросы к Supabase выносим из колбэка.
+// срабатывает и при загрузке страницы, поэтому отдельный getUser() не нужен
 supabaseClient?.auth.onAuthStateChange((event, session) => {
     currentUser = session?.user || null;
     updateLoginButton();
@@ -386,9 +360,7 @@ supabaseClient?.auth.onAuthStateChange((event, session) => {
 });
 
 
-// ============================================================
-// ГОЛОСОВАНИЕ
-// ============================================================
+// Голосование
 
 async function voteForNominee(category, nominee, button) {
     if (voteBusy) return; // защита от двойных кликов
@@ -396,7 +368,6 @@ async function voteForNominee(category, nominee, button) {
     voteBusy = true;
 
     const multi = isMulti(category);
-    const previouslySelected = button.classList.contains("selected");
 
     // Мгновенная визуальная реакция
     if (multi) {
@@ -453,9 +424,7 @@ async function voteForNominee(category, nominee, button) {
 }
 
 
-// ============================================================
-// СОБЫТИЯ
-// ============================================================
+// События
 
 $("close-modal").addEventListener("click", closeModal);
 document.querySelector("#modal .modal-overlay").addEventListener("click", closeModal);
@@ -502,21 +471,17 @@ document.addEventListener("keydown", event => {
 });
 
 
-// ============================================================
-// СТАРТ
-// ============================================================
+// Старт
 
 createCategoryCards();
 revealCards(categoriesGrid);
 updateCountdown();
 
-// Скрытая вкладка таймер не обновляет, при возврате обновит сразу
+// на скрытой вкладке таймер не обновляем
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 document.addEventListener("visibilitychange", updateCountdown);
 
-// ============================================================
-// ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК ПРИ ПРОКРУТКЕ
-// ============================================================
+// Плавное появление карточек при прокрутке
 
 function revealCards(container) {
     if (!container || !("IntersectionObserver" in window) ||
@@ -541,9 +506,7 @@ function revealCards(container) {
 }
 
 
-// ============================================================
-// КОНФЕТТИ ПОСЛЕ ГОЛОСА (14 частиц, ~1 секунда)
-// ============================================================
+// Конфетти после голоса
 
 function burst(el) {
     if (!el.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -570,7 +533,7 @@ function burst(el) {
 }
 
 
-// Если файл картинки не загрузился (опечатка в пути, 404): показываем плитку с буквой
+// картинка не загрузилась: показываем плитку с буквой
 nomineesList.addEventListener("error", event => {
     if (event.target.tagName === "IMG") {
         console.warn("[images] Файл не загрузился (проверь путь и регистр):", event.target.src);
