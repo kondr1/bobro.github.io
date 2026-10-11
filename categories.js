@@ -119,7 +119,14 @@ const CATEGORIES = [
         "Roadside Research", "Slay the Spire 2", "Subnautica 2", "Dead as Disco",
         "Solasta II", "Paralives", "WARDOGS", "Deep Rock Galactic: Rogue Core"] },
 
-    { id: "dlc", name: "DLC Года", nominees: [
+    { id: "dlc", name: "DLC Года", cards: true, ratio: "2 / 3",
+        images: {
+         "Elden Ring Nightreign - The Forsaken Hollows": "Pictures/elden.webp", "Frostpunk 2 - Fractured Utopias": "Pictures/frostpunk.webp",
+        "Dragon's Dogma 2 - Dark Arisen": "Pictures/dragons.webp", "Crimson Desert Enhanced: Charting the Unknown": "Pictures/crimsonc.webp",
+        "DOOM: The Dark Ages Revelations": "Pictures/doom.webp", "Ghost of Yotei: Echos of Sekigahara": "Pictures/ghost.webp",
+        "Lego Batman: Legacy of the Dark Knight Mayhem Mode": "Pictures/lego.webp" },
+
+        nominees: [
         "Elden Ring Nightreign - The Forsaken Hollows", "Frostpunk 2 - Fractured Utopias",
         "Dragon's Dogma 2 - Dark Arisen", "Crimson Desert Enhanced: Charting the Unknown",
         "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echos of Sekigahara", "Lego Batman: Legacy of the Dark Knight Mayhem Mode"] },
