@@ -27,12 +27,16 @@ const modalTitle          = document.getElementById("modalTitle");
 const resultsList         = document.getElementById("resultsList");
 const updateStatus        = document.getElementById("updateStatus");
 const errorMessage        = document.getElementById("errorMessage");
+const modalContent        = modal.querySelector(".results-modal-content");
+const prevButton          = document.getElementById("prev-category");
+const nextButton          = document.getElementById("next-category");
 
 const REFRESH_MS = 10000;
 
 let voteResults = {};
 let openedCategoryId = null;
 let loading = false;
+let lastLoadAt = 0;
 
 
 // =========================================================
@@ -123,6 +127,7 @@ async function loadResults() {
     if (loading) return; // не запускаем новый запрос, пока не закончился прошлый
 
     loading = true;
+    lastLoadAt = Date.now();
     errorMessage.style.display = "none";
 
     try {
@@ -177,7 +182,36 @@ function openCategory(category) {
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
 
-    loadResults(); // свежие данные при открытии
+    updateNavigation();
+    modalContent.scrollTop = 0; // при переключении номинаций начинаем сверху
+
+    // свежие данные при открытии (не чаще раза в 3 секунды)
+    if (Date.now() - lastLoadAt > 3000) loadResults();
+}
+
+// ---------------------------------------------------------
+// ПЕРЕКЛЮЧЕНИЕ МЕЖДУ НОМИНАЦИЯМИ
+// ---------------------------------------------------------
+
+function currentIndex() {
+    return CATEGORIES.findIndex(item => item.id === openedCategoryId);
+}
+
+function updateNavigation() {
+    const i = currentIndex();
+    const atStart = i <= 0;
+    const atEnd = i === CATEGORIES.length - 1;
+
+    prevButton.disabled = atStart;
+    prevButton.style.visibility = atStart ? "hidden" : "visible";
+
+    nextButton.disabled = atEnd;
+    nextButton.style.visibility = atEnd ? "hidden" : "visible";
+}
+
+function stepCategory(step) {
+    const next = CATEGORIES[currentIndex() + step];
+    if (next) openCategory(next);
 }
 
 function closeModal() {
@@ -290,8 +324,16 @@ document.getElementById("modalClose").addEventListener("click", closeModal);
 // Клик по затемнению закрывает окно (раньше не срабатывал, т.к. overlay перекрывал modal)
 document.getElementById("resultsModalOverlay").addEventListener("click", closeModal);
 
+prevButton.addEventListener("click", () => stepCategory(-1));
+nextButton.addEventListener("click", () => stepCategory(1));
+
 document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeModal();
+    if (event.key === "Escape") { closeModal(); return; }
+
+    if (!openedCategoryId) return;
+
+    if (event.key === "ArrowLeft") stepCategory(-1);
+    if (event.key === "ArrowRight") stepCategory(1);
 });
 
 
