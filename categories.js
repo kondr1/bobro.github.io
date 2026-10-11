@@ -28,7 +28,13 @@ const CATEGORIES = [
         "Star Wars: Galactic Racer", "Forza Horizon 6", "Marvel Tōkon: Fighting Souls",
         "2XKO", "Avatar Legends: The Fighting Game"] },
 
-    { id: "friend-slop", name: "Френдслоп Года", nominees: [
+    { id: "friend-slop", name: "Френдслоп Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Big Walk": "Pictures/big.webp", "How to Fish": "Pictures/fish.webp", "Bombanana": "Pictures/bomb.webp",
+        "Grain Rot": "Pictures/grain.webp", "Crashout Crew": "Pictures/crashout.webp", "Dumb Ways to Build": "Pictures/dumb.webp",
+        "YAPYAP": "Pictures/yapyap.webp", "MECCHA CHAMELEON": "Pictures/mecha.webp" }, 
+        
+        nominees: [
         "Big Walk", "How to Fish", "Bombanana", "Grain Rot",
         "Crashout Crew", "Dumb Ways to Build", "YAPYAP", "MECCHA CHAMELEON"] },
 
@@ -75,18 +81,36 @@ const CATEGORIES = [
         "Resident Evil Requiem", "Silent Hill: Townfall", "Reanimal",
         "Pathologic 3", "Halloween: The Game", "Clive Barker's Hellraiser: Revival"] },
 
-    { id: "f2p", name: "F2P Года", nominees: [
+    { id: "f2p", name: "F2P Года", cards: true, ratio: "2 / 3",
+        images: {
+        "AION 2": "Pictures/aion.webp", "2XKO": "Pictures/2xko.webp", "Neverness to Everness": "Pictures/nte.webp",
+        "Aniimo": "Pictures/animo.webp", "Pokemon Champions": "Pictures/pokemon.webp",
+        "Arknights: Endfield": "Pictures/arknights.webp", "Duet Night Abyss": "Pictures/duet.webp"  }, 
+        
+        nominees: [
         "AION 2", "2XKO", "Neverness to Everness", "Aniimo",
         "Pokemon Champions", "Arknights: Endfield", "Duet Night Abyss"] },
 
-    { id: "remaster-remake", name: "Remaster/Remake Года", nominees: [
-        "The Witcher 3: Wild Hunt — Remastered", "Gothic 1 Remake",
+    { id: "remaster-remake", name: "Remaster/Remake Года", cards: true, ratio: "2 / 3",
+        images: {
+        "The Witcher 3: Wild Hunt - Remastered": "Pictures/witcher.webp", "Gothic 1 Remake": "Pictures/gothic.webp",
+        "Assassin's Creed IV: Black Flag Resynced": "Pictures/assassin.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
+        "Dynasty Warriors 3: Complete Edition Remastered": "Pictures/dynasty.webp", "Halo: Campaign Evolved": "Pictures/halo.webp", "The Legend of Zelda: Ocarina of Time": "Pictures/zelda.webp" },
+        nominees: [
+        "The Witcher 3: Wild Hunt - Remastered", "Gothic 1 Remake",
         "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter",
         "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved", "The Legend of Zelda: Ocarina of Time"] },
 
-    { id: "early-access", name: "Ранний Доступ Года", nominees: [
+    { id: "early-access", name: "Ранний Доступ Года", cards: true, ratio: "2 / 3",
+        images: {
+        "Roadside Research": "Pictures/roadside.webp", "Slay the Spire 2": "Pictures/slay.webp",
+        "Subnautica 2": "Pictures/subnautica.webp", "Dead as Disco": "Pictures/dead.webp",
+        "Solasta II": "Pictures/solasta.webp", "Paralives": "Pictures/paralives.webp",
+        "WARDOGS": "Pictures/wardogs.webp", "Hytale": "Pictures/hytale.webp",
+        "Deep Rock Galactic: Rogue Core": "Pictures/deep.webp" },
+        nominees: [
         "Roadside Research", "Slay the Spire 2", "Subnautica 2", "Dead as Disco",
-        "Solasta II", "Paralives", "WARDOGS", "Hytale", "Deep Rock Galactic: Rogue Core"] },
+        "Solasta II", "Paralives", "WARDOGS", "Deep Rock Galactic: Rogue Core"] },
 
     { id: "dlc", name: "DLC Года", nominees: [
         "Elden Ring Nightreign - The Forsaken Hollows", "Frostpunk 2 - Fractured Utopias",
