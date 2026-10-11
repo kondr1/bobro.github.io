@@ -8,14 +8,14 @@ const CATEGORIES = [
     { id: "game-of-the-year", name: "Игра Года", nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
         "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword",
-        "ACE COMBAT 8: WINGS OF THEVE","Nioh 3","Mewgenics", "Resonance: A Plague Tale Legacy"] },
+        "ACE COMBAT 8: WINGS OF THEVE","Nioh 3","Mewgenics", "Resonance: A Plague Tale Legacy", "Lego Batman: Legacy of the Dark Knight"] },
 
 
     { id: "single-player", name: "Single-Player Года", nominees: [
         "PRAGMATA", "Resident Evil Requiem", "007: First Light", "Control: Resonant",
         "The Blood of Dawnwalker", "Gears of War: E-Day", "Grand Theft Auto VI",
         "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
-        "Crimson Desert", "Mortal Shell II"] },
+        "Crimson Desert", "Mortal Shell II", "Lego Batman: Legacy of the Dark Knight"] },
 
     { id: "multiplayer", name: "Multiplayer Года", nominees: [
         "Call of Duty: Modern Warfare 4", "Marathon", "Gears of War: E-Day",
@@ -70,7 +70,7 @@ const CATEGORIES = [
     { id: "dlc", name: "DLC Года", nominees: [
         "Elden Ring Nightreign - The Forsaken Hollows", "Frostpunk 2 - Fractured Utopias",
         "Dragon's Dogma 2 - Dark Arisen", "Crimson Desert Enhanced: Charting the Unknown",
-        "DOOM: The Dark Ages Revelations"] },
+        "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echos of Sekigahara", "Lego Batman: Legacy of the Dark Knight Mayhem Mode"] },
 
     { id: "shame", name: "Позор Года", nominees: [
         "Tiny Bunny", "s&box", "Highguard", "Ashes of Creation",
