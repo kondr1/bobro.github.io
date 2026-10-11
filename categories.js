@@ -87,9 +87,9 @@ const CATEGORIES = [
 
     { id: "man-of-the-year", name: "Мужчина Года",cards: true,
         images: { "Миямото Мусаси - Onimusha: Way of the Sword": "img/mystique.webp", "Джеймс Бонд - 007: First Light": "Characters/007.webp",
-                "Дилан Фейден - Control Resonant": "Characters/Dilan.webp", "Леон Кеннеди - Resident Evil Requiem": "img/mystique.webp",
-                "Логан - Wolverine": "Characters/logan.webp", "Джейсон Дюваль - GTA VI": "img/mystique.webp",
-                "Хью - Pragmata": "img/mystique.webp" },
+                "Дилан Фейден - Control Resonant": "Characters/Dilan.webp", "Леон Кеннеди - Resident Evil Requiem": "img/Characters/leon.webp",
+                "Логан - Wolverine": "Characters/logan.webp", "Джейсон Дюваль - GTA VI": "Characters/jason.webp",
+                "Хью - Pragmata": "" },
         nominees: [
         "Миямото Мусаси - Onimusha: Way of the Sword", "Джеймс Бонд - 007: First Light",
         "Дилан Фейден - Control Resonant", "Леон Кеннеди - Resident Evil Requiem",
