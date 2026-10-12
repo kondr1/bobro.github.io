@@ -1826,16 +1826,15 @@ footer::before {
 
     /* Nomination modal */
     .modal {
-        padding: 8px;
+        padding: 16px 8px;
         align-items: center;
     }
 
     .modal-content {
         width: 100%;
         max-width: 100%;
-        max-height: calc(100dvh - 16px);
-        /* запасной вариант, если dvh не поддерживается */
-        max-height: calc(100vh - 16px);
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px); /* dvh идёт вторым, чтобы поддерживающие браузеры брали его */
         overflow-x: hidden;
         overflow-y: auto;
         padding: 16px 13px 14px;
@@ -2038,14 +2037,14 @@ footer::before {
 
     /* Results modal */
     .results-modal {
-        padding: 8px;
+        padding: 16px 8px;
     }
 
     .results-modal-content {
         width: 100%;
         max-width: 100%;
-        max-height: calc(100dvh - 16px);
-        max-height: calc(100vh - 16px);
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px); /* dvh идёт вторым, чтобы поддерживающие браузеры брали его */
         overflow-x: hidden;
         overflow-y: auto;
         padding: 17px 13px 14px;

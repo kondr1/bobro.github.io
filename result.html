@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>БУЛДЖАТЬ AWARDS 2026 — Результаты</title>
 
+    <!-- до конца голосования отправляем на главную (на время тестов поставь false) -->
+    <script>
+        const HIDE_RESULTS_UNTIL_END = true;
+
+        if (HIDE_RESULTS_UNTIL_END && new Date() < new Date("2026-12-23T23:59:59+03:00")) {
+            location.replace("index.html");
+        }
+    </script>
+
     <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
     <link rel="stylesheet" href="./style.css">
 
