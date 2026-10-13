@@ -26,6 +26,8 @@ const errorMessage        = document.getElementById("errorMessage");
 const modalContent        = modal.querySelector(".results-modal-content");
 const prevButton          = document.getElementById("prev-category");
 const nextButton          = document.getElementById("next-category");
+const navCounter          = document.getElementById("nav-counter");
+const navStrip            = document.getElementById("nom-strip");
 
 const REFRESH_MS = 10000;
 
@@ -96,9 +98,14 @@ function splitNominee(nominee) {
 function renderCategoryCards() {
     categoriesContainer.innerHTML = CATEGORIES.map((category, index) => `
         <div class="category-card" data-index="${index}">
-            <div class="category-number">НОМИНАЦИЯ ${String(index + 1).padStart(2, "0")}</div>
             <div class="category-name">${escapeHtml(category.name)}</div>
-            <div class="category-bottom" data-num="${String(index + 1).padStart(2, "0")}"><span class="category-arrow">→</span></div>
+
+            <div class="category-bottom">
+                <div class="card-num">
+                    <span class="num">${String(index + 1).padStart(2, "0")}</span>
+                    <span class="num-label">номинация</span>
+                </div>
+            </div>
         </div>
     `).join("");
 
@@ -181,8 +188,39 @@ function currentIndex() {
     return CATEGORIES.findIndex(item => item.id === openedCategoryId);
 }
 
+// Счётчик между кнопками: "Номинация 3 из 23" + полоска прогресса
+function counterHTML(i, total) {
+    const percent = ((i + 1) / total * 100).toFixed(1);
+
+    return `<span class="cnt-label">Номинация</span>
+        <span class="cnt-value"><b>${i + 1}</b> из ${total}</span>
+        <span class="cnt-bar"><i style="width:${percent}%"></i></span>`;
+}
+
+// Строка с номерами номинаций (переход по нажатию)
+function buildStrip() {
+    navStrip.innerHTML = CATEGORIES.map((category, i) => `
+        <button class="strip-item" type="button" data-i="${i}" title="${escapeHtml(category.name)}">${i + 1}</button>
+    `).join("");
+
+    navStrip.addEventListener("click", event => {
+        const item = event.target.closest(".strip-item");
+        if (item) openCategory(CATEGORIES[Number(item.dataset.i)]);
+    });
+}
+
+function showCurrentInStrip(i) {
+    navStrip.querySelectorAll(".strip-item").forEach((item, n) => item.classList.toggle("current", n === i));
+
+    const current = navStrip.children[i];
+    if (current) navStrip.scrollLeft = current.offsetLeft - (navStrip.clientWidth - current.offsetWidth) / 2;
+}
+
 function updateNavigation() {
     const i = currentIndex();
+    navCounter.innerHTML = counterHTML(i, CATEGORIES.length);
+    showCurrentInStrip(i);
+
     const atStart = i <= 0;
     const atEnd = i === CATEGORIES.length - 1;
 
@@ -321,6 +359,7 @@ document.addEventListener("keydown", event => {
 // Запуск
 
 renderCategoryCards();
+buildStrip();
 revealCards(categoriesContainer);
 loadResults();
 

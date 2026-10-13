@@ -56,6 +56,8 @@ const accountMenu      = $("account-menu");
 const accountMenuName  = $("account-menu-name");
 const prevButton       = $("prev-category");
 const nextButton       = $("next-category");
+const navCounter       = $("nav-counter");
+const navStrip         = $("nom-strip");
 
 if (!supabaseClient) loginButton.textContent = "Вход недоступен";
 
@@ -88,9 +90,15 @@ function createCategoryCards() {
 
     categoriesGrid.innerHTML = CATEGORIES.map((category, index) => `
         <div class="category-card" data-index="${index}">
-            <div class="category-number">НОМИНАЦИЯ ${pad(index + 1)}</div>
             <div class="category-name">${escapeHTML(category.name)}</div>
-            <div class="category-bottom" data-num="${pad(index + 1)}"><span class="category-arrow">→</span></div>
+
+            <div class="category-bottom">
+                <div class="card-num">
+                    <span class="num">${pad(index + 1)}</span>
+                    <span class="num-label">номинация</span>
+                </div>
+                <span class="card-status"></span>
+            </div>
         </div>
     `).join("");
 
@@ -103,9 +111,48 @@ function createCategoryCards() {
 
 // Модалка номинации
 
+// Счётчик между кнопками: "Номинация 3 из 23" + полоска прогресса
+function counterHTML(i, total) {
+    const percent = ((i + 1) / total * 100).toFixed(1);
+
+    return `<span class="cnt-label">Номинация</span>
+        <span class="cnt-value"><b>${i + 1}</b> из ${total}</span>
+        <span class="cnt-bar"><i style="width:${percent}%"></i></span>`;
+}
+
+// Строка с номерами номинаций (переход по нажатию)
+function buildStrip() {
+    navStrip.innerHTML = CATEGORIES.map((category, i) => `
+        <button class="strip-item" type="button" data-i="${i}" title="${escapeHTML(category.name)}">${i + 1}</button>
+    `).join("");
+
+    navStrip.addEventListener("click", event => {
+        const item = event.target.closest(".strip-item");
+        if (item) openCategory(CATEGORIES[Number(item.dataset.i)]);
+    });
+}
+
+function showCurrentInStrip(i) {
+    navStrip.querySelectorAll(".strip-item").forEach((item, n) => item.classList.toggle("current", n === i));
+
+    const current = navStrip.children[i];
+    if (current) navStrip.scrollLeft = current.offsetLeft - (navStrip.clientWidth - current.offsetWidth) / 2;
+}
+
+const hasVoted = category => (userVotes[category.id] || []).length > 0;
+
+// Отмечаем номинации, в которых уже проголосовали (карточки и строка с номерами)
+function refreshVoteMarks() {
+    categoriesGrid.querySelectorAll(".category-card").forEach((card, i) => card.classList.toggle("voted", hasVoted(CATEGORIES[i])));
+    navStrip.querySelectorAll(".strip-item").forEach((item, i) => item.classList.toggle("voted", hasVoted(CATEGORIES[i])));
+}
+
 function updateCategoryNavigation() {
     const i = CATEGORIES.indexOf(currentCategory);
     if (i === -1) return;
+
+    navCounter.innerHTML = counterHTML(i, CATEGORIES.length);
+    showCurrentInStrip(i);
 
     const atStart = i === 0;
     const atEnd = i === CATEGORIES.length - 1;
@@ -195,7 +242,7 @@ function openCategory(category) {
     modalImage.src = category.banner || IMAGE; // свой баннер номинации или общий
     modalImage.alt = category.name;
 
-    voteMessage.classList.remove("visible");
+    voteMessage.classList.remove("visible", "error");
     voteMessage.textContent = "";
 
     const useCards = Boolean(category.cards);
@@ -218,10 +265,10 @@ function openCategory(category) {
             </button>`;
     }).join("");
 
-    updateCategoryNavigation();
-
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    updateCategoryNavigation();
 }
 
 function closeModal() {
@@ -299,6 +346,7 @@ async function logout() {
     accountMenu.classList.remove("active");
     currentUser = null;
     userVotes = {};
+    refreshVoteMarks();
     updateLoginButton();
 }
 
@@ -324,7 +372,10 @@ function updateLoginButton() {
 async function loadUserVotes() {
     userVotes = {};
 
-    if (!currentUser) return;
+    if (!currentUser) {
+        refreshVoteMarks();
+        return;
+    }
 
     const { data, error } = await supabaseClient
         .from("votes")
@@ -339,6 +390,8 @@ async function loadUserVotes() {
     (data || []).forEach(item => {
         (userVotes[item.category_id] ||= []).push(item.nominee_id);
     });
+
+    refreshVoteMarks();
 
     // Если окно уже открыто, обновляем отметки
     if (modal.classList.contains("active") && currentCategory) {
@@ -356,6 +409,7 @@ supabaseClient?.auth.onAuthStateChange((event, session) => {
         setTimeout(loadUserVotes, 0);
     } else {
         userVotes = {};
+        refreshVoteMarks();
     }
 });
 
@@ -380,6 +434,7 @@ async function voteForNominee(category, nominee, button) {
     // Карточки: остальные притухают, выбранная выходит на передний план
     nomineesList.classList.toggle("has-selected", Boolean(nomineesList.querySelector(".nominee.selected")));
 
+    voteMessage.classList.remove("error");
     voteMessage.textContent = "Сохраняем голос...";
     voteMessage.classList.add("visible");
 
@@ -393,6 +448,7 @@ async function voteForNominee(category, nominee, button) {
     if (error) {
         console.error("Ошибка голосования:", error);
         voteMessage.textContent = "Не удалось сохранить голос: " + error.message;
+        voteMessage.classList.add("error");
 
         // Откат визуального состояния
         if (multi) {
@@ -400,7 +456,7 @@ async function voteForNominee(category, nominee, button) {
         } else {
             openCategory(category);
             voteMessage.textContent = "Не удалось сохранить голос: " + error.message;
-            voteMessage.classList.add("visible");
+            voteMessage.classList.add("visible", "error");
         }
         return;
     }
@@ -421,6 +477,8 @@ async function voteForNominee(category, nominee, button) {
         voteMessage.textContent = "✓ Голос сохранён!";
         burst(button);
     }
+
+    refreshVoteMarks();
 }
 
 
@@ -474,6 +532,7 @@ document.addEventListener("keydown", event => {
 // Старт
 
 createCategoryCards();
+buildStrip();
 revealCards(categoriesGrid);
 updateCountdown();
 
