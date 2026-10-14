@@ -95,7 +95,6 @@ function createCategoryCards() {
             <div class="category-bottom">
                 <div class="card-num">
                     <span class="num">${pad(index + 1)}</span>
-                    <span class="num-label">номинация</span>
                 </div>
                 <span class="card-status"></span>
             </div>

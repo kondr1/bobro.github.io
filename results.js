@@ -103,7 +103,6 @@ function renderCategoryCards() {
             <div class="category-bottom">
                 <div class="card-num">
                     <span class="num">${String(index + 1).padStart(2, "0")}</span>
-                    <span class="num-label">номинация</span>
                 </div>
             </div>
         </div>
