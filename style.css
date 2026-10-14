@@ -393,7 +393,8 @@ main {
     margin: auto 0;
     padding: 18px 0;
     color: #ffffff;
-    font-size: 34px;
+    font-size: clamp(24px, 2.5vw, 34px);
+    overflow-wrap: anywhere;
     font-weight: 850;
     line-height: 1.18;
     letter-spacing: -0.4px;
