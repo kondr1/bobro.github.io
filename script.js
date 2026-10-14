@@ -84,30 +84,6 @@ function escapeHTML(value) {
 }
 
 
-// Подсказка "Ещё кандидаты ниже": видна, пока в окне есть непрокрученная часть
-
-const scrollHint = document.createElement("div");
-scrollHint.className = "scroll-hint";
-scrollHint.innerHTML = '<button type="button">Ещё кандидаты ниже <i>↓</i></button>';
-modalContent.appendChild(scrollHint);
-
-function updateScrollHint() {
-    const hidden = modalContent.clientHeight === 0; // окно закрыто
-    const left = modalContent.scrollHeight - modalContent.scrollTop - modalContent.clientHeight;
-    scrollHint.classList.toggle("show", !hidden && left > 50);
-}
-
-scrollHint.querySelector("button").addEventListener("click", () => {
-    modalContent.scrollBy({ top: modalContent.clientHeight * 0.7, behavior: "smooth" });
-});
-
-modalContent.addEventListener("scroll", updateScrollHint, { passive: true });
-window.addEventListener("resize", updateScrollHint);
-
-// высота списка меняется при открытии окна, смене номинации и загрузке картинок
-if ("ResizeObserver" in window) new ResizeObserver(updateScrollHint).observe(nomineesList);
-
-
 // Карточки номинаций
 
 function createCategoryCards() {
@@ -297,13 +273,11 @@ function openCategory(category) {
     if (changed) modalContent.scrollTop = 0;
 
     updateCategoryNavigation();
-    updateScrollHint();
 }
 
 function closeModal() {
     modal.classList.remove("active");
     document.body.style.overflow = "";
-    updateScrollHint();
 }
 
 function stepCategory(step) {
@@ -509,7 +483,6 @@ async function voteForNominee(category, nominee, button) {
     }
 
     refreshVoteMarks();
-    updateScrollHint(); // сообщение о голосе меняет высоту окна
 }
 
 

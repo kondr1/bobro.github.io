@@ -37,30 +37,6 @@ let loading = false;
 let lastLoadAt = 0;
 
 
-// Подсказка "Ещё ниже": видна, пока в окне есть непрокрученная часть
-
-const scrollHint = document.createElement("div");
-scrollHint.className = "scroll-hint";
-scrollHint.innerHTML = '<button type="button">Ещё кандидаты ниже <i>↓</i></button>';
-modalContent.appendChild(scrollHint);
-
-function updateScrollHint() {
-    const hidden = modalContent.clientHeight === 0; // окно закрыто
-    const left = modalContent.scrollHeight - modalContent.scrollTop - modalContent.clientHeight;
-    scrollHint.classList.toggle("show", !hidden && left > 50);
-}
-
-scrollHint.querySelector("button").addEventListener("click", () => {
-    modalContent.scrollBy({ top: modalContent.clientHeight * 0.7, behavior: "smooth" });
-});
-
-modalContent.addEventListener("scroll", updateScrollHint, { passive: true });
-window.addEventListener("resize", updateScrollHint);
-
-// высота списка меняется при открытии окна, смене номинации и загрузке картинок
-if ("ResizeObserver" in window) new ResizeObserver(updateScrollHint).observe(resultsList);
-
-
 // Вспомогательные
 
 function escapeHtml(text) {
@@ -200,7 +176,6 @@ function openCategory(category) {
 
     updateNavigation();
     modalContent.scrollTop = 0; // при переключении номинаций начинаем сверху
-    updateScrollHint();
 
     // свежие данные при открытии (не чаще раза в 3 секунды)
     if (Date.now() - lastLoadAt > 3000) loadResults();
@@ -264,7 +239,6 @@ function closeModal() {
     modal.classList.remove("active");
     document.body.style.overflow = "";
     openedCategoryId = null;
-    updateScrollHint();
 }
 
 // 1-3 места на полную яркость, дальше тусклее (не ниже 0.5)
