@@ -1,7 +1,6 @@
 (function () {
     const now = () => new Date();
 
-    if (now() < VOTING_END) { location.replace("index.html"); return; }
 
     if (now() >= RESULTS_AT) { location.replace("result.html"); return; }
 

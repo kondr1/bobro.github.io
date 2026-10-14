@@ -1448,8 +1448,6 @@ footer::before {
     .result-item:hover { opacity: 1; }
 }
 
-/* ============ Голосование картинками (category.cards = true) ============ */
-
 .nominees-list.cards {
     display: grid;
     grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
@@ -1555,8 +1553,6 @@ footer::before {
 
 .card-photo.no-img .card-ph { display: flex; }
 .card-photo.no-img img { display: none; }
-
-/* ============ Фоновые эффекты (только transform / opacity) ============ */
 
 .bg-fx {
     position: fixed;
