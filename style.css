@@ -321,7 +321,8 @@ main {
 
     position: relative;
     min-height: 190px;
-    padding: 27px 26px 20px;
+    /* сверху отступа нет: название само центрируется между верхним краем и номером */
+    padding: 0 26px 20px;
     overflow: hidden;
     border-radius: 21px;
     background:
@@ -397,11 +398,15 @@ main {
     opacity: 1;
 }
 
-/* Название номинации */
+/* Название номинации.
+   margin: auto 0 делит свободное место над номером поровну сверху и снизу,
+   поэтому и одна строка, и две стоят по центру между верхним краем и номером.
+   padding — минимальный воздух, если название очень длинное. */
 .category-name {
     position: relative;
     z-index: 1;
-    margin-bottom: 0;
+    margin: auto 0;
+    padding: 16px 0;
     color: #ffffff;
     font-size: 34px;
     font-weight: 850;
@@ -410,22 +415,21 @@ main {
     max-width: 90%;
 }
 
-/* Нижняя строка: номер + подпись слева, статус справа. Всё стоит на одной нижней линии */
+/* Нижняя строка: номер слева, статус справа, оба на одной нижней линии */
 .category-bottom {
     position: relative;
     z-index: 0;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin-top: auto;
-    padding-top: 14px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .card-num {
     position: relative;
     display: flex;
     align-items: flex-end;
-    gap: 10px;
     margin: 0 0 0 -4px;
     pointer-events: none;
     transition: transform 0.35s ease;
@@ -443,38 +447,38 @@ main {
     transition: opacity 0.35s ease;
 }
 
+/* Подпись «НОМИНАЦИЯ» убрана: номер и так понятен */
 .card-num .num-label {
-    color: #ffd96a;
-    font-size: 12px;
-    font-weight: 850;
-    line-height: 0.8;
-    letter-spacing: 1.3px;
-    text-transform: uppercase;
+    display: none;
 }
 
 .category-card:hover .card-num .num {
     opacity: 1;
 }
 
+/* Статус: круглая иконка. ✕ = не проголосовано, ✓ = проголосовано */
 .card-status {
     position: relative;
     z-index: 1;
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 7px 13px;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 999px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
     background: rgba(255, 255, 255, 0.045);
     color: #b9a9ca;
-    font-size: 12px;
-    font-weight: 800;
-    white-space: nowrap;
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card-status::before {
-    content: "Не проголосовано";
+    content: "✕";
 }
 
 .category-card.voted {
@@ -485,14 +489,14 @@ main {
     border-color: var(--gold);
     background: var(--gold);
     color: #160b03;
-    box-shadow: 0 0 18px rgba(251, 191, 36, 0.25);
+    box-shadow: 0 0 18px rgba(251, 191, 36, 0.28);
 }
 
 .category-card.voted .card-status::before {
-    content: "✓ Проголосовано";
+    content: "✓";
 }
 
-/* Номер и подпись поднимаются вместе, на одинаковую высоту */
+/* Номер поднимается при наведении */
 @media (hover: hover) {
     .category-card:hover .card-num {
         transform: translateY(-4px);
@@ -1828,7 +1832,7 @@ body:has(.results-modal.active) .bg-fx * {
         --cs: 9px;
         min-width: 0;
         min-height: 145px;
-        padding: 15px 13px 14px;
+        padding: 0 13px 14px;
         border-radius: 14px;
     }
 
@@ -1852,6 +1856,7 @@ body:has(.results-modal.active) .bg-fx * {
 
     .category-name {
         max-width: 100%;
+        padding: 12px 0;
         font-size: 18px;
         line-height: 1.12;
         letter-spacing: -0.2px;
@@ -1859,15 +1864,9 @@ body:has(.results-modal.active) .bg-fx * {
         word-break: normal;
     }
 
-    .category-bottom { padding-top: 10px; }
+    .category-bottom { padding-top: 0; }
 
-    /* Номер и подпись друг под другом, статус кружком, всё на одной нижней линии */
-    .card-num {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        margin: 0 0 0 -2px;
-    }
+    .card-num { margin: 0 0 0 -2px; }
 
     .card-num .num {
         font-size: 46px;
@@ -1876,32 +1875,11 @@ body:has(.results-modal.active) .bg-fx * {
         -webkit-text-stroke-width: 1px;
     }
 
-    .card-num .num-label {
-        font-size: 8px;
-        line-height: 1;
-        letter-spacing: 0.9px;
-    }
-
+    /* Иконка статуса поменьше; ✕ / ✓ берутся из основных правил */
     .card-status {
-        width: 26px;
-        height: 26px;
-        padding: 0;
+        width: 28px;
+        height: 28px;
         font-size: 13px;
-    }
-
-    .card-status::before {
-        content: "";
-        width: 9px;
-        height: 9px;
-        border: 1.5px solid #b9a9ca;
-        border-radius: 50%;
-    }
-
-    .category-card.voted .card-status::before {
-        content: "✓";
-        width: auto;
-        height: auto;
-        border: 0;
     }
 
     /* Окно номинации */
@@ -2243,10 +2221,15 @@ body:has(.results-modal.active) .bg-fx * {
 
     .category-card {
         min-height: 132px;
-        padding: 13px 10px 12px;
+        padding: 0 10px 12px;
     }
 
-    .category-name { font-size: 16px; }
+    .category-name {
+        padding: 10px 0;
+        font-size: 16px;
+    }
+
+    .card-num .num { font-size: 40px; }
 
     .modal-content { padding: 14px 11px 12px; }
 
