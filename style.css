@@ -430,6 +430,7 @@ main {
     position: relative;
     display: flex;
     align-items: flex-end;
+    gap: 10px;
     margin: 0 0 0 -4px;
     pointer-events: none;
     transition: transform 0.35s ease;
@@ -447,9 +448,13 @@ main {
     transition: opacity 0.35s ease;
 }
 
-/* Подпись «НОМИНАЦИЯ» убрана: номер и так понятен */
 .card-num .num-label {
-    display: none;
+    color: #ffd96a;
+    font-size: 12px;
+    font-weight: 850;
+    line-height: 0.8;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
 }
 
 .category-card:hover .card-num .num {
@@ -1866,13 +1871,24 @@ body:has(.results-modal.active) .bg-fx * {
 
     .category-bottom { padding-top: 0; }
 
-    .card-num { margin: 0 0 0 -2px; }
+    .card-num {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin: 0 0 0 -2px;
+    }
 
     .card-num .num {
         font-size: 46px;
         line-height: 0.8;
         letter-spacing: -2px;
         -webkit-text-stroke-width: 1px;
+    }
+
+    .card-num .num-label {
+        font-size: 8px;
+        line-height: 1;
+        letter-spacing: 0.9px;
     }
 
     /* Иконка статуса поменьше; ✕ / ✓ берутся из основных правил */
