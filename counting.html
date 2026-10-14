@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Булджать Awards 2026 — Подсчёт голосов</title>
+
+    <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./extra.css">
+
+    <script src="./config.js"></script>
+    <script defer src="./counting.js"></script>
+</head>
+
+<body>
+
+<div class="bg-fx" aria-hidden="true">
+    <i class="beam b1"></i><i class="beam b2"></i>
+    <i class="sh ring r1"></i><i class="sh ring r2"></i>
+    <i class="sh dia d1"></i><i class="sh dia d2"></i>
+    <i class="sh plus p1"></i>
+    <i class="sh spark s1"></i><i class="sh spark s2"></i><i class="sh spark s3"></i>
+</div>
+
+<header class="header results-page-header">
+    <div class="header-inner">
+        <div class="logo-block results-page-logo">
+            <h1>Булджать Awards</h1>
+            <span>Награды 2026 года</span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="top-image">
+        <img src="./photo_2025-11-10_21-02-06.png" alt="Булджать Awards" decoding="async" fetchpriority="high">
+    </section>
+
+    <section class="count-section">
+        <div class="count-card">
+            <h2 class="count-title">Идёт подсчёт голосов</h2>
+            <p class="count-text">Голосование завершено. Мы считаем голоса и проверяем результаты.</p>
+
+            <div class="count-label">До объявления итогов</div>
+
+            <div class="count-timer" id="count-timer" role="timer" aria-live="off">
+                <div class="count-box"><b id="cd-d">00</b><span>дней</span></div>
+                <div class="count-box"><b id="cd-h">00</b><span>часов</span></div>
+                <div class="count-box"><b id="cd-m">00</b><span>минут</span></div>
+                <div class="count-box"><b id="cd-s">00</b><span>секунд</span></div>
+            </div>
+
+            <div class="count-progress" aria-hidden="true"><i id="count-bar"></i></div>
+
+            <p class="count-note">Страница откроет итоги сама, когда таймер дойдёт до нуля.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <strong>Булджать Awards 2026</strong>
+            <p>Подсчёт голосов</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://www.youtube.com/@buldjat" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://discord.com/invite/buldzhat-reborn-756512042827120641" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://t.me/buldj" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

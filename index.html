@@ -10,9 +10,11 @@
 
     <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="extra.css">
 
-    <!-- defer: скрипты не блокируют показ страницы, порядок сохраняется -->
+    <!-- defer: скрипты не блокируют показ страницы, порядок сохраняется (config.js должен идти до script.js) -->
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="config.js"></script>
     <script defer src="categories.js"></script>
     <script defer src="script.js"></script>
 </head>
