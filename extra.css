@@ -1,12 +1,23 @@
+/* Страница подсчёта: футер прижат к низу окна */
+body:has(.count-section) {
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.count-section) main {
+    flex: 1;
+}
+
+/* Блок таймера по ширине как баннер */
 .count-section {
-    width: min(900px, calc(100% - 40px));
+    width: min(1400px, calc(100% - 40px));
     margin: 0 auto 90px;
 }
 
 .count-card {
     position: relative;
     overflow: hidden;
-    padding: 44px 34px 36px;
+    padding: 54px 44px 44px;
     text-align: center;
     border-radius: 26px;
     background:
