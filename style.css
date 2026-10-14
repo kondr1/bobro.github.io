@@ -40,11 +40,11 @@ body {
         linear-gradient(180deg, #17082a 0%, #0e061b 48%, #07030e 100%);
 }
 
-/* Световые пятна на фоне */
+/* Световые пятна на фоне (слой уменьшен: -8% вместо -15%) */
 body::before {
     content: "";
     position: fixed;
-    inset: -15%;
+    inset: -8%;
     z-index: -3;
     pointer-events: none;
     background:
@@ -58,26 +58,25 @@ body::before {
     will-change: transform;
 }
 
-/* Сетка на фоне */
+/* Сетка на фоне (без mask-image: статичный слой, меньше нагрузка на композитинг) */
 body::after {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -2;
     pointer-events: none;
-    opacity: 0.32;
+    opacity: 0.26;
     background-image:
         linear-gradient(rgba(192, 132, 252, 0.035) 1px, transparent 1px),
         linear-gradient(90deg, rgba(192, 132, 252, 0.035) 1px, transparent 1px),
         linear-gradient(135deg, transparent 0 48%, rgba(251, 191, 36, 0.025) 50%, transparent 52%);
     background-size: 55px 55px, 55px 55px, 180px 180px;
-    mask-image: linear-gradient(to bottom, black, transparent 88%);
 }
 
 @keyframes ambientMove {
-    0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
-    50%  { transform: translate3d(3%, 2%, 0) scale(1.04); }
-    100% { transform: translate3d(-1%, 4%, 0) scale(1.02); }
+    0%   { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+    50%  { transform: translate3d(2%, 1.5%, 0) scale(1.03); }
+    100% { transform: translate3d(-1%, 2%, 0) scale(1.015); }
 }
 
 main {
@@ -222,7 +221,6 @@ main {
     transform: translateX(0) rotate(18deg);
     animation: heroShine 9s ease-in-out infinite;
     pointer-events: none;
-    will-change: transform, opacity;
 }
 
 .top-image::after {
@@ -321,7 +319,8 @@ main {
 
     position: relative;
     min-height: 190px;
-    padding: 27px 26px 20px;
+    /* верхний отступ делает само название (margin: auto), поэтому сверху 0 */
+    padding: 0 26px 20px;
     overflow: hidden;
     border-radius: 21px;
     background:
@@ -397,11 +396,14 @@ main {
     opacity: 1;
 }
 
-/* Название номинации */
+/* Название номинации.
+   margin: auto 0 делит свободное место поровну: расстояние от верхней границы
+   карточки до названия = расстоянию от названия до строки с номером. */
 .category-name {
     position: relative;
     z-index: 1;
-    margin-bottom: 0;
+    margin: auto 0;
+    padding: 18px 0;      /* минимальный отступ, если название в 2 строки */
     color: #ffffff;
     font-size: 34px;
     font-weight: 850;
@@ -410,15 +412,15 @@ main {
     max-width: 90%;
 }
 
-/* Нижняя строка: номер + подпись слева, статус справа. Всё стоит на одной нижней линии */
+/* Нижняя строка: номер + подпись слева, кружок справа. Всё на одной горизонтальной оси */
 .category-bottom {
     position: relative;
     z-index: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    margin-top: auto;
-    padding-top: 14px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .card-num {
@@ -456,25 +458,29 @@ main {
     opacity: 1;
 }
 
+/* Кружок статуса: пустой = не проголосовано, с галочкой = проголосовано */
 .card-status {
     position: relative;
     z-index: 1;
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 7px 13px;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.045);
-    color: #b9a9ca;
-    font-size: 12px;
-    font-weight: 800;
-    white-space: nowrap;
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 2px solid rgba(192, 132, 252, 0.55);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    color: #160b03;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    transition: transform 0.35s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card-status::before {
-    content: "Не проголосовано";
+    content: "";
 }
 
 .category-card.voted {
@@ -484,23 +490,22 @@ main {
 .category-card.voted .card-status {
     border-color: var(--gold);
     background: var(--gold);
-    color: #160b03;
-    box-shadow: 0 0 18px rgba(251, 191, 36, 0.25);
+    box-shadow: 0 0 18px rgba(251, 191, 36, 0.35);
 }
 
 .category-card.voted .card-status::before {
-    content: "✓ Проголосовано";
+    content: "✓";
 }
 
-/* Номер и подпись поднимаются вместе, на одинаковую высоту */
+/* Номер и кружок поднимаются вместе, симметрия не ломается */
 @media (hover: hover) {
-    .category-card:hover .card-num {
+    .category-card:hover .card-num,
+    .category-card:hover .card-status {
         transform: translateY(-4px);
     }
 
     .category-card:not(.voted):hover .card-status {
-        border-color: rgba(251, 191, 36, 0.45);
-        color: var(--gold-bright);
+        border-color: rgba(251, 191, 36, 0.8);
     }
 }
 
@@ -680,7 +685,7 @@ main {
     color: white;
     font-size: 26px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .close-modal:hover {
@@ -1054,7 +1059,7 @@ main {
     text-align: left;
     cursor: pointer;
     pointer-events: auto;
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .logout-button:hover {
@@ -1117,7 +1122,7 @@ footer::before {
     color: #c8b2dd;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .footer-links a:hover {
@@ -1233,7 +1238,7 @@ footer::before {
     color: white;
     font-size: 26px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .results-modal-close:hover {
@@ -1607,7 +1612,7 @@ footer::before {
     pointer-events: none;
 }
 
-/* Лучи прожектора */
+/* Лучи прожектора (will-change оставлен только здесь и на body::before) */
 .beam {
     position: absolute;
     top: -10%;
@@ -1648,11 +1653,11 @@ footer::before {
 
 @keyframes twinkle { 0%, 100% { opacity: 0.12; transform: scale(0.7); } 50% { opacity: 0.85; transform: scale(1.15); } }
 
-.ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; will-change: transform; }
+.ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; }
 .r1 { width: 150px; height: 150px; left: -40px; top: 22%; animation: fl1 26s ease-in-out infinite alternate; }
 .r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); animation: fl2 22s ease-in-out infinite alternate; }
 
-.dia { width: 46px; height: 46px; border: 1px solid rgba(225, 44, 255, 0.30); transform: rotate(45deg); will-change: transform; }
+.dia { width: 46px; height: 46px; border: 1px solid rgba(225, 44, 255, 0.30); transform: rotate(45deg); }
 .d1 { left: 12%; top: 72%; animation: fl3 30s ease-in-out infinite alternate; }
 .d2 { right: 14%; top: 18%; width: 30px; height: 30px; border-color: rgba(251, 191, 36, 0.28); animation: fl3 24s ease-in-out infinite alternate-reverse; }
 
@@ -1673,14 +1678,18 @@ footer::before {
 
 /* ============ Производительность ============ */
 
-/* Пока открыто окно, анимированный фон не виден: ставим на паузу */
+/* Пока открыто окно или вкладка скрыта, анимированный фон не виден: ставим на паузу.
+   Класс .paused вешается из JS (см. visibilitychange). */
 body:has(.modal.active)::before,
-body:has(.results-modal.active)::before {
+body:has(.results-modal.active)::before,
+body.paused::before {
     animation-play-state: paused;
 }
 
 body:has(.modal.active) .bg-fx *,
-body:has(.results-modal.active) .bg-fx * {
+body:has(.results-modal.active) .bg-fx *,
+body.paused .bg-fx *,
+body.paused .top-image::before {
     animation-play-state: paused;
 }
 
@@ -1728,18 +1737,22 @@ body:has(.results-modal.active) .bg-fx * {
         text-size-adjust: 100%;
     }
 
-    body::before { animation: none; }
+    body::before { animation: none; will-change: auto; }
 
     body::after {
         background-size: 42px 42px, 42px 42px, 140px 140px;
-        opacity: 0.22;
+        opacity: 0.2;
     }
 
-    /* Фоновые фигуры: меньше и без движения (только мерцание искр) */
+    /* Фоновые фигуры: меньше и полностью статичные */
     .b2, .r2, .d2, .s3 { display: none; }
     .beam { width: 70vw; will-change: auto; animation: none; }
-    .ring, .dia, .plus { will-change: auto; animation: none; }
+    .ring, .dia, .plus { animation: none; }
+    .spark { animation: none; opacity: 0.3; }
     .r1 { width: 100px; height: 100px; left: -30px; }
+
+    /* Блик на hero тоже отключаем */
+    .top-image::before { animation: none; display: none; }
 
     /* Header */
     .header-inner {
@@ -1828,8 +1841,9 @@ body:has(.results-modal.active) .bg-fx * {
         --cs: 9px;
         min-width: 0;
         min-height: 145px;
-        padding: 15px 13px 14px;
+        padding: 0 13px 14px;      /* верхний padding убран: его делает название */
         border-radius: 14px;
+        contain-intrinsic-size: auto 145px;
     }
 
     .category-card:hover { transform: none; }
@@ -1852,6 +1866,7 @@ body:has(.results-modal.active) .bg-fx * {
 
     .category-name {
         max-width: 100%;
+        padding: 12px 0;
         font-size: 18px;
         line-height: 1.12;
         letter-spacing: -0.2px;
@@ -1859,9 +1874,9 @@ body:has(.results-modal.active) .bg-fx * {
         word-break: normal;
     }
 
-    .category-bottom { padding-top: 10px; }
+    .category-bottom { padding-top: 0; }
 
-    /* Номер и подпись друг под другом, статус кружком, всё на одной нижней линии */
+    /* Номер и подпись друг под другом, справа пустой кружок, всё на одной оси */
     .card-num {
         flex-direction: column;
         align-items: flex-start;
@@ -1883,26 +1898,15 @@ body:has(.results-modal.active) .bg-fx * {
     }
 
     .card-status {
-        width: 26px;
-        height: 26px;
-        padding: 0;
-        font-size: 13px;
+        width: 28px;
+        height: 28px;
+        border-width: 1.5px;
+        font-size: 15px;
     }
 
-    .card-status::before {
-        content: "";
-        width: 9px;
-        height: 9px;
-        border: 1.5px solid #b9a9ca;
-        border-radius: 50%;
-    }
-
-    .category-card.voted .card-status::before {
-        content: "✓";
-        width: auto;
-        height: auto;
-        border: 0;
-    }
+    /* внутреннего кружка нет: только пустое кольцо или галочка */
+    .card-status::before { content: ""; }
+    .category-card.voted .card-status::before { content: "✓"; }
 
     /* Окно номинации */
     .modal { padding: 16px 8px; }
@@ -2243,10 +2247,13 @@ body:has(.results-modal.active) .bg-fx * {
 
     .category-card {
         min-height: 132px;
-        padding: 13px 10px 12px;
+        padding: 0 10px 12px;
     }
 
-    .category-name { font-size: 16px; }
+    .category-name {
+        padding: 10px 0;
+        font-size: 16px;
+    }
 
     .modal-content { padding: 14px 11px 12px; }
 
