@@ -540,6 +540,10 @@ updateCountdown();
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 document.addEventListener("visibilitychange", updateCountdown);
 
+// на скрытой вкладке ставим фоновые анимации на паузу
+document.addEventListener("visibilitychange", () =>
+    document.body.classList.toggle("paused", document.hidden));
+
 // Плавное появление карточек при прокрутке
 
 function revealCards(container) {

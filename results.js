@@ -367,6 +367,10 @@ loadResults();
 setInterval(() => { if (!document.hidden && openedCategoryId) loadResults(); }, REFRESH_MS);
 document.addEventListener("visibilitychange", () => { if (!document.hidden && openedCategoryId) loadResults(); });
 
+// на скрытой вкладке ставим фоновые анимации на паузу
+document.addEventListener("visibilitychange", () =>
+    document.body.classList.toggle("paused", document.hidden));
+
 // Плавное появление карточек при прокрутке
 
 function revealCards(container) {
