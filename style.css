@@ -430,15 +430,6 @@ main {
     transition: opacity 0.35s ease;
 }
 
-.card-num .num-label {
-    color: #ffd96a;
-    font-size: 12px;
-    font-weight: 850;
-    line-height: 0.8;
-    letter-spacing: 1.3px;
-    text-transform: uppercase;
-}
-
 .category-card:hover .card-num .num {
     opacity: 1;
 }
