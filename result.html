@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>БУЛДЖАТЬ AWARDS 2026 — Результаты</title>
 
+    <!-- даты берутся из config.js -->
     <script src="./config.js"></script>
-    // поставить true перед голосованием что бы скрыть результаты
+
+    <!-- true: до RESULTS_AT людей кидает на страницу подсчёта (ставить перед запуском). false: для тестов -->
     <script>
         const HIDE_RESULTS_UNTIL_END = false;
 
@@ -20,7 +22,6 @@
 
     <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./extra.css">
 
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script defer src="./categories.js"></script>
@@ -77,9 +78,9 @@
             <h2 class="results-modal-title" id="modalTitle"></h2>
         </div>
 
-        <div class="nom-strip" id="nom-strip"></div>
-
         <div class="results-list" id="resultsList"></div>
+
+        <div class="nom-strip" id="nom-strip"></div>
 
         <div class="modal-navigation">
             <button id="prev-category" class="modal-nav-button" type="button">← Предыдущее</button>
