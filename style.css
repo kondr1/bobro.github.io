@@ -9,21 +9,13 @@ html {
 }
 
 :root {
-    --bg: #10051f;
-    --bg-deep: #07030e;
-    --panel: rgba(31, 13, 52, 0.72);
-    --panel-strong: rgba(20, 8, 36, 0.90);
     --purple: #8b3dff;
     --purple-soft: #c084fc;
-    --purple-dark: #5b21b6;
     --magenta: #e12cff;
-    --magenta-soft: #f0a3ff;
     --blue: #4f7cff;
-    --blue-soft: #8aa7ff;
     --gold: #fbbf24;
     --gold-bright: #ffe08a;
     --text: #faf7ff;
-    --muted: #b7a8c8;
 }
 
 /* ============ Body и фон ============ */
@@ -494,7 +486,7 @@ main {
     to   { opacity: 1; transform: none; }
 }
 
-/* ============ Модальные окна ============ */
+/* ============ Модальные окна (голосование и результаты) ============ */
 
 .modal {
     position: fixed;
@@ -516,12 +508,14 @@ main {
     background: rgba(5, 1, 12, 0.93);
 }
 
-.modal-content {
+.modal-content,
+.results-modal-content {
     position: relative;
     z-index: 2;
     width: min(1050px, 100%);
     max-height: 92vh;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 30px;
     border-radius: 25px;
     background:
@@ -532,6 +526,31 @@ main {
     box-shadow:
         0 35px 110px rgba(0, 0, 0, 0.82),
         0 0 45px rgba(139, 61, 255, 0.13);
+}
+
+.close-modal,
+.results-modal-close {
+    position: absolute;
+    top: 17px;
+    right: 19px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.46);
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.close-modal:hover,
+.results-modal-close:hover {
+    background: var(--gold);
+    color: #160b03;
+    transform: rotate(4deg);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
 }
 
 .nomination-image {
@@ -550,6 +569,11 @@ main {
     height: auto;
     max-height: 550px;
     object-fit: contain;
+}
+
+/* номинации с постерами: баннер ниже, но целиком (без обрезки), чтобы второй ряд был виден раньше */
+.modal-content:has(.nominees-list.cards) .nomination-image img {
+    max-height: 200px;
 }
 
 .modal-number {
@@ -641,29 +665,6 @@ main {
     letter-spacing: 1px;
 }
 
-.close-modal {
-    position: absolute;
-    top: 17px;
-    right: 19px;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.46);
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.close-modal:hover {
-    background: var(--gold);
-    color: #160b03;
-    transform: rotate(4deg);
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
-}
-
 .vote-message {
     display: none;
     margin-top: 20px;
@@ -684,6 +685,70 @@ main {
     color: #fecaca;
     background: rgba(127, 29, 29, 0.3);
     border-color: rgba(248, 113, 113, 0.4);
+}
+
+/* нижняя панель окна: полоса номеров + кнопки (на телефоне прилипает к низу, см. @media 650px) */
+.modal-footer {
+    position: relative;
+}
+
+/* полоса номеров номинаций: внизу окна, над кнопками */
+.nom-strip {
+    position: relative;
+    display: flex;
+    justify-content: safe center;
+    gap: 6px;
+    margin: 24px 0 0;
+    padding: 6px 2px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.nom-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.strip-item {
+    flex: 0 0 auto;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    border: 1px solid rgba(192, 132, 252, 0.22);
+    border-radius: 10px;
+    background: rgba(139, 61, 255, 0.08);
+    color: #d8b4fe;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.strip-item.voted {
+    border-color: rgba(251, 191, 36, 0.5);
+    background: rgba(251, 191, 36, 0.12);
+    color: #ffe08a;
+    opacity: 1;
+}
+
+.strip-item.current {
+    border-color: #fff;
+    color: #fff;
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px rgba(225, 44, 255, 0.55), 0 0 16px rgba(225, 44, 255, 0.35);
+}
+
+.strip-item.voted.current {
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.6), 0 0 16px rgba(251, 191, 36, 0.35);
+}
+
+@media (hover: hover) {
+    .strip-item:hover {
+        opacity: 1;
+    }
 }
 
 .modal-navigation {
@@ -777,64 +842,6 @@ main {
     height: 100%;
     border-radius: inherit;
     background: linear-gradient(90deg, var(--purple), var(--magenta), var(--gold));
-}
-
-.nom-strip {
-    position: relative;
-    display: flex;
-    justify-content: safe center;
-    gap: 6px;
-    margin: 0 0 18px;
-    padding: 6px 2px 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
-}
-
-.nom-strip::-webkit-scrollbar {
-    display: none;
-}
-
-.strip-item {
-    flex: 0 0 auto;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 8px;
-    border: 1px solid rgba(192, 132, 252, 0.22);
-    border-radius: 10px;
-    background: rgba(139, 61, 255, 0.08);
-    color: #d8b4fe;
-    font-size: 13px;
-    font-weight: 800;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.strip-item.voted {
-    border-color: rgba(251, 191, 36, 0.5);
-    background: rgba(251, 191, 36, 0.12);
-    color: #ffe08a;
-    opacity: 1;
-}
-
-.strip-item.current {
-    border-color: #fff;
-    color: #fff;
-    opacity: 1;
-    transform: translateY(-2px);
-    box-shadow: 0 0 0 2px rgba(225, 44, 255, 0.55), 0 0 16px rgba(225, 44, 255, 0.35);
-}
-
-.strip-item.voted.current {
-    border-color: var(--gold);
-    color: var(--gold-bright);
-    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.6), 0 0 16px rgba(251, 191, 36, 0.35);
-}
-
-@media (hover: hover) {
-    .strip-item:hover {
-        opacity: 1;
-    }
 }
 
 /* ============ Окно авторизации ============ */
@@ -965,7 +972,6 @@ main {
 }
 
 .login-button.logged-in {
-    color: #ffe08a;
     background: rgba(251, 191, 36, 0.10);
     border-color: rgba(251, 191, 36, 0.38);
 }
@@ -1029,7 +1035,6 @@ main {
 .logout-button:hover {
     background: rgba(225, 44, 255, 0.14);
     border-color: rgba(225, 44, 255, 0.22);
-    color: #ffffff;
     transform: translateX(2px);
 }
 
@@ -1094,6 +1099,8 @@ footer::before {
     text-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
 }
 
+/* ============ Полоса прокрутки ============ */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -1110,6 +1117,16 @@ footer::before {
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #a855f7, #e12cff);
+}
+
+/* Firefox: только для него, иначе scrollbar-color отключит ::-webkit-scrollbar в Chrome и Safari */
+@supports not selector(::-webkit-scrollbar) {
+    html,
+    .modal-content,
+    .results-modal-content {
+        scrollbar-width: thin;
+        scrollbar-color: #a855f7 #08030e;
+    }
 }
 
 /* ============ Страница результатов ============ */
@@ -1168,47 +1185,6 @@ footer::before {
     position: absolute;
     inset: 0;
     cursor: pointer;
-}
-
-.results-modal-content {
-    position: relative;
-    z-index: 2;
-    width: min(1050px, 100%);
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 30px;
-    border-radius: 25px;
-    background:
-        radial-gradient(circle at 85% 0%, rgba(225, 44, 255, 0.14), transparent 32%),
-        radial-gradient(circle at 10% 100%, rgba(79, 124, 255, 0.09), transparent 30%),
-        linear-gradient(145deg, #24103d, #0b0414 75%);
-    border: 1px solid rgba(192, 132, 252, 0.28);
-    box-shadow:
-        0 35px 110px rgba(0, 0, 0, 0.82),
-        0 0 45px rgba(139, 61, 255, 0.13);
-}
-
-.results-modal-close {
-    position: absolute;
-    top: 17px;
-    right: 19px;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.46);
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.results-modal-close:hover {
-    background: var(--gold);
-    color: #160b03;
-    transform: rotate(4deg);
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
 }
 
 .results-modal-header {
@@ -1448,6 +1424,120 @@ footer::before {
     .result-item:hover { opacity: 1; }
 }
 
+/* ============ Страница подсчёта голосов ============ */
+
+.count-section {
+    width: min(900px, calc(100% - 40px));
+    margin: 0 auto 90px;
+}
+
+.count-card {
+    position: relative;
+    overflow: hidden;
+    padding: 44px 34px 36px;
+    text-align: center;
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(225, 44, 255, 0.16), transparent 55%),
+        linear-gradient(145deg, #24103d, #0b0414 80%);
+    border: 1px solid rgba(192, 132, 252, 0.28);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 45px rgba(139, 61, 255, 0.13);
+}
+
+.count-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 9%;
+    width: 82%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(139, 61, 255, 0.8), rgba(225, 44, 255, 0.85), rgba(251, 191, 36, 0.85), transparent);
+}
+
+.count-title {
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 25%, #d8b4fe 55%, #f0a3ff 80%, #ffe08a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.count-text {
+    max-width: 520px;
+    margin: 14px auto 32px;
+    color: #d1b8e9;
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.count-label {
+    margin-bottom: 14px;
+    color: #ffd96a;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+.count-timer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.count-box {
+    padding: 22px 6px 16px;
+    border-radius: 18px;
+    background: rgba(139, 61, 255, 0.10);
+    border: 1px solid rgba(192, 132, 252, 0.22);
+    box-shadow: inset 0 0 24px rgba(139, 61, 255, 0.08);
+}
+
+.count-box b {
+    display: block;
+    color: var(--gold-bright);
+    font-size: clamp(38px, 9vw, 82px);
+    font-weight: 900;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 26px rgba(251, 191, 36, 0.28);
+}
+
+.count-box span {
+    display: block;
+    margin-top: 10px;
+    color: #c8b2dd;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.count-progress {
+    height: 5px;
+    margin: 30px auto 0;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.count-progress i {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--purple), var(--magenta), var(--gold));
+    transition: width 1s linear;
+}
+
+.count-note {
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+}
+
+/* ============ Голосование картинками (category.cards = true) ============ */
+
 .nominees-list.cards {
     display: grid;
     grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
@@ -1554,6 +1644,8 @@ footer::before {
 .card-photo.no-img .card-ph { display: flex; }
 .card-photo.no-img img { display: none; }
 
+/* ============ Фоновые эффекты (только transform / opacity) ============ */
+
 .bg-fx {
     position: fixed;
     inset: 0;
@@ -1624,24 +1716,26 @@ footer::before {
 @keyframes fl2 { from { transform: translate3d(0, 0, 0) rotate(0); }     to { transform: translate3d(-40px, 60px, 0) rotate(-60deg); } }
 @keyframes fl3 { from { transform: translate3d(0, 0, 0) rotate(45deg); } to { transform: translate3d(40px, -50px, 0) rotate(135deg); } }
 
-/* ============ Производительность ============ */
+.confetti {
+    position: fixed;
+    z-index: 2000;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+/* ============ Производительность: пауза анимаций, когда они не видны ============ */
 
 body:has(.modal.active)::before,
 body:has(.results-modal.active)::before,
-body.paused::before {
-    animation-play-state: paused;
-}
-
+body.paused::before,
 body:has(.modal.active) .bg-fx *,
 body:has(.results-modal.active) .bg-fx *,
 body.paused .bg-fx *,
-body.paused .top-image::before {
+body.paused .top-image::before,
+body.paused .count-card * {
     animation-play-state: paused;
-}
-
-.modal-content,
-.results-modal-content {
-    overscroll-behavior: contain;
 }
 
 /* ============ Планшеты ============ */
@@ -1747,8 +1841,6 @@ body.paused .top-image::before {
     }
 
     .top-image img {
-        width: 100%;
-        height: auto;
         max-height: none;
         border-radius: 15px;
     }
@@ -1810,11 +1902,8 @@ body.paused .top-image::before {
         font-size: 18px;
         line-height: 1.12;
         letter-spacing: -0.2px;
-        overflow-wrap: anywhere;
         word-break: normal;
     }
-
-    .category-bottom { padding-top: 0; }
 
     .card-num {
         flex-direction: column;
@@ -1830,12 +1919,6 @@ body.paused .top-image::before {
         -webkit-text-stroke-width: 1px;
     }
 
-    .card-num .num-label {
-        font-size: 8px;
-        line-height: 1;
-        letter-spacing: 0.9px;
-    }
-
     .card-status {
         width: 22px;
         height: 22px;
@@ -1843,46 +1926,49 @@ body.paused .top-image::before {
         font-size: 12px;
     }
 
-    .card-status::before { content: ""; }
-    .category-card.voted .card-status::before { content: "✓"; }
+    /* модальные окна */
 
-    .modal { padding: 16px 8px; }
+    .modal,
+    .results-modal { padding: 16px 8px; }
 
-    .modal-content {
+    .modal-content,
+    .results-modal-content {
         width: 100%;
         max-width: 100%;
         max-height: calc(100vh - 32px);
         max-height: calc(100dvh - 32px); /* dvh идёт вторым, чтобы поддерживающие браузеры брали его */
         overflow-x: hidden;
-        overflow-y: auto;
-        padding: 16px 13px 14px;
+        --pad-x: 13px;
+        --pad-b: 14px;
+        padding: 16px var(--pad-x) var(--pad-b);
         border-radius: 17px;
         box-shadow:
             0 20px 60px rgba(0, 0, 0, 0.82),
             0 0 30px rgba(139, 61, 255, 0.12);
     }
 
-    .modal-content .close-modal {
+    .modal-content .close-modal,
+    .results-modal-close {
         top: 9px;
         right: 9px;
         width: 34px;
         height: 34px;
         font-size: 22px;
-        background: rgba(0, 0, 0, 0.65);
     }
 
+    .modal-content .close-modal { background: rgba(0, 0, 0, 0.65); }
+
     .nomination-image {
-        width: 100%;
         margin-bottom: 15px;
         border-radius: 12px;
     }
 
     .nomination-image img {
-        width: 100%;
         max-height: 27vh;
-        object-fit: contain;
         border-radius: 11px;
     }
+
+    .modal-content:has(.nominees-list.cards) .nomination-image img { max-height: 16vh; }
 
     .modal-content h2 {
         margin-bottom: 6px;
@@ -1906,7 +1992,7 @@ body.paused .top-image::before {
         gap: 8px;
     }
 
-    .nominee:hover { transform: none; }
+    .nominee:hover,
     .nominee.selected { transform: none; }
 
     .nominee-name {
@@ -1935,10 +2021,36 @@ body.paused .top-image::before {
         line-height: 1.4;
     }
 
+    /* нижняя панель всегда видна: номера, счётчик и кнопки */
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        margin: 14px calc(var(--pad-x) * -1) calc(var(--pad-b) * -1);
+        padding: 0 var(--pad-x) var(--pad-b);
+        background: #0d0618;
+        border-top: 1px solid rgba(192, 132, 252, 0.18);
+        box-shadow: 0 -12px 18px rgba(8, 3, 14, 0.85);
+    }
+
+    .nom-strip {
+        gap: 5px;
+        margin-top: 0;
+        padding: 8px 2px 4px;
+    }
+
+    .strip-item {
+        min-width: 30px;
+        height: 30px;
+        padding: 0 6px;
+        font-size: 12px;
+    }
+
     .modal-navigation {
         gap: 8px;
-        margin-top: 14px;
-        padding-top: 13px;
+        margin-top: 4px;
+        padding-top: 8px;
+        border-top: 0;
     }
 
     .modal-nav-button {
@@ -1959,35 +2071,27 @@ body.paused .top-image::before {
     .cnt-value { font-size: 12px; }
     .cnt-value b { font-size: 18px; }
 
-    .nom-strip {
-        gap: 5px;
-        margin-bottom: 12px;
-        padding-bottom: 6px;
-    }
+    /* карточки кандидатов: список с миниатюрой слева */
 
-    .strip-item {
-        min-width: 30px;
-        height: 30px;
-        padding: 0 6px;
-        font-size: 12px;
-    }
-
-    .nominees-list.cards {
+    .nominees-list.cards,
+    .results-list.cards {
         grid-template-columns: 1fr;
         gap: 8px;
         padding: 4px 3px 6px;
     }
 
-    .nominees-list .nominee-card {
+    .nominees-list .nominee-card,
+    .result-card {
         flex-direction: row;
-        align-items: center;
         border-radius: 13px;
-        padding: 0;
-        gap: 0;
     }
+
+    .nominees-list .nominee-card { align-items: center; }
+    .result-card { align-items: stretch; }
 
     .card-photo { width: 76px; flex-shrink: 0; }
     .card-text { justify-content: center; padding: 8px 12px; }
+    .result-card .card-text { flex: 1; }
     .card-name { font-size: 15px; }
     .card-game { font-size: 12px; }
     .card-ph { font-size: 34px; }
@@ -2001,6 +2105,17 @@ body.paused .top-image::before {
     }
 
     .nominees-list .nominee-card.selected { transform: scale(1.02); }
+
+    .rank-badge {
+        top: 5px;
+        left: 5px;
+        min-width: 24px;
+        height: 24px;
+        font-size: 12px;
+        padding: 0 6px;
+    }
+
+    /* окно авторизации */
 
     .login-modal-content {
         width: 100%;
@@ -2034,6 +2149,8 @@ body.paused .top-image::before {
         font-size: 13px;
     }
 
+    /* footer */
+
     footer { padding: 28px 15px; }
 
     .footer-inner {
@@ -2057,6 +2174,8 @@ body.paused .top-image::before {
 
     .footer-links a { font-size: 12px; }
 
+    /* страница результатов */
+
     .results-page-logo h1 { font-size: 24px; }
     .results-page-logo span { font-size: 11px; }
     .results-update-status { font-size: 10px; }
@@ -2066,27 +2185,6 @@ body.paused .top-image::before {
         margin: -5px auto 25px;
         padding: 12px 13px;
         font-size: 12px;
-    }
-
-    .results-modal { padding: 16px 8px; }
-
-    .results-modal-content {
-        width: 100%;
-        max-width: 100%;
-        max-height: calc(100vh - 32px);
-        max-height: calc(100dvh - 32px);
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 17px 13px 14px;
-        border-radius: 17px;
-    }
-
-    .results-modal-close {
-        top: 9px;
-        right: 9px;
-        width: 34px;
-        height: 34px;
-        font-size: 22px;
     }
 
     .results-modal-header {
@@ -2145,32 +2243,37 @@ body.paused .top-image::before {
         font-size: 12px;
     }
 
-    .results-list.cards {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 4px 3px 6px;
+    /* страница подсчёта голосов */
+
+    .count-section {
+        width: calc(100% - 20px);
+        margin-bottom: 55px;
     }
 
-    .result-card {
-        flex-direction: row;
-        align-items: stretch;
-        border-radius: 13px;
+    .count-card {
+        padding: 30px 14px 24px;
+        border-radius: 18px;
     }
 
-    .result-card .card-photo { width: 76px; flex-shrink: 0; }
-    .result-card .card-text { flex: 1; justify-content: center; padding: 8px 12px; }
-    .result-card .card-name { font-size: 15px; }
-    .result-card .card-game { font-size: 12px; }
+    .count-text {
+        margin-bottom: 24px;
+        font-size: 14px;
+    }
 
-    .rank-badge {
-        top: 5px;
-        left: 5px;
-        min-width: 24px;
-        height: 24px;
-        font-size: 12px;
-        padding: 0 6px;
+    .count-timer { gap: 7px; }
+
+    .count-box {
+        padding: 14px 2px 10px;
+        border-radius: 12px;
+    }
+
+    .count-box span {
+        margin-top: 6px;
+        font-size: 10px;
     }
 }
+
+/* ============ Совсем узкие телефоны ============ */
 
 @media (max-width: 380px) {
     .categories-grid { gap: 8px; }
@@ -2185,7 +2288,12 @@ body.paused .top-image::before {
         font-size: 16px;
     }
 
-    .modal-content { padding: 14px 11px 12px; }
+    .modal-content,
+    .results-modal-content {
+        --pad-x: 11px;
+        --pad-b: 12px;
+        padding-top: 14px;
+    }
 
     .nomination-image img { max-height: 23vh; }
 
@@ -2202,7 +2310,6 @@ body.paused .top-image::before {
 
     .card-photo { width: 64px; }
     .card-name { font-size: 14px; }
-    .result-card .card-photo { width: 64px; }
 }
 
 @media (hover: none) {
@@ -2212,15 +2319,6 @@ body.paused .top-image::before {
     .login-button:hover {
         transform: none;
     }
-}
-
-.confetti {
-    position: fixed;
-    z-index: 2000;
-    width: 7px;
-    height: 7px;
-    border-radius: 2px;
-    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
