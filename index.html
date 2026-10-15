@@ -10,7 +10,6 @@
 
     <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="extra.css">
 
     <!-- defer: скрипты не блокируют показ страницы, порядок сохраняется (config.js должен идти до script.js) -->
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -83,14 +82,14 @@
             <img id="modal-image" src="" alt="" decoding="async">
         </div>
 
-        <div class="nom-strip" id="nom-strip"></div>
-
         <div class="modal-number" id="modal-number"></div>
         <h2 id="modal-title"></h2>
         <p id="modal-description" class="modal-description">Выберите одного кандидата.</p>
 
         <div id="nominees-list" class="nominees-list"></div>
         <div id="vote-message" class="vote-message"></div>
+
+        <div class="nom-strip" id="nom-strip"></div>
 
         <div class="modal-navigation">
             <button id="prev-category" class="modal-nav-button" type="button">← Предыдущее</button>
