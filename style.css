@@ -73,6 +73,15 @@ main {
     position: relative;
 }
 
+body:has(.count-section) {
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.count-section) main {
+    flex: 1;
+}
+
 /* ============ Header ============ */
 
 .header {
@@ -574,6 +583,7 @@ main {
 /* номинации с постерами: баннер ниже, но целиком (без обрезки), чтобы второй ряд был виден раньше */
 .modal-content:has(.nominees-list.cards) .nomination-image img {
     max-height: 200px;
+    object-fit: contain;
 }
 
 .modal-number {
@@ -1427,14 +1437,14 @@ footer::before {
 /* ============ Страница подсчёта голосов ============ */
 
 .count-section {
-    width: min(900px, calc(100% - 40px));
+    width: min(1400px, calc(100% - 40px));
     margin: 0 auto 90px;
 }
 
 .count-card {
     position: relative;
     overflow: hidden;
-    padding: 44px 34px 36px;
+    padding: 54px 44px 44px;
     text-align: center;
     border-radius: 26px;
     background:
@@ -1727,11 +1737,9 @@ footer::before {
 
 /* ============ Производительность: пауза анимаций, когда они не видны ============ */
 
-body:has(.modal.active)::before,
-body:has(.results-modal.active)::before,
+body.modal-open::before,
 body.paused::before,
-body:has(.modal.active) .bg-fx *,
-body:has(.results-modal.active) .bg-fx *,
+body.modal-open .bg-fx *,
 body.paused .bg-fx *,
 body.paused .top-image::before,
 body.paused .count-card * {
@@ -1940,11 +1948,22 @@ body.paused .count-card * {
         overflow-x: hidden;
         --pad-x: 13px;
         --pad-b: 14px;
-        padding: 16px var(--pad-x) var(--pad-b);
+        padding: 16px var(--pad-x) 0;
         border-radius: 17px;
         box-shadow:
             0 20px 60px rgba(0, 0, 0, 0.82),
             0 0 30px rgba(139, 61, 255, 0.12);
+    }
+
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        margin: 14px calc(var(--pad-x) * -1) 0;
+        padding: 0 var(--pad-x) var(--pad-b);
+        background: #0d0618;
+        border-top: 1px solid rgba(192, 132, 252, 0.18);
+        box-shadow: 0 -12px 18px rgba(8, 3, 14, 0.85);
     }
 
     .modal-content .close-modal,
@@ -1968,7 +1987,7 @@ body.paused .count-card * {
         border-radius: 11px;
     }
 
-    .modal-content:has(.nominees-list.cards) .nomination-image img { max-height: 16vh; }
+    .modal-content:has(.nominees-list.cards) .nomination-image img { max-height: none; object-fit: contain; }
 
     .modal-content h2 {
         margin-bottom: 6px;
@@ -2246,15 +2265,13 @@ body.paused .count-card * {
     /* страница подсчёта голосов */
 
     .count-section {
-        width: calc(100% - 20px);
-        margin-bottom: 55px;
+    width: min(1400px, calc(100% - 40px));   
+    margin: 0 auto 90px;
     }
-
-    .count-card {
-        padding: 30px 14px 24px;
-        border-radius: 18px;
+.count-card {
+    padding: 54px 44px 44px;                  
     }
-
+    
     .count-text {
         margin-bottom: 24px;
         font-size: 14px;

@@ -25,7 +25,7 @@ function updateCountdown() {
 
     if (diff <= 0) {
         countdownEl.textContent = "Голосование завершено";
-        window.location.href = "counting.html";
+        window.location.replace("counting.html");
         return;
     }
 
@@ -164,6 +164,7 @@ function updateCategoryNavigation() {
     nextButton.style.visibility = atEnd ? "hidden" : "visible";
 }
 
+
 // Поиск картинки кандидата
 // регистр, пробелы и вид тире не важны
 
@@ -267,6 +268,7 @@ function openCategory(category) {
     }).join("");
 
     modal.classList.add("active");
+    document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
 
     // другая номинация: начинаем сверху (перерисовка той же номинации прокрутку не трогает)
@@ -277,6 +279,7 @@ function openCategory(category) {
 
 function closeModal() {
     modal.classList.remove("active");
+    document.body.classList.remove("modal-open");
     document.body.style.overflow = "";
 }
 
@@ -405,12 +408,13 @@ async function loadUserVotes() {
 
 // срабатывает и при загрузке страницы, поэтому отдельный getUser() не нужен
 supabaseClient?.auth.onAuthStateChange((event, session) => {
+    const prevId = currentUser?.id;
     currentUser = session?.user || null;
     updateLoginButton();
 
     if (currentUser) {
         closeLoginModal();
-        setTimeout(loadUserVotes, 0);
+        if (currentUser.id !== prevId) setTimeout(loadUserVotes, 0);
     } else {
         userVotes = {};
         refreshVoteMarks();
@@ -568,7 +572,7 @@ function revealCards(container) {
 
     cards.forEach(card => io.observe(card));
 
-    // Страховка: если что-то не сработало, карточки всё равно появятся
+    // Страховка: если что-то не сработает, карточки всё равно появятся
     setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
 }
 
