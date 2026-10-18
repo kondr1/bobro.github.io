@@ -580,9 +580,11 @@ body:has(.count-section) main {
     object-fit: contain;
 }
 
-/* номинации с постерами: баннер ниже, но целиком (без обрезки), чтобы второй ряд был виден раньше */
 .modal-content:has(.nominees-list.cards) .nomination-image img {
-    max-height: 200px;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
     object-fit: contain;
 }
 
