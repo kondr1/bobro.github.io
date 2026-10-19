@@ -12,11 +12,15 @@ try {
     console.error("Supabase недоступен:", error);
 }
 
+// Список номинаций (CATEGORIES) берётся из categories.js
+
 
 // Таймер (по МСК). Дата берётся из config.js
 
 const votingEnd = VOTING_END;
 const countdownEl = document.getElementById("countdown");
+
+const votingIsOver = () => new Date() >= votingEnd;
 
 function updateCountdown() {
     if (!countdownEl) return;
@@ -90,7 +94,7 @@ function createCategoryCards() {
     if (!categoriesGrid) return;
 
     categoriesGrid.innerHTML = CATEGORIES.map((category, index) => `
-        <div class="category-card" data-index="${index}">
+        <div class="category-card" data-index="${index}" role="button" tabindex="0">
             <div class="category-name">${escapeHTML(category.name)}</div>
 
             <div class="category-bottom">
@@ -105,6 +109,17 @@ function createCategoryCards() {
     categoriesGrid.addEventListener("click", event => {
         const card = event.target.closest(".category-card");
         if (card) openCategory(CATEGORIES[Number(card.dataset.index)]);
+    });
+
+    // карточки открываются с клавиатуры (Enter / пробел)
+    categoriesGrid.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+
+        const card = event.target.closest(".category-card");
+        if (!card) return;
+
+        event.preventDefault();
+        openCategory(CATEGORIES[Number(card.dataset.index)]);
     });
 }
 
@@ -208,16 +223,16 @@ function nomineeCardHTML(category, nominee, i, isSelected) {
     const own = findImage(category, nominee);
     const hasOwnImages = category.images && Object.keys(category.images).length > 0;
 
-    // нет картинки: плитка с буквой, а если нет ни у кого - общая картинка
+    // нет картинки: плитка с буквой, а если картинок нет ни у кого - главный баннер
     const tile = !own && hasOwnImages;
     const pos = category.nominees.length > 1 ? Math.round(i * 100 / (category.nominees.length - 1)) : 50;
     const style = own ? "" : ` style="object-position:${pos}% 50%"`;
     const letter = escapeHTML(([...title.trim()][0] || "?").toUpperCase());
 
     return `
-        <button class="nominee nominee-card${isSelected ? " selected" : ""}" data-i="${i}" type="button">
+        <button class="nominee nominee-card${isSelected ? " selected" : ""}" data-i="${i}" type="button" aria-pressed="${isSelected}">
             <span class="card-photo${tile ? " no-img" : ""}">
-                ${tile ? "" : `<img src="${escapeHTML(own || IMAGE)}" alt="" loading="lazy" decoding="async"${style}>`}
+                ${tile ? "" : `<img src="${escapeHTML(own || MAIN_BANNER)}" alt="" loading="lazy" decoding="async"${style}>`}
                 <span class="card-ph" aria-hidden="true">${letter}</span>
                 <span class="nominee-check"><span>✓</span></span>
             </span>
@@ -241,8 +256,7 @@ function openCategory(category) {
         ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
         : "Выберите одного кандидата.";
 
-    modalImage.src = category.banner || IMAGE; // свой баннер номинации или общий
-    modalImage.alt = category.name;
+    setBanner(modalImage, category); // свой баннер номинации или главный
 
     voteMessage.classList.remove("visible", "error");
     voteMessage.textContent = "";
@@ -261,7 +275,7 @@ function openCategory(category) {
         if (useCards) return nomineeCardHTML(category, nominee, i, isSelected);
 
         return `
-            <button class="nominee${isSelected ? " selected" : ""}" data-i="${i}" type="button">
+            <button class="nominee${isSelected ? " selected" : ""}" data-i="${i}" type="button" aria-pressed="${isSelected}">
                 <span class="nominee-name">${escapeHTML(nominee)}</span>
                 <div class="nominee-check"><span>✓</span></div>
             </button>`;
@@ -355,6 +369,9 @@ async function logout() {
     userVotes = {};
     refreshVoteMarks();
     updateLoginButton();
+
+    // открытое окно перерисовываем без отметок о голосах
+    if (modal.classList.contains("active") && currentCategory) openCategory(currentCategory);
 }
 
 function updateLoginButton() {
@@ -379,15 +396,20 @@ function updateLoginButton() {
 async function loadUserVotes() {
     userVotes = {};
 
-    if (!currentUser) {
+    if (!currentUser || !supabaseClient) {
         refreshVoteMarks();
         return;
     }
 
+    const userId = currentUser.id;
+
     const { data, error } = await supabaseClient
         .from("votes")
         .select("category_id, nominee_id")
-        .eq("user_id", currentUser.id);
+        .eq("user_id", userId);
+
+    // за время запроса пользователь мог выйти или сменить аккаунт
+    if (!currentUser || currentUser.id !== userId) return;
 
     if (error) {
         console.error("Ошибка при получении голосов:", error);
@@ -427,6 +449,16 @@ supabaseClient?.auth.onAuthStateChange((event, session) => {
 async function voteForNominee(category, nominee, button) {
     if (voteBusy) return; // защита от двойных кликов
 
+    if (!supabaseClient) return;
+
+    // голосование закончилось, а страница ещё открыта
+    if (votingIsOver()) {
+        voteMessage.textContent = "Голосование завершено.";
+        voteMessage.classList.add("visible", "error");
+        updateCountdown();
+        return;
+    }
+
     voteBusy = true;
 
     const multi = isMulti(category);
@@ -446,26 +478,36 @@ async function voteForNominee(category, nominee, button) {
     voteMessage.textContent = "Сохраняем голос...";
     voteMessage.classList.add("visible");
 
-    const { data: action, error } = await supabaseClient.rpc("cast_vote", {
-        p_category_id: category.id,
-        p_nominee_id: nominee
-    });
+    let action = null;
+    let error = null;
+
+    try {
+        ({ data: action, error } = await supabaseClient.rpc("cast_vote", {
+            p_category_id: category.id,
+            p_nominee_id: nominee
+        }));
+    } catch (e) {
+        error = e; // например, пропал интернет
+    }
 
     voteBusy = false;
 
     if (error) {
         console.error("Ошибка голосования:", error);
-        voteMessage.textContent = "Не удалось сохранить голос: " + error.message;
-        voteMessage.classList.add("error");
+
+        const text = "Не удалось сохранить голос: " + (error.message || "проверьте соединение");
 
         // Откат визуального состояния
-        if (multi) {
-            button.classList.toggle("selected");
-        } else {
-            openCategory(category);
-            voteMessage.textContent = "Не удалось сохранить голос: " + error.message;
-            voteMessage.classList.add("visible", "error");
+        if (currentCategory === category) {
+            if (multi) {
+                button.classList.toggle("selected");
+            } else {
+                openCategory(category);
+            }
         }
+
+        voteMessage.textContent = text;
+        voteMessage.classList.add("visible", "error");
         return;
     }
 
@@ -480,10 +522,14 @@ async function voteForNominee(category, nominee, button) {
             voteMessage.textContent = "✓ Голос добавлен!";
             burst(button);
         }
+
+        button.setAttribute("aria-pressed", String(button.classList.contains("selected")));
     } else {
         userVotes[category.id] = [nominee];
         voteMessage.textContent = "✓ Голос сохранён!";
         burst(button);
+
+        nomineesList.querySelectorAll(".nominee").forEach(el => el.setAttribute("aria-pressed", String(el.classList.contains("selected"))));
     }
 
     refreshVoteMarks();
@@ -530,7 +576,8 @@ document.addEventListener("keydown", event => {
         return;
     }
 
-    if (!modal.classList.contains("active")) return;
+    // стрелки листают номинации, только если открыто окно номинации (не окно входа)
+    if (!modal.classList.contains("active") || loginModal.classList.contains("active")) return;
 
     if (event.key === "ArrowLeft") stepCategory(-1);
     if (event.key === "ArrowRight") stepCategory(1);
@@ -546,11 +593,13 @@ updateCountdown();
 
 // на скрытой вкладке таймер не обновляем
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
-document.addEventListener("visibilitychange", updateCountdown);
 
-// на скрытой вкладке ставим фоновые анимации на паузу
-document.addEventListener("visibilitychange", () =>
-    document.body.classList.toggle("paused", document.hidden));
+document.addEventListener("visibilitychange", () => {
+    updateCountdown();
+
+    // на скрытой вкладке ставим фоновые анимации на паузу
+    document.body.classList.toggle("paused", document.hidden);
+});
 
 // Плавное появление карточек при прокрутке
 
