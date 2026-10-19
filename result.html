@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>БУЛДЖАТЬ AWARDS 2026 — Результаты</title>
 
-    <!-- даты берутся из config.js -->
     <script src="./config.js"></script>
 
-    <!-- true: до RESULTS_AT людей кидает на страницу подсчёта (ставить перед запуском). false: для тестов -->
     <script>
         const HIDE_RESULTS_UNTIL_END = false;
 
@@ -20,7 +18,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://odkhouddhfdyssxccsra.supabase.co" crossorigin>
 
-    <link rel="preload" as="image" href="./photo_2025-11-10_21-02-06.png" fetchpriority="high">
+    <link rel="preload" as="image" href="./Banners/banner.jpg" fetchpriority="high">
     <link rel="stylesheet" href="./style.css">
 
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -48,7 +46,7 @@
 </header>
 
 <div class="top-image">
-    <img src="./photo_2025-11-10_21-02-06.png" alt="БУЛДЖАТЬ AWARDS 2026" decoding="async" fetchpriority="high">
+    <img src="./Banners/banner.jpg" alt="БУЛДЖАТЬ AWARDS 2026" decoding="async" fetchpriority="high">
 </div>
 
 <main>
@@ -57,7 +55,7 @@
         <div class="section-title">
             <h2>РЕЗУЛЬТАТЫ</h2>
             <p>Нажмите на номинацию, чтобы посмотреть результаты</p>
-            <div class="results-update-status" id="updateStatus">Загрузка результатов...</div>
+            <div class="results-update-status" id="updateStatus" role="status">Загрузка результатов...</div>
         </div>
 
         <div class="results-error" id="errorMessage"></div>
@@ -67,11 +65,15 @@
     </section>
 </main>
 
-<div class="results-modal" id="resultModal">
+<div class="results-modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="results-modal-overlay" id="resultsModalOverlay"></div>
 
     <div class="results-modal-content">
-        <button class="results-modal-close" id="modalClose" type="button">×</button>
+        <button class="results-modal-close" id="modalClose" type="button" aria-label="Закрыть">×</button>
+
+        <div class="nomination-image">
+            <img id="results-banner" src="./Banners/banner.jpg" alt="" decoding="async">
+        </div>
 
         <div class="results-modal-header">
             <div class="results-modal-label">РЕЗУЛЬТАТЫ НОМИНАЦИИ</div>
