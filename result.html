@@ -1,438 +1,115 @@
-// Supabase
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУЛДЖАТЬ AWARDS 2026 — Результаты</title>
 
-const SUPABASE_URL = "https://odkhouddhfdyssxccsra.supabase.co";
-const SUPABASE_KEY = "sb_publishable_FN2xpc6awEkkeeRxzkeXBg_tlEhbN53";
+    <!-- даты берутся из config.js -->
+    <script src="./config.js"></script>
 
-let supabaseClient = null;
+    <!-- true: до RESULTS_AT людей кидает на страницу подсчёта (ставить перед запуском). false: для тестов -->
+    <script>
+        const HIDE_RESULTS_UNTIL_END = false;
 
-try {
-    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-} catch (error) {
-    // библиотека не загрузилась (VPN, блокировщик): номинации всё равно покажем
-    console.error("Supabase недоступен:", error);
-}
+        if (HIDE_RESULTS_UNTIL_END && new Date() < RESULTS_AT) {
+            location.replace("counting.html");
+        }
+    </script>
 
-// Список номинаций (CATEGORIES) берётся из categories.js
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://odkhouddhfdyssxccsra.supabase.co" crossorigin>
 
+    <link rel="preload" as="image" href="./Banners/banner.jpg" fetchpriority="high">
+    <link rel="stylesheet" href="./style.css">
 
-// Dom
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="./categories.js"></script>
+    <script defer src="./results.js"></script>
+</head>
 
-const categoriesContainer = document.getElementById("categoriesContainer");
-const modal               = document.getElementById("resultModal");
-const modalTitle          = document.getElementById("modalTitle");
-const modalBanner         = document.getElementById("results-banner");
-const resultsList         = document.getElementById("resultsList");
-const updateStatus        = document.getElementById("updateStatus");
-const errorMessage        = document.getElementById("errorMessage");
-const modalContent        = modal.querySelector(".results-modal-content");
-const prevButton          = document.getElementById("prev-category");
-const nextButton          = document.getElementById("next-category");
-const navCounter          = document.getElementById("nav-counter");
-const navStrip            = document.getElementById("nom-strip");
+<body>
 
-const REFRESH_MS = 10000;
+<div class="bg-fx" aria-hidden="true">
+    <i class="beam b1"></i><i class="beam b2"></i>
+    <i class="sh ring r1"></i><i class="sh ring r2"></i>
+    <i class="sh dia d1"></i><i class="sh dia d2"></i>
+    <i class="sh plus p1"></i>
+    <i class="sh spark s1"></i><i class="sh spark s2"></i><i class="sh spark s3"></i>
+</div>
 
-let voteResults = {};
-let openedCategoryId = null;
-let loading = false;
-let loaded = false; // true после первой успешной загрузки (чтобы не показывать «никто не голосовал» раньше времени)
-let lastLoadAt = 0;
+<header class="header results-page-header">
+    <div class="header-inner">
+        <div class="logo-block results-page-logo">
+            <h1>БУЛДЖАТЬ AWARDS</h1>
+            <span>Результаты голосования</span>
+        </div>
+    </div>
+</header>
 
+<div class="top-image">
+    <img src="./Banners/banner.jpg" alt="БУЛДЖАТЬ AWARDS 2026" decoding="async" fetchpriority="high">
+</div>
 
-// Вспомогательные
+<main>
+    <section class="nominations-section">
 
-function escapeHtml(text) {
-    return String(text)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
+        <div class="section-title">
+            <h2>РЕЗУЛЬТАТЫ</h2>
+            <p>Нажмите на номинацию, чтобы посмотреть результаты</p>
+            <div class="results-update-status" id="updateStatus" role="status">Загрузка результатов...</div>
+        </div>
 
-function getVoteWord(number) {
-    const lastTwo = number % 100;
-    const last = number % 10;
+        <div class="results-error" id="errorMessage"></div>
 
-    if (lastTwo >= 11 && lastTwo <= 14) return "голосов";
-    if (last === 1) return "голос";
-    if (last >= 2 && last <= 4) return "голоса";
+        <div class="categories-grid" id="categoriesContainer"></div>
 
-    return "голосов";
-}
+    </section>
+</main>
 
-function createEmptyResults() {
-    const result = {};
+<div class="results-modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="results-modal-overlay" id="resultsModalOverlay"></div>
 
-    CATEGORIES.forEach(category => {
-        result[category.id] = {};
-        category.nominees.forEach(nominee => { result[category.id][nominee] = 0; });
-    });
+    <div class="results-modal-content">
+        <button class="results-modal-close" id="modalClose" type="button" aria-label="Закрыть">×</button>
 
-    return result;
-}
+        <div class="nomination-image">
+            <img id="results-banner" src="./Banners/banner.jpg" alt="" decoding="async">
+        </div>
 
+        <div class="results-modal-header">
+            <div class="results-modal-label">РЕЗУЛЬТАТЫ НОМИНАЦИИ</div>
+            <h2 class="results-modal-title" id="modalTitle"></h2>
+        </div>
 
-// Картинки кандидатов
+        <div class="results-list" id="resultsList"></div>
 
-const normKey = v => String(v).toLowerCase().replace(/[\u2010-\u2015\u2212]/g, "-").replace(/\s+/g, " ").trim();
+        <div class="modal-footer">
+            <div class="nom-strip" id="nom-strip"></div>
 
-function findImage(category, nominee) {
-    if (!category.images) return undefined;
-
-    if (!category._imgMap) {
-        category._imgMap = {};
-        Object.entries(category.images).forEach(([key, path]) => { category._imgMap[normKey(key)] = path; });
-    }
-
-    return category._imgMap[normKey(nominee)];
-}
-
-// "Мистик - Wolverine" -> имя "Мистик", игра "Wolverine"
-function splitNominee(nominee) {
-    const [title, ...rest] = nominee.split(" - ");
-    return { title, game: rest.join(" - ") };
-}
-
-
-// Карточки
-
-function renderCategoryCards() {
-    categoriesContainer.innerHTML = CATEGORIES.map((category, index) => `
-        <div class="category-card" data-index="${index}" role="button" tabindex="0">
-            <div class="category-name">${escapeHtml(category.name)}</div>
-
-            <div class="category-bottom">
-                <div class="card-num">
-                    <span class="num">${String(index + 1).padStart(2, "0")}</span>
-                </div>
+            <div class="modal-navigation">
+                <button id="prev-category" class="modal-nav-button" type="button">← Предыдущее</button>
+                <span class="modal-counter" id="nav-counter"></span>
+                <button id="next-category" class="modal-nav-button" type="button">Следующее →</button>
             </div>
         </div>
-    `).join("");
-
-    categoriesContainer.addEventListener("click", event => {
-        const card = event.target.closest(".category-card");
-        if (card) openCategory(CATEGORIES[Number(card.dataset.index)]);
-    });
-
-    // карточки открываются с клавиатуры (Enter / пробел)
-    categoriesContainer.addEventListener("keydown", event => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-
-        const card = event.target.closest(".category-card");
-        if (!card) return;
-
-        event.preventDefault();
-        openCategory(CATEGORIES[Number(card.dataset.index)]);
-    });
-}
-
-
-// Загрузка результатов
-
-async function loadResults() {
-    if (loading) return; // не запускаем новый запрос, пока не закончился прошлый
-
-    loading = true;
-    lastLoadAt = Date.now();
-    errorMessage.style.display = "none";
-
-    try {
-        if (!supabaseClient) throw new Error("не загрузилась библиотека Supabase (возможно, её блокирует VPN или расширение браузера)");
-
-        const { data, error } = await supabaseClient.rpc("get_vote_results");
-
-        if (error) throw error;
-
-        voteResults = createEmptyResults();
-
-        if (Array.isArray(data)) {
-            data.forEach(row => {
-                const category = voteResults[row.category_id];
-
-                if (category && Object.prototype.hasOwnProperty.call(category, row.nominee_id)) {
-                    category[row.nominee_id] = Number(row.vote_count) || 0;
-                }
-            });
-        }
-
-        loaded = true;
-        updateStatus.textContent = "Результаты обновлены: " + new Date().toLocaleTimeString();
-
-        if (openedCategoryId) {
-            const category = CATEGORIES.find(item => item.id === openedCategoryId);
-            if (category) renderModalResults(category);
-        }
-
-    } catch (error) {
-        console.error("Ошибка загрузки результатов:", error);
-
-        updateStatus.textContent = "Не удалось загрузить результаты";
-        errorMessage.textContent = "Ошибка Supabase: " + (error.message || "Неизвестная ошибка");
-        errorMessage.style.display = "block";
-
-        // окно открыто, а данных так и нет: убираем вечную «Загрузку»
-        if (!loaded && openedCategoryId) {
-            resultsList.dataset.sig = "error";
-            resultsList.className = "results-list";
-            resultsList.innerHTML = `<div class="no-votes">Не удалось загрузить результаты.<br>Попробуйте обновить страницу.</div>`;
-        }
-
-    } finally {
-        loading = false;
-    }
-}
-
-
-// Модалка
-
-function openCategory(category) {
-    openedCategoryId = category.id;
-    modalTitle.textContent = category.name;
-    setBanner(modalBanner, category); // свой баннер номинации или главный
-
-    renderModalResults(category, true);
-
-    modal.classList.add("active");
-    document.body.classList.add("modal-open");
-    document.body.style.overflow = "hidden";
-
-    updateNavigation();
-    modalContent.scrollTop = 0; // при переключении номинаций начинаем сверху
-
-    // свежие данные при открытии (не чаще раза в 3 секунды)
-    if (Date.now() - lastLoadAt > 3000) loadResults();
-}
-
-// Переключение между номинациями
-
-function currentIndex() {
-    return CATEGORIES.findIndex(item => item.id === openedCategoryId);
-}
-
-// Счётчик между кнопками: "Номинация 3 из 23" + полоска прогресса
-function counterHTML(i, total) {
-    const percent = ((i + 1) / total * 100).toFixed(1);
-
-    return `<span class="cnt-label">Номинация</span>
-        <span class="cnt-value"><b>${i + 1}</b> из ${total}</span>
-        <span class="cnt-bar"><i style="width:${percent}%"></i></span>`;
-}
-
-// Строка с номерами номинаций (переход по нажатию)
-function buildStrip() {
-    navStrip.innerHTML = CATEGORIES.map((category, i) => `
-        <button class="strip-item" type="button" data-i="${i}" title="${escapeHtml(category.name)}">${i + 1}</button>
-    `).join("");
-
-    navStrip.addEventListener("click", event => {
-        const item = event.target.closest(".strip-item");
-        if (item) openCategory(CATEGORIES[Number(item.dataset.i)]);
-    });
-}
-
-function showCurrentInStrip(i) {
-    navStrip.querySelectorAll(".strip-item").forEach((item, n) => item.classList.toggle("current", n === i));
-
-    const current = navStrip.children[i];
-    if (current) navStrip.scrollLeft = current.offsetLeft - (navStrip.clientWidth - current.offsetWidth) / 2;
-}
-
-function updateNavigation() {
-    const i = currentIndex();
-    navCounter.innerHTML = counterHTML(i, CATEGORIES.length);
-    showCurrentInStrip(i);
-
-    const atStart = i <= 0;
-    const atEnd = i === CATEGORIES.length - 1;
-
-    prevButton.disabled = atStart;
-    prevButton.style.visibility = atStart ? "hidden" : "visible";
-
-    nextButton.disabled = atEnd;
-    nextButton.style.visibility = atEnd ? "hidden" : "visible";
-}
-
-function stepCategory(step) {
-    const next = CATEGORIES[currentIndex() + step];
-    if (next) openCategory(next);
-}
-
-function closeModal() {
-    modal.classList.remove("active");
-    document.body.classList.remove("modal-open");
-    document.body.style.overflow = "";
-    openedCategoryId = null;
-}
-
-// 1-3 места на полную яркость, дальше тусклее (не ниже 0.5)
-function dimFor(index) {
-    return index < 3 ? 1 : Math.max(0.5, 1 - (index - 2) * 0.1).toFixed(2);
-}
-
-function resultRowHTML(item, index, percentage, rank) {
-    const medals = ["🥇", "🥈", "🥉"];
-
-    return `
-        <div class="result-item${index === 0 ? " first" : ""}${rank}" style="--dim:${dimFor(index)}">
-            <div class="result-header">
-                <span class="place">${medals[index] || `${index + 1}.`}</span>
-                <span class="nominee-name">${escapeHtml(item.nominee)}</span>
-                <span class="votes">${item.votes} ${getVoteWord(item.votes)}</span>
-            </div>
-
-            <div class="progress-background">
-                <div class="progress-bar" style="width: ${percentage}%"></div>
-            </div>
-
-            <div class="percentage">${percentage.toFixed(1)}%</div>
-        </div>`;
-}
-
-function resultCardHTML(category, item, index, percentage, rank) {
-    const { title, game } = splitNominee(item.nominee);
-    const own = findImage(category, item.nominee);
-    const hasOwnImages = category.images && Object.keys(category.images).length > 0;
-    const tile = !own && hasOwnImages; // нет картинки: плитка с первой буквой
-    const letter = escapeHtml(([...title.trim()][0] || "?").toUpperCase());
-
-    return `
-        <div class="result-card${rank}" style="--d:${index * 70}ms;--dim:${dimFor(index)}">
-            <div class="card-photo${tile ? " no-img" : ""}">
-                ${tile ? "" : `<img src="${escapeHtml(own || MAIN_BANNER)}" alt="" loading="lazy" decoding="async">`}
-                <span class="card-ph" aria-hidden="true">${letter}</span>
-                <span class="rank-badge">${index + 1}</span>
-            </div>
-
-            <div class="card-text">
-                <span class="card-name">${escapeHtml(title)}</span>
-                ${game ? `<span class="card-game">${escapeHtml(game)}</span>` : ""}
-
-                <div class="result-meta">
-                    <span>${item.votes} ${getVoteWord(item.votes)}</span>
-                    <span>${percentage.toFixed(1)}%</span>
-                </div>
-
-                <div class="progress-background">
-                    <div class="progress-bar" style="width: ${percentage}%"></div>
-                </div>
-            </div>
-        </div>`;
-}
-
-function renderModalResults(category, animate = false) {
-    // данные ещё не пришли: показываем «Загрузка», а не «никто не проголосовал»
-    if (!loaded) {
-        resultsList.dataset.sig = "loading";
-        resultsList.className = "results-list";
-        resultsList.innerHTML = `<div class="no-votes">Загружаем результаты...</div>`;
-        return;
-    }
-
-    const results = category.nominees
-        .map(nominee => ({ nominee, votes: voteResults[category.id]?.[nominee] || 0 }))
-        .sort((a, b) => b.votes - a.votes || a.nominee.localeCompare(b.nominee, "ru"));
-
-    const totalVotes = results.reduce((sum, item) => sum + item.votes, 0);
-    const useCards = Boolean(category.cards) && totalVotes > 0;
-
-    // данные не изменились: не перерисовываем (картинки не должны моргать)
-    const signature = category.id + "|" + results.map(item => item.nominee + ":" + item.votes).join("|");
-
-    if (!animate && resultsList.dataset.sig === signature) return;
-
-    resultsList.dataset.sig = signature;
-    resultsList.className = "results-list" + (useCards ? " cards" : "") + (animate ? " animate" : "");
-    resultsList.style.setProperty("--ratio", category.ratio || "3 / 4");
-
-    const total = category.nominees.length;
-    resultsList.style.setProperty("--cols", total <= 6 ? Math.max(total, 3) : Math.ceil(total / 2));
-
-    if (totalVotes === 0) {
-        resultsList.innerHTML = `
-            <div class="no-votes">
-                Пока никто не проголосовал.<br><br>Все номинанты имеют 0 голосов.
-            </div>`;
-        return;
-    }
-
-    resultsList.innerHTML = results.map((item, index) => {
-        const percentage = (item.votes / totalVotes) * 100;
-        const rank = index < 3 ? ` rank-${index + 1}` : ""; // золото, серебро, бронза
-
-        return useCards
-            ? resultCardHTML(category, item, index, percentage, rank)
-            : resultRowHTML(item, index, percentage, rank);
-    }).join("");
-}
-
-
-// События
-
-document.getElementById("modalClose").addEventListener("click", closeModal);
-
-// клик по затемнению закрывает окно
-document.getElementById("resultsModalOverlay").addEventListener("click", closeModal);
-
-prevButton.addEventListener("click", () => stepCategory(-1));
-nextButton.addEventListener("click", () => stepCategory(1));
-
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") { closeModal(); return; }
-
-    if (!openedCategoryId) return;
-
-    if (event.key === "ArrowLeft") stepCategory(-1);
-    if (event.key === "ArrowRight") stepCategory(1);
-});
-
-
-// Запуск
-
-renderCategoryCards();
-buildStrip();
-revealCards(categoriesContainer);
-loadResults();
-
-// обновляем только пока открыто окно с результатами
-setInterval(() => { if (!document.hidden && openedCategoryId) loadResults(); }, REFRESH_MS);
-
-document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && openedCategoryId) loadResults();
-
-    // на скрытой вкладке ставим фоновые анимации на паузу
-    document.body.classList.toggle("paused", document.hidden);
-});
-
-// Плавное появление карточек при прокрутке
-
-function revealCards(container) {
-    if (!container || !("IntersectionObserver" in window) ||
-        matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const cards = container.querySelectorAll(".category-card");
-    document.documentElement.classList.add("reveal-on");
-
-    const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add("in");
-                io.unobserve(e.target);
-            }
-        });
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 });
-
-    cards.forEach(card => io.observe(card));
-
-    // Страховка: если что-то не сработало, карточки всё равно появятся
-    setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
-}
-
-
-// Файл картинки не загрузился: плитка с буквой
-resultsList.addEventListener("error", event => {
-    if (event.target.tagName === "IMG") {
-        console.warn("[images] Файл не загрузился (проверь путь и регистр):", event.target.src);
-        event.target.closest(".card-photo")?.classList.add("no-img");
-    }
-}, true);
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <strong>БУЛДЖАТЬ AWARDS 2026</strong>
+            <p>Результаты голосования</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://www.youtube.com/@buldjat" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://discord.com/invite/buldzhat-reborn-756512042827120641" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://t.me/buldj" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
