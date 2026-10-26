@@ -140,10 +140,10 @@ const CATEGORIES = [
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
         "Control Resonant": "Pictures/control.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
-        "007: First Light": "Pictures/007.webp" },
+        "007: First Light": "Pictures/007.webp", "Ace Combat 8": "Pictures/ace.webp" },
         nominees: [
         "Resident Evil Requiem", "Trails in the Sky 2nd Chapter",
-        "Onimusha: Way of the Sword", "Control Resonant", "007: First Light"] },
+        "Onimusha: Way of the Sword", "Control Resonant", "007: First Light", "Ace Combat 8"] },
 
     { id: "most-anticipated", name: "Ожидание Года", banner: MAIN_BANNER, nominees: [
         "Persona 6", "Tides of Annihilation", "Stellar Blade Blood Rain", "Ananta",
@@ -172,7 +172,7 @@ const CATEGORIES = [
         "Люсия Кэминос - GTA VI", "Мистик - Wolverine", "Таша Северская - Ace Combat 8",
         "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker", "Тереза Лорка - 007: First Light"] },
 
-    { id: "sort-10000-shit", name: "Отсортируй 10000 ГОВНА!", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "sort-10000-shit", name: "Сортировка Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
         images: {
         "Librarian: Tidy Up the Arcane Library!": "Pictures/librarian.webp", "Never Sort By Color": "Pictures/never.webp",
         "Cellar Keeper": "Pictures/cellar.webp", "Storehand": "Pictures/storehand.webp", "Sort Them Ducks": "Pictures/ducks.webp" },
