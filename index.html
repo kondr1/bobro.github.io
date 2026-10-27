@@ -35,6 +35,17 @@
         .count-box b           { font-size: clamp(30px, 7vw, 64px); font-weight: 800; }
         #countdown             { font-size: 14px; font-weight: 700; }
 
+        .card-num .num {
+            font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+            margin-bottom: 0.05em; 
+        }
+
+        @supports (text-box: trim-both cap alphabetic) {
+            .card-num .num {
+                text-box: trim-both cap alphabetic;
+                margin-bottom: 0;
+            }
+        }
 
         @media (max-width: 650px) {
             .logo-block h1         { font-size: 17px; }
