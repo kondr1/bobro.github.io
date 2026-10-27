@@ -421,6 +421,8 @@ body:has(.count-section) main {
 }
 
 .card-num .num {
+    /* стандартный системный шрифт, как был до подключения Onest/Unbounded */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 92px;
     font-weight: 900;
     line-height: 0.72;
