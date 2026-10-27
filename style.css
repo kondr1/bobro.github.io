@@ -1,5 +1,4 @@
-/* Шрифт только для цифр номинаций (статичный, без перекрывающихся контуров). @import должен быть первой строкой */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@800&text=0123456789&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@800&text=0123456789&display=swap");
 
 * {
     box-sizing: border-box;
@@ -423,9 +422,10 @@ body:has(.count-section) main {
     transition: transform 0.35s ease;
 }
 
-/* Цифры номинаций: статичный Montserrat (только цифры), без перекрывающихся контуров, поэтому обводка чистая на всех устройствах */
+/* Цифры номинаций: статичный Poppins (только цифры), без перекрывающихся контуров, поэтому обводка чистая на всех устройствах */
 .card-num .num {
-    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    font-synthesis: none;
     font-size: 92px;
     font-weight: 800;
     line-height: 0.72;
