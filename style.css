@@ -1,3 +1,6 @@
+/* Шрифт только для цифр номинаций (статичный, без перекрывающихся контуров). @import должен быть первой строкой */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@800&text=0123456789&display=swap");
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -420,15 +423,27 @@ body:has(.count-section) main {
     transition: transform 0.35s ease;
 }
 
+/* Цифры номинаций: статичный Montserrat (только цифры), без перекрывающихся контуров, поэтому обводка чистая на всех устройствах */
 .card-num .num {
+    font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
     font-size: 92px;
-    font-weight: 900;
+    font-weight: 800;
     line-height: 0.72;
-    letter-spacing: -4px;
+    letter-spacing: -1px;
     color: rgba(192, 132, 252, 0.06);
     -webkit-text-stroke: 1.5px rgba(192, 132, 252, 0.45);
+    paint-order: stroke fill;
     opacity: 0.9;
     transition: opacity 0.35s ease;
+    margin-bottom: 0.05em; /* запасной вариант, если браузер не знает text-box */
+}
+
+/* низ цифры строго по нижней линии букв, чтобы совпадал с низом кружка */
+@supports (text-box: trim-both cap alphabetic) {
+    .card-num .num {
+        text-box: trim-both cap alphabetic;
+        margin-bottom: 0;
+    }
 }
 
 .category-card:hover .card-num .num {
@@ -1925,7 +1940,7 @@ body.paused .count-card * {
     .card-num .num {
         font-size: 46px;
         line-height: 0.8;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
         -webkit-text-stroke-width: 1px;
     }
 
