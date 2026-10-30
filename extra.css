@@ -1,4 +1,3 @@
-/* Страница подсчёта: футер прижат к низу окна */
 body:has(.count-section) {
     display: flex;
     flex-direction: column;
