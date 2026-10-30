@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУЛДЖАТЬ AWARDS 2026 — Результаты</title>
+
+    <!-- даты берутся из config.js -->
+    <script src="./config.js"></script>
+
+    <!-- true: до RESULTS_AT людей кидает на страницу подсчёта (ставить перед запуском). false: для тестов -->
+    <script>
+        const HIDE_RESULTS_UNTIL_END = false;
+
+        if (HIDE_RESULTS_UNTIL_END && new Date() < RESULTS_AT) {
+            location.replace("counting.html");
+        }
+    </script>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://odkhouddhfdyssxccsra.supabase.co" crossorigin>
+
+    <link rel="preload" as="image" href="./Banners/banner.jpg" fetchpriority="high">
+    <!-- шрифты: PT Sans Narrow (заголовки) и Onest (текст), оба с кириллицей -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400..900&family=PT+Sans+Narrow:wght@400;700&display=swap">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Основной текст: Onest. Системные шрифты остаются запасными, пока шрифт грузится */
+        body { font-family: "Onest", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        button { font-family: inherit; }
+
+        /* Заголовки: PT Sans Narrow (узкий, запасной Arial Narrow). Размеры берутся из style.css */
+        .logo-block h1, .results-page-logo h1, .section-title h2, .category-name,
+        .modal-content h2, .results-modal-title, .login-modal-content h2, .count-title,
+        .footer-inner strong, #countdown, .count-box b {
+            font-family: "PT Sans Narrow", "Arial Narrow", Arial, sans-serif;
+            letter-spacing: 0.3px;
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="./categories.js"></script>
+    <script defer src="./results.js"></script>
+</head>
+
+<body>
+
+<div class="bg-fx" aria-hidden="true">
+    <i class="beam b1"></i><i class="beam b2"></i>
+    <i class="sh ring r1"></i><i class="sh ring r2"></i>
+    <i class="sh dia d1"></i><i class="sh dia d2"></i>
+    <i class="sh plus p1"></i>
+    <i class="sh spark s1"></i><i class="sh spark s2"></i><i class="sh spark s3"></i>
+</div>
+
+<header class="header results-page-header">
+    <div class="header-inner">
+        <div class="logo-block results-page-logo">
+            <h1>БУЛДЖАТЬ AWARDS</h1>
+            <span>Результаты голосования</span>
+        </div>
+    </div>
+</header>
+
+<div class="top-image">
+    <img src="./Banners/banner.jpg" alt="БУЛДЖАТЬ AWARDS 2026" decoding="async" fetchpriority="high">
+</div>
+
+<main>
+    <section class="nominations-section">
+
+        <div class="section-title">
+            <h2>РЕЗУЛЬТАТЫ</h2>
+            <p>Нажмите на номинацию, чтобы посмотреть результаты</p>
+            <div class="results-update-status" id="updateStatus" role="status">Загрузка результатов...</div>
+        </div>
+
+        <div class="results-error" id="errorMessage"></div>
+
+        <div class="categories-grid" id="categoriesContainer"></div>
+
+    </section>
+</main>
+
+<div class="results-modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="results-modal-overlay" id="resultsModalOverlay"></div>
+
+    <div class="results-modal-content">
+        <button class="results-modal-close" id="modalClose" type="button" aria-label="Закрыть">×</button>
+
+        <div class="nomination-image">
+            <img id="results-banner" src="./Banners/banner.jpg" alt="" decoding="async">
+        </div>
+
+        <div class="results-modal-header">
+            <div class="results-modal-label">РЕЗУЛЬТАТЫ НОМИНАЦИИ</div>
+            <h2 class="results-modal-title" id="modalTitle"></h2>
+        </div>
+
+        <div class="results-list" id="resultsList"></div>
+
+        <div class="modal-footer">
+            <div class="nom-strip" id="nom-strip"></div>
+
+            <div class="modal-navigation">
+                <button id="prev-category" class="modal-nav-button" type="button">← Предыдущее</button>
+                <span class="modal-counter" id="nav-counter"></span>
+                <button id="next-category" class="modal-nav-button" type="button">Следующее →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <strong>БУЛДЖАТЬ AWARDS 2026</strong>
+            <p>Результаты голосования</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://www.youtube.com/@buldjat" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://discord.com/invite/buldzhat-reborn-756512042827120641" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://t.me/buldj" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
