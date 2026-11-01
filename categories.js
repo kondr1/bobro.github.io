@@ -1,7 +1,7 @@
 const MAIN_BANNER = "Banners/banner.jpg";
 
 const CATEGORIES = [
-    { id: "choice-buldzhat", name: "Выбор Булджать", banner: MAIN_BANNER, nominees: [
+    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER, nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
         "Resident Evil Requiem", "Control: Resonant", "007: First Light"] },
 
