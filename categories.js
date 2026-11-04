@@ -1,11 +1,11 @@
-const MAIN_BANNER = "Banners/banner.jpg";
+const MAIN_BANNER = "Banners/banner.webp";
 
 const CATEGORIES = [
     { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER, nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
         "Resident Evil Requiem", "Control: Resonant", "007: First Light"] },
 
-    { id: "game-of-the-year", name: "Игра Года", banner: "Banners/year.png", nominees: [
+    { id: "game-of-the-year", name: "Игра Года", banner: "Banners/year.webp", nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
         "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword",
         "ACE COMBAT 8: WINGS OF THEVE", "Nioh 3", "Mewgenics", "Resonance: A Plague Tale Legacy", "Lego Batman: Legacy of the Dark Knight"] },
