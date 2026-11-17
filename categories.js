@@ -90,12 +90,12 @@ const CATEGORIES = [
         images: {
         "AION 2": "Pictures/aion.webp", "2XKO": "Pictures/2xko.webp", "Neverness to Everness": "Pictures/nte.webp",
         "Aniimo": "Pictures/animo.webp", "Pokemon Champions": "Pictures/pokemon.webp",
-        "Arknights: Endfield": "Pictures/arknights.webp", "Duet Night Abyss": "Pictures/duet.webp" },
+        "Arknights: Endfield": "Pictures/arknights.webp", "Duet Night Abyss": "Pictures/duet.webp", "Persona 5: The Phantom X": "Pictures/p5x.webp" },
         nominees: [
         "AION 2", "2XKO", "Neverness to Everness", "Aniimo",
-        "Pokemon Champions", "Arknights: Endfield", "Duet Night Abyss"] },
+        "Pokemon Champions", "Arknights: Endfield", "Duet Night Abyss", "Persona 5: The Phantom X"] },
 
-    { id: "remaster-remake", name: "Remaster/Remake Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "remaster-remake", name: "Remaster/Remake Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3", 
         images: {
         "The Witcher 3: Wild Hunt Remastered": "Pictures/witcher.webp", "Gothic 1 Remake": "Pictures/gothic.webp",
         "Assassin's Creed IV: Black Flag Resynced": "Pictures/assassin.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
