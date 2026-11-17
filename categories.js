@@ -140,10 +140,10 @@ const CATEGORIES = [
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
         "Control Resonant": "Pictures/control.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
-        "007: First Light": "Pictures/007.webp", "Ace Combat 8": "Pictures/ace.webp" },
+        "007: First Light": "Pictures/007.webp", "Ace Combat 8": "Pictures/ace.webp", "Mewgenics": "Pictures/mewgenics.webp" },
         nominees: [
         "Resident Evil Requiem", "Trails in the Sky 2nd Chapter",
-        "Onimusha: Way of the Sword", "Control Resonant", "007: First Light", "Ace Combat 8"] },
+        "Onimusha: Way of the Sword", "Control Resonant", "007: First Light", "Ace Combat 8", "Mewgenics"] },
 
     { id: "most-anticipated", name: "Ожидание Года", banner: MAIN_BANNER, nominees: [
         "Persona 6", "Tides of Annihilation", "Stellar Blade Blood Rain", "Ananta",
