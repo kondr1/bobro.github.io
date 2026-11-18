@@ -14,7 +14,7 @@ const CATEGORIES = [
         "PRAGMATA", "Resident Evil Requiem", "007: First Light", "Control: Resonant",
         "The Blood of Dawnwalker", "Gears of War: E-Day", "Grand Theft Auto VI",
         "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
-        "Crimson Desert", "Mortal Shell II", "Lego Batman: Legacy of the Dark Knight"] },
+        "Crimson Desert", "Mortal Shell II", "Lego Batman: Legacy of the Dark Knight", "Marvel's Wolverine"] },
 
     { id: "multiplayer", name: "Multiplayer Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
         images: {
@@ -131,10 +131,10 @@ const CATEGORIES = [
         images: {
         "Tiny Bunny": "Pictures/tiny.webp", "s&box": "Pictures/s&box.webp", "Highguard": "Pictures/highguard.webp",
         "Ashes of Creation": "Pictures/ashes.webp", "Life is Strange: Reunion": "Pictures/life.webp",
-        "Mixtape": "Pictures/mixtape.webp" },
+        "Mixtape": "Pictures/mixtape.webp", "Marvel's Wolverine": "Pictures/wolverine.webp" },
         nominees: [
         "Tiny Bunny", "s&box", "Highguard", "Ashes of Creation",
-        "Life is Strange: Reunion", "Mixtape"] },
+        "Life is Strange: Reunion", "Mixtape", "Marvel's Wolverine"] },
 
     { id: "soundtrack", name: "Лучший Саундтрек", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
         images: {
