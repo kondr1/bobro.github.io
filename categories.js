@@ -1,9 +1,13 @@
 const MAIN_BANNER = "Banners/banner.webp";
 
 const CATEGORIES = [
-    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER, nominees: [
-        "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
-        "Resident Evil Requiem", "Control: Resonant", "007: First Light"] },
+    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER,
+         images: {
+        "Onimusha: Way of the Sword": "Pictures/onimusha.webp", "Queen Domain": "Pictures/queen.webp", "Mewgenics ": "Pictures/mewgenics.webp",
+        "Mina the Hollower": "Pictures/mina.webp", "Call of Duty®: Modern Warfare 4": "Pictures/call.webp", "World of Warcraft: Forever": "Pictures/world.webp", "Mortal Shell II": "Pictures/mortal.webp", "Welcome to Elderfield": "Pictures/welcome.webp", "Crimson Desert": "Pictures/crimson.webp" },
+        nominees: [
+        "Onimusha: Way of the Sword", "Queen Domain", "Mewgenics ",
+        "Mina the Hollower", "Call of Duty®: Modern Warfare 4", "World of Warcraft: Forever", "Mortal Shell II", "Welcome to Elderfield", "Crimson Desert"] },
 
     { id: "game-of-the-year", name: "Игра Года", banner: "Banners/year.webp", nominees: [
         "Grand Theft Auto VI", "The Blood of Dawnwalker", "PRAGMATA",
