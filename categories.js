@@ -44,7 +44,7 @@ const CATEGORIES = [
         "Mewgenics", "Pathologic 3", "Valheim", "MECCHA CHAMELEON", "Windrose",
         "Big Walk", "How to Fish", "Bombanana", "MOUSE: P.I. For Hire",
         "ReStory: Chill Electronics Repairs", "REPLACED", "Dressmaker", "Grain Rot",
-        "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights", "Mina the Hollower"] },
+        "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights", "Mina the Hollower", "Potato Please"] },
 
     { id: "shooter", name: "Шутер Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
         images: {
