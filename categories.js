@@ -1,7 +1,7 @@
 const MAIN_BANNER = "Banners/banner.webp";
 
 const CATEGORIES = [
-    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER,
+    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
          images: {
         "Onimusha: Way of the Sword": "Pictures/onimusha.webp", "Queen Domain": "Pictures/queen.webp", "Mewgenics ": "Pictures/mewgenics.webp",
         "Mina the Hollower": "Pictures/mina.webp", "Call of Duty®: Modern Warfare 4": "Pictures/call.webp", "World of Warcraft: Forever": "Pictures/world.webp", "Mortal Shell II": "Pictures/mortal.webp", "Welcome to Elderfield": "Pictures/welcome.webp", "Crimson Desert": "Pictures/crimson.webp" },

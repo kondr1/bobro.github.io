@@ -263,10 +263,21 @@ function openCategory(category) {
 
     const useCards = Boolean(category.cards);
     const total = category.nominees.length;
-    const cols = total <= 6 ? Math.max(total, 3) : Math.ceil(total / 2); // 7-8 кандидатов: два ряда
 
-    nomineesList.className = "nominees-list" + (useCards ? " cards" : "") + (useCards && selected.length ? " has-selected" : "");
+    // 7+ кандидатов: два ряда одинаковых карточек.
+    // Верхний ряд (меньше) центрируется, нижний (больше) занимает всю ширину.
+    // Каждая карточка занимает 2 колонки сетки, поэтому --cols чётное.
+    const twoRows = useCards && total > 6;
+    const topCount = Math.floor(total / 2);
+    const cols = twoRows ? Math.ceil(total / 2) * 2 : Math.max(total, 3);
+    const start = twoRows ? (cols - topCount * 2) / 2 + 1 : 1;
+
+    nomineesList.className = "nominees-list"
+        + (useCards ? " cards" : "")
+        + (twoRows ? " two-rows" : "")
+        + (useCards && selected.length ? " has-selected" : "");
     nomineesList.style.setProperty("--cols", cols);
+    nomineesList.style.setProperty("--start", start);
     nomineesList.style.setProperty("--ratio", category.ratio || "3 / 4"); // пропорция карточек: "2 / 3" для постеров игр
 
     nomineesList.innerHTML = category.nominees.map((nominee, i) => {
@@ -280,6 +291,9 @@ function openCategory(category) {
                 <div class="nominee-check"><span>✓</span></div>
             </button>`;
     }).join("");
+
+    // первая карточка верхнего ряда сдвигается для центрирования
+    if (twoRows) nomineesList.children[0]?.classList.add("row-start");
 
     modal.classList.add("active");
     document.body.classList.add("modal-open");
