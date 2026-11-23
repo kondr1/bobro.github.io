@@ -12,9 +12,6 @@ try {
     console.error("Supabase недоступен:", error);
 }
 
-// Список номинаций (CATEGORIES) берётся из categories.js
-
-
 // Таймер (по МСК). Дата берётся из config.js
 
 const votingEnd = VOTING_END;
@@ -283,9 +280,7 @@ function openCategory(category) {
     const useCards = Boolean(category.cards);
     const total = category.nominees.length;
 
-    // 7+ кандидатов: два ряда одинаковых карточек.
-    // Верхний ряд (меньше) центрируется, нижний (больше) занимает всю ширину.
-    // Каждая карточка занимает 2 колонки сетки, поэтому --cols чётное.
+    
     const twoRows = useCards && total > 6;
     const topCount = Math.floor(total / 2);
     const cols = twoRows ? Math.ceil(total / 2) * 2 : Math.max(total, 3);
@@ -371,9 +366,6 @@ function closeLoginModal() {
     }
 }
 
-
-// Авторизация
-
 async function loginWith(provider, title) {
     if (!supabaseClient) {
         alert("Вход сейчас недоступен: не удалось связаться с сервером. Попробуй отключить VPN или блокировщик рекламы и обновить страницу.");
@@ -408,7 +400,6 @@ async function logout() {
     refreshVoteMarks();
     updateLoginButton();
 
-    // открытое окно перерисовываем без отметок о голосах
     if (modal.classList.contains("active") && currentCategory) openCategory(currentCategory);
 }
 
@@ -647,11 +638,8 @@ setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 document.addEventListener("visibilitychange", () => {
     updateCountdown();
 
-    // на скрытой вкладке ставим фоновые анимации на паузу
     document.body.classList.toggle("paused", document.hidden);
 });
-
-// Плавное появление карточек при прокрутке
 
 function revealCards(container) {
     if (!container || !("IntersectionObserver" in window) ||
@@ -674,9 +662,6 @@ function revealCards(container) {
     // Страховка: если что-то не сработает, карточки всё равно появятся
     setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
 }
-
-
-// Конфетти после голоса
 
 function burst(el) {
     if (!el.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -702,8 +687,6 @@ function burst(el) {
     }
 }
 
-
-// картинка не загрузилась: показываем плитку с буквой
 nomineesList.addEventListener("error", event => {
     if (event.target.tagName === "IMG") {
         console.warn("[images] Файл не загрузился (проверь путь и регистр):", event.target.src);
