@@ -2352,17 +2352,6 @@ body:has(.count-section) main {
     .count-box span { font-size: 10px; margin-top: 6px; }
 }
 
-/* ============ Баннер в окне номинации с картинками ============ */
-
-.modal-content:has(.nominees-list.cards) .nomination-image img {
-    max-height: 190px;
-    object-fit: cover;
-}
-
-@media (max-width: 650px) {
-    .modal-content:has(.nominees-list.cards) .nomination-image img { max-height: 15vh; }
-}
-
 /* ============ Два ряда карточек (7+ кандидатов) ============ */
 /* Верхний ряд по центру, нижний на всю ширину, все карточки одного размера.
    Только для ПК: на планшетах (3 колонки) и телефонах (список) раскладка прежняя. */
