@@ -20,7 +20,7 @@ const CATEGORIES = [
         "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
         "Crimson Desert", "Mortal Shell II", "Lego Batman: Legacy of the Dark Knight", "Marvel's Wolverine"] },
 
-    { id: "multiplayer", name: "Multiplayer Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "multiplayer", name: "Multiplayer Года", banner: "Banners/multiplayer.webp", cards: true, ratio: "2 / 3",
         images: {
         "Call of Duty: Modern Warfare 4": "Pictures/call.webp", "Marathon": "Pictures/marathon.webp",
         "Gears of War: E-Day": "Pictures/gears.webp", "Star Wars: Galactic Racer": "Pictures/star.webp",
@@ -140,7 +140,7 @@ const CATEGORIES = [
         "Tiny Bunny", "s&box", "Highguard", "Ashes of Creation",
         "Life is Strange: Reunion", "Mixtape", "Marvel's Wolverine"] },
 
-    { id: "soundtrack", name: "Лучший Саундтрек", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "soundtrack", name: "Лучший Саундтрек", banner: "Banners/sound.webp", cards: true, ratio: "2 / 3",
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
         "Control Resonant": "Pictures/control.webp", "Onimusha: Way of the Sword": "Pictures/onimusha.webp",
