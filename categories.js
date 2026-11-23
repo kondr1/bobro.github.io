@@ -31,7 +31,7 @@ const CATEGORIES = [
         "Star Wars: Galactic Racer", "Forza Horizon 6", "Marvel Tōkon: Fighting Souls",
         "2XKO", "Avatar Legends: The Fighting Game"] },
 
-    { id: "friend-slop", name: "Френдслоп Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "friend-slop", name: "Френдслоп Года", banner: "Banners/friendslop.webp", cards: true, ratio: "2 / 3",
         images: {
         "Big Walk": "Pictures/big.webp", "How to Fish": "Pictures/fish.webp", "Bombanana": "Pictures/bomb.webp",
         "Grain Rot": "Pictures/grain.webp", "Crashout Crew": "Pictures/crashout.webp", "Dumb Ways to Build": "Pictures/dumb.webp",
