@@ -40,13 +40,13 @@ const CATEGORIES = [
         "Big Walk", "How to Fish", "Bombanana", "Grain Rot",
         "Crashout Crew", "Dumb Ways to Build", "YAPYAP", "MECCHA CHAMELEON"] },
 
-    { id: "indie", name: "Инди Года", banner: MAIN_BANNER, nominees: [
+    { id: "indie", name: "Инди Года", banner: "Banners/indie.webp", nominees: [
         "Mewgenics", "Pathologic 3", "Valheim", "MECCHA CHAMELEON", "Windrose",
         "Big Walk", "How to Fish", "Bombanana", "MOUSE: P.I. For Hire",
         "ReStory: Chill Electronics Repairs", "REPLACED", "Dressmaker", "Grain Rot",
         "Of Ash and Steel", "Palworld", "shapez 2 - Factory", "Nivalis Nights", "Mina the Hollower", "Potato Please"] },
 
-    { id: "shooter", name: "Шутер Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "shooter", name: "Шутер Года", banner: "Banners/shooter.webp", cards: true, ratio: "2 / 3",
         images: {
         "Marathon": "Pictures/marathon.webp", "Call of Duty: Modern Warfare 4": "Pictures/call.webp",
         "PRAGMATA": "Pictures/pragmata.webp", "Gears of War: E-Day": "Pictures/gears.webp",
@@ -56,7 +56,7 @@ const CATEGORIES = [
         "Marathon", "Call of Duty: Modern Warfare 4", "PRAGMATA", "Gears of War: E-Day",
         "High on Life 2", "Highguard", "MOUSE: P.I. For Hire", "No More Room in Hell 2"] },
 
-    { id: "strategy", name: "Стратегия Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "strategy", name: "Стратегия Года", banner: "Banners/strategy.webp", cards: true, ratio: "2 / 3",
         images: {
         "Star Wars: Zero Company": "Pictures/zero.webp", "Mewgenics": "Pictures/mewgenics.webp", "Anno 117: Pax Romana": "Pictures/anno.webp",
         "Going Medieval": "Pictures/medieval.webp", "Terra Invicta": "Pictures/terra.webp", "Pioneers of Pagonia": "Pictures/pioneers.webp" },
@@ -64,12 +64,12 @@ const CATEGORIES = [
         "Star Wars: Zero Company", "Mewgenics", "Anno 117: Pax Romana",
         "Going Medieval", "Terra Invicta", "Pioneers of Pagonia"] },
 
-    { id: "rpg", name: "RPG Года", banner: MAIN_BANNER, nominees: [
+    { id: "rpg", name: "RPG Года", banner: "Banners/rpg.webp", nominees: [
         "The Blood of Dawnwalker", "Phantom Blade Zero", "Nioh 3", "Crimson Desert",
         "Code Vein 2", "Of Ash and Steel", "Mortal Shell II",
         "Minecraft Dungeons II", "Monster Hunter Stories 3: Twisted Reflection"] },
 
-    { id: "simulator", name: "Симулятор Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "simulator", name: "Симулятор Года", banner: "Banners/simulator.webp", cards: true, ratio: "2 / 3",
         images: {
         "Maid Cafe Simulator": "Pictures/maid.webp", "Low-Budget Repairs": "Pictures/low.webp",
         "Cheap Car Repair": "Pictures/cheap.webp", "Scrap Mechanic": "Pictures/scrap.webp",
@@ -81,7 +81,7 @@ const CATEGORIES = [
         "IRON NEST: Heavy Turret Simulator", "TCG Card Shop Simulator",
         "ReStory: Chill Electronics Repairs", "Nivalis Nights"] },
 
-    { id: "horror", name: "Хоррор Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "horror", name: "Хоррор Года", banner: "Banners/horror.webp", cards: true, ratio: "2 / 3",
         images: {
         "Resident Evil Requiem": "Pictures/resident.webp", "Silent Hill: Townfall": "Pictures/silent.webp",
         "Reanimal": "Pictures/reanimal.webp", "Pathologic 3": "Pictures/pathologic.webp",
@@ -90,7 +90,7 @@ const CATEGORIES = [
         "Resident Evil Requiem", "Silent Hill: Townfall", "Reanimal",
         "Pathologic 3", "Halloween: The Game", "Clive Barker's Hellraiser: Revival"] },
 
-    { id: "f2p", name: "F2P Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "f2p", name: "F2P Года", banner: "Banners/f2p.webp", cards: true, ratio: "2 / 3",
         images: {
         "AION 2": "Pictures/aion.webp", "2XKO": "Pictures/2xko.webp", "Neverness to Everness": "Pictures/nte.webp",
         "Aniimo": "Pictures/animo.webp", "Pokemon Champions": "Pictures/pokemon.webp",
@@ -99,7 +99,7 @@ const CATEGORIES = [
         "AION 2", "2XKO", "Neverness to Everness", "Aniimo",
         "Pokemon Champions", "Arknights: Endfield", "Duet Night Abyss", "Persona 5: The Phantom X"] },
 
-    { id: "remaster-remake", name: "Remaster/Remake Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3", 
+    { id: "remaster-remake", name: "Remaster/Remake Года", banner: "Banners/remake.webp", cards: true, ratio: "2 / 3", 
         images: {
         "The Witcher 3: Wild Hunt Remastered": "Pictures/witcher.webp", "Gothic 1 Remake": "Pictures/gothic.webp",
         "Assassin's Creed IV: Black Flag Resynced": "Pictures/assassin.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
@@ -111,7 +111,7 @@ const CATEGORIES = [
         "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved", "The Legend of Zelda: Ocarina of Time",
         "METAL GEAR SOLID: MASTER COLLECTION Vol.2"] },
 
-    { id: "early-access", name: "Ранний Доступ Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "early-access", name: "Ранний Доступ Года", banner: "Banners/early.webp", cards: true, ratio: "2 / 3",
         images: {
         "Roadside Research": "Pictures/roadside.webp", "Slay the Spire 2": "Pictures/slay.webp",
         "Subnautica 2": "Pictures/subnautica.webp", "Dead as Disco": "Pictures/dead.webp",
@@ -121,7 +121,7 @@ const CATEGORIES = [
         "Roadside Research", "Slay the Spire 2", "Subnautica 2", "Dead as Disco",
         "Solasta II", "Paralives", "WARDOGS", "Deep Rock Galactic: Rogue Core"] },
 
-    { id: "dlc", name: "DLC Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "dlc", name: "DLC Года", banner: "Banners/dlc.webp", cards: true, ratio: "2 / 3",
         images: {
         "Elden Ring Nightreign - The Forsaken Hollows": "Pictures/elden.webp", "Frostpunk 2 - Fractured Utopias": "Pictures/frostpunk.webp",
         "Dragon's Dogma 2 - Dark Arisen": "Pictures/dragons.webp", "Crimson Desert Enhanced: Charting the Unknown": "Pictures/crimsonc.webp",
@@ -154,7 +154,7 @@ const CATEGORIES = [
         "Final Fantasy VII Revelation", "Fable", "God of War: Laufey",
         "Stranger Than Heaven", "The Witcher 4", "Squadron 42", "Star Citizen"] },
 
-    { id: "man-of-the-year", name: "Мужчина Года", banner: MAIN_BANNER, cards: true,
+    { id: "man-of-the-year", name: "Мужчина Года", banner: "Banners/man.webp", cards: true,
         images: {
         "Миямото Мусаси - Onimusha: Way of the Sword": "Characters/miamoto.webp", "Джеймс Бонд - 007: First Light": "Characters/007.webp",
         "Дилан Фейден - Control Resonant": "Characters/Dilan.webp", "Леон Кеннеди - Resident Evil Requiem": "Characters/leon.png",
@@ -165,7 +165,7 @@ const CATEGORIES = [
         "Дилан Фейден - Control Resonant", "Леон Кеннеди - Resident Evil Requiem",
         "Логан - Wolverine", "Джейсон Дюваль - GTA VI", "Хью - Pragmata"] },
 
-    { id: "woman-of-the-year", name: "Женщина Года", banner: MAIN_BANNER, cards: true,
+    { id: "woman-of-the-year", name: "Женщина Года", banner: "Banners/woman.webp", cards: true,
         images: {
         "Грейс Эшкрофт - Resident Evil Requiem": "Characters/grace.webp", "Диана - PRAGMATA": "Characters/diana.webp",
         "Люсия Кэминос - GTA VI": "Characters/Lucia.webp", "Мистик - Wolverine": "Characters/mystique.webp",
@@ -176,7 +176,7 @@ const CATEGORIES = [
         "Люсия Кэминос - GTA VI", "Мистик - Wolverine", "Таша Северская - Ace Combat 8",
         "Эмма - Beast of Reincarnation", "Лакра - The Blood of Dawnwalker", "Тереза Лорка - 007: First Light"] },
 
-    { id: "sort-10000-shit", name: "Сортировка Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "sort-10000-shit", name: "Сортировка Года", banner: "Banners/sort.webp", cards: true, ratio: "2 / 3",
         images: {
         "Librarian: Tidy Up the Arcane Library!": "Pictures/librarian.webp", "Never Sort By Color": "Pictures/never.webp",
         "Cellar Keeper": "Pictures/cellar.webp", "Storehand": "Pictures/storehand.webp", "Sort Them Ducks": "Pictures/ducks.webp" },
