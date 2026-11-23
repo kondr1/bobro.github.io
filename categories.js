@@ -131,7 +131,7 @@ const CATEGORIES = [
         "Dragon's Dogma 2 - Dark Arisen", "Crimson Desert Enhanced: Charting the Unknown",
         "DOOM: The Dark Ages Revelations", "Ghost of Yotei: Echoes of Sekigahara"] },
 
-    { id: "shame", name: "Позор Года", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "shame", name: "Позор Года", banner: "Banners/pozor.webp", cards: true, ratio: "2 / 3",
         images: {
         "Tiny Bunny": "Pictures/tiny.webp", "s&box": "Pictures/s&box.webp", "Highguard": "Pictures/highguard.webp",
         "Ashes of Creation": "Pictures/ashes.webp", "Life is Strange: Reunion": "Pictures/life.webp",
@@ -149,7 +149,7 @@ const CATEGORIES = [
         "Resident Evil Requiem", "Trails in the Sky 2nd Chapter",
         "Onimusha: Way of the Sword", "Control Resonant", "007: First Light", "Ace Combat 8", "Mewgenics"] },
 
-    { id: "most-anticipated", name: "Ожидание Года", banner: MAIN_BANNER, nominees: [
+    { id: "most-anticipated", name: "Ожидание Года", banner: "Banners/anticipated.webp", nominees: [
         "Persona 6", "Tides of Annihilation", "Stellar Blade Blood Rain", "Ananta",
         "Final Fantasy VII Revelation", "Fable", "God of War: Laufey",
         "Stranger Than Heaven", "The Witcher 4", "Squadron 42", "Star Citizen"] },
@@ -184,7 +184,7 @@ const CATEGORIES = [
         "Librarian: Tidy Up the Arcane Library!", "Never Sort By Color",
         "Cellar Keeper", "Storehand", "Sort Them Ducks"] },
 
-    { id: "pw2-date", name: "Дата Выхода ПВ2", banner: MAIN_BANNER, nominees: [
+    { id: "pw2-date", name: "Дата Выхода ПВ2", banner: "Banners/pw2.webp", nominees: [
         "31 декабря 2027", "«Надо бы этого чела забанить» - Булджать",
         "3 сентября (вставить число) года", "Когда забудут про нее", "Когда руки дотянутся", "67 Августа"] }
 ];
