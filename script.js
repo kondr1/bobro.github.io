@@ -243,6 +243,25 @@ function nomineeCardHTML(category, nominee, i, isSelected) {
         </button>`;
 }
 
+// Предзагрузка картинок: к моменту открытия номинации они уже в кэше браузера
+const preloaded = new Set();
+
+function preload(src) {
+    if (!src || preloaded.has(src)) return;
+    preloaded.add(src);
+
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+}
+
+function preloadCategory(category) {
+    if (!category) return;
+
+    preload(category.banner || MAIN_BANNER);
+    if (category.images) Object.values(category.images).forEach(preload);
+}
+
 function openCategory(category) {
     const changed = currentCategory !== category;
     currentCategory = category;
@@ -303,6 +322,11 @@ function openCategory(category) {
     if (changed) modalContent.scrollTop = 0;
 
     updateCategoryNavigation();
+
+    // следующая и предыдущая номинации подгружаются заранее
+    const idx = CATEGORIES.indexOf(category);
+    preloadCategory(CATEGORIES[idx + 1]);
+    preloadCategory(CATEGORIES[idx - 1]);
 }
 
 function closeModal() {
@@ -604,6 +628,18 @@ createCategoryCards();
 buildStrip();
 revealCards(categoriesGrid);
 updateCountdown();
+
+// все баннеры (их мало) грузим в фоне, когда браузер свободен
+const whenIdle = window.requestIdleCallback || (cb => setTimeout(cb, 800));
+whenIdle(() => CATEGORIES.forEach(category => preload(category.banner || MAIN_BANNER)));
+
+// постеры номинации начинают грузиться, как только на карточку навели мышь или коснулись
+const warmUp = event => {
+    const card = event.target.closest?.(".category-card");
+    if (card) preloadCategory(CATEGORIES[Number(card.dataset.index)]);
+};
+categoriesGrid.addEventListener("pointerover", warmUp);
+categoriesGrid.addEventListener("pointerdown", warmUp);
 
 // на скрытой вкладке таймер не обновляем
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
