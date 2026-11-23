@@ -1,7 +1,7 @@
 const MAIN_BANNER = "Banners/banner.webp";
 
 const CATEGORIES = [
-    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: MAIN_BANNER, cards: true, ratio: "2 / 3",
+    { id: "choice-buldzhat", name: "Выбор БУЛДЖАТь", banner: "Banners/buldz.webp", cards: true, ratio: "2 / 3",
          images: {
         "Onimusha: Way of the Sword": "Pictures/onimusha.webp", "Queen Domain": "Pictures/queen.webp", "Mewgenics ": "Pictures/mewgenics.webp",
         "Mina the Hollower": "Pictures/mina.webp", "Call of Duty®: Modern Warfare 4": "Pictures/call.webp", "World of Warcraft: Forever": "Pictures/world.webp", "Mortal Shell II": "Pictures/mortal.webp", "Welcome to Elderfield": "Pictures/welcome.webp", "Crimson Desert": "Pictures/crimson.webp" },
@@ -14,7 +14,7 @@ const CATEGORIES = [
         "Resident Evil Requiem", "Control: Resonant", "007: First Light", "Forza Horizon 6", "Onimusha: Way of the Sword",
         "ACE COMBAT 8: WINGS OF THEVE", "Nioh 3", "Mewgenics", "Resonance: A Plague Tale Legacy", "Lego Batman: Legacy of the Dark Knight"] },
 
-    { id: "single-player", name: "Single-Player Года", banner: MAIN_BANNER, nominees: [
+    { id: "single-player", name: "Single-Player Года", banner: "Banners/single.webp", nominees: [
         "PRAGMATA", "Resident Evil Requiem", "007: First Light", "Control: Resonant",
         "The Blood of Dawnwalker", "Gears of War: E-Day", "Grand Theft Auto VI",
         "ACE COMBAT 8: WINGS OF THEVE", "Onimusha: Way of the Sword", "Resonance: A Plague Tale Legacy",
