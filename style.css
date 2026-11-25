@@ -1527,8 +1527,6 @@ footer::before {
 .card-photo.no-img .card-ph { display: flex; }
 .card-photo.no-img img { display: none; }
 
-/* ============ Фоновые эффекты (только transform / opacity) ============ */
-
 .bg-fx {
     position: fixed;
     inset: 0;

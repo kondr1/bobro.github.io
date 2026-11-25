@@ -209,8 +209,7 @@ CATEGORIES.forEach(category => {
 });
 
 
-// Карточка кандидата (голосование картинками)
-// в базе хранится вся строка, на экране делим по первому " - " (имя и игра)
+// Карточка кандидата 
 
 function nomineeCardHTML(category, nominee, i, isSelected) {
     const [title, ...rest] = nominee.split(" - ");
@@ -301,19 +300,16 @@ function openCategory(category) {
             </button>`;
     }).join("");
 
-    // первая карточка верхнего ряда сдвигается для центрирования
     if (twoRows) nomineesList.children[0]?.classList.add("row-start");
 
     modal.classList.add("active");
     document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
 
-    // другая номинация: начинаем сверху (перерисовка той же номинации прокрутку не трогает)
     if (changed) modalContent.scrollTop = 0;
 
     updateCategoryNavigation();
 
-    // следующая и предыдущая номинации подгружаются заранее
     const idx = CATEGORIES.indexOf(category);
     preloadCategory(CATEGORIES[idx + 1]);
     preloadCategory(CATEGORIES[idx - 1]);
@@ -432,7 +428,6 @@ async function loadUserVotes() {
         .select("category_id, nominee_id")
         .eq("user_id", userId);
 
-    // за время запроса пользователь мог выйти или сменить аккаунт
     if (!currentUser || currentUser.id !== userId) return;
 
     if (error) {
@@ -446,7 +441,6 @@ async function loadUserVotes() {
 
     refreshVoteMarks();
 
-    // Если окно уже открыто, обновляем отметки
     if (modal.classList.contains("active") && currentCategory) {
         openCategory(currentCategory);
     }
@@ -491,7 +485,6 @@ async function voteForNominee(category, nominee, button) {
     nomineesList.querySelectorAll(".nominee.selected").forEach(el => el.classList.remove("selected"));
     button.classList.add("selected");
 
-    // Карточки: остальные притухают, выбранная выходит на передний план
     nomineesList.classList.add("has-selected");
 
     voteMessage.classList.remove("error");
@@ -506,7 +499,7 @@ async function voteForNominee(category, nominee, button) {
             p_nominee_id: nominee
         }));
     } catch (e) {
-        error = e; // например, пропал интернет
+        error = e; 
     }
 
     voteBusy = false;
@@ -516,7 +509,6 @@ async function voteForNominee(category, nominee, button) {
 
         const text = "Не удалось сохранить голос: " + (error.message || "проверьте соединение");
 
-        // Откат визуального состояния
         if (currentCategory === category) openCategory(category);
 
         voteMessage.textContent = text;
@@ -557,7 +549,6 @@ $("discord-login-modal").addEventListener("click", () => loginWith("discord", "D
 prevButton.addEventListener("click", () => stepCategory(-1));
 nextButton.addEventListener("click", () => stepCategory(1));
 
-// Клик мимо меню аккаунта закрывает его
 document.addEventListener("click", event => {
     if (!accountMenu.contains(event.target) && !loginButton.contains(event.target)) {
         accountMenu.classList.remove("active");
@@ -574,7 +565,6 @@ document.addEventListener("keydown", event => {
         return;
     }
 
-    // стрелки листают номинации, только если открыто окно номинации (не окно входа)
     if (!modal.classList.contains("active") || loginModal.classList.contains("active")) return;
 
     if (event.key === "ArrowLeft") stepCategory(-1);
@@ -589,11 +579,9 @@ buildStrip();
 revealCards(categoriesGrid);
 updateCountdown();
 
-// все баннеры (их мало) грузим в фоне, когда браузер свободен
 const whenIdle = window.requestIdleCallback || (cb => setTimeout(cb, 800));
 whenIdle(() => CATEGORIES.forEach(category => preload(category.banner || MAIN_BANNER)));
 
-// постеры номинации начинают грузиться, как только на карточку навели мышь или коснулись
 const warmUp = event => {
     const card = event.target.closest?.(".category-card");
     if (card) preloadCategory(CATEGORIES[Number(card.dataset.index)]);
@@ -601,7 +589,6 @@ const warmUp = event => {
 categoriesGrid.addEventListener("pointerover", warmUp);
 categoriesGrid.addEventListener("pointerdown", warmUp);
 
-// на скрытой вкладке таймер не обновляем
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 
 document.addEventListener("visibilitychange", () => {
@@ -628,7 +615,6 @@ function revealCards(container) {
 
     cards.forEach(card => io.observe(card));
 
-    // Страховка: если что-то не сработает, карточки всё равно появятся
     setTimeout(() => cards.forEach(card => card.classList.add("in")), 2500);
 }
 
