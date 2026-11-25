@@ -187,6 +187,7 @@ function openCategory(category) {
     renderModalResults(category, true);
 
     modal.classList.add("active");
+    document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
 
     updateNavigation();
@@ -252,6 +253,7 @@ function stepCategory(step) {
 
 function closeModal() {
     modal.classList.remove("active");
+    document.body.classList.remove("modal-open");
     document.body.style.overflow = "";
     openedCategoryId = null;
 }

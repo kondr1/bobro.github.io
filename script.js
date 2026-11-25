@@ -256,6 +256,9 @@ function preloadCategory(category) {
     if (category.images) Object.values(category.images).forEach(preload);
 }
 
+// соседей грузим только в простое и только следующую номинацию целиком
+const whenIdle = window.requestIdleCallback ? cb => requestIdleCallback(cb, { timeout: 3000 }) : cb => setTimeout(cb, 800);
+
 function openCategory(category) {
     const changed = currentCategory !== category;
     currentCategory = category;
@@ -311,8 +314,11 @@ function openCategory(category) {
     updateCategoryNavigation();
 
     const idx = CATEGORIES.indexOf(category);
-    preloadCategory(CATEGORIES[idx + 1]);
-    preloadCategory(CATEGORIES[idx - 1]);
+    whenIdle(() => {
+        preloadCategory(CATEGORIES[idx + 1]);
+        const prev = CATEGORIES[idx - 1];
+        if (prev) preload(prev.banner || MAIN_BANNER);
+    });
 }
 
 function closeModal() {
@@ -579,15 +585,17 @@ buildStrip();
 revealCards(categoriesGrid);
 updateCountdown();
 
-const whenIdle = window.requestIdleCallback || (cb => setTimeout(cb, 800));
-whenIdle(() => CATEGORIES.forEach(category => preload(category.banner || MAIN_BANNER)));
+// при наведении грузим только баннер, при нажатии - баннер и картинки кандидатов
+const cardOf = event => event.target.closest?.(".category-card");
 
-const warmUp = event => {
-    const card = event.target.closest?.(".category-card");
+categoriesGrid.addEventListener("pointerover", event => {
+    const card = cardOf(event);
+    if (card) preload(CATEGORIES[Number(card.dataset.index)].banner || MAIN_BANNER);
+});
+categoriesGrid.addEventListener("pointerdown", event => {
+    const card = cardOf(event);
     if (card) preloadCategory(CATEGORIES[Number(card.dataset.index)]);
-};
-categoriesGrid.addEventListener("pointerover", warmUp);
-categoriesGrid.addEventListener("pointerdown", warmUp);
+});
 
 setInterval(() => { if (!document.hidden) updateCountdown(); }, 1000);
 

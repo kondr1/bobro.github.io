@@ -35,7 +35,7 @@ body {
 body::before {
     content: "";
     position: fixed;
-    inset: -8%;
+    inset: 0;
     z-index: -3;
     pointer-events: none;
     background:
@@ -44,9 +44,6 @@ body::before {
         radial-gradient(circle at 72% 76%, rgba(79, 124, 255, 0.22) 0, transparent 25%),
         radial-gradient(circle at 24% 86%, rgba(192, 84, 252, 0.18) 0, transparent 21%),
         radial-gradient(circle at 52% 48%, rgba(225, 44, 255, 0.08) 0, transparent 25%);
-    transform: translate3d(0, 0, 0) scale(1);
-    animation: ambientMove 18s ease-in-out infinite alternate;
-    will-change: transform;
 }
 
 body::after {
@@ -61,12 +58,6 @@ body::after {
         linear-gradient(90deg, rgba(192, 132, 252, 0.035) 1px, transparent 1px),
         linear-gradient(135deg, transparent 0 48%, rgba(251, 191, 36, 0.025) 50%, transparent 52%);
     background-size: 55px 55px, 55px 55px, 180px 180px;
-}
-
-@keyframes ambientMove {
-    0%   { transform: translate3d(-1.5%, -1%, 0) scale(1); }
-    50%  { transform: translate3d(2%, 1.5%, 0) scale(1.03); }
-    100% { transform: translate3d(-1%, 2%, 0) scale(1.015); }
 }
 
 main {
@@ -207,8 +198,8 @@ main {
     left: -60%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
     transform: translateX(0) rotate(18deg);
-    animation: heroShine 9s ease-in-out infinite;
     pointer-events: none;
+    display: none;
 }
 
 .top-image::after {
@@ -219,12 +210,6 @@ main {
     border-radius: 25px;
     box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.40);
     pointer-events: none;
-}
-
-@keyframes heroShine {
-    0%, 35%   { transform: translateX(0) rotate(18deg); opacity: 0; }
-    48%       { opacity: 1; }
-    62%, 100% { transform: translateX(411%) rotate(18deg); opacity: 0; }
 }
 
 .top-image img {
@@ -320,7 +305,7 @@ main {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
     content-visibility: auto;
     contain-intrinsic-size: auto 190px;
 }
@@ -334,7 +319,6 @@ main {
     right: -120px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(225, 44, 255, 0.24), transparent 68%);
-    transition: transform 0.4s ease, opacity 0.4s ease;
     opacity: 0.8;
 }
 
@@ -355,7 +339,6 @@ main {
         transparent
     );
     opacity: 0.50;
-    transition: opacity 0.3s ease, left 0.3s ease, width 0.3s ease;
 }
 
 .category-card:hover {
@@ -363,20 +346,12 @@ main {
     --cg: linear-gradient(135deg, rgba(83, 29, 131, 0.90), rgba(20, 7, 34, 0.95));
     transform: translateY(-7px);
     border-color: rgba(225, 44, 255, 0.40);
-    box-shadow:
-        0 24px 55px rgba(0, 0, 0, 0.40),
-        0 0 35px rgba(139, 61, 255, 0.13);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
 }
 
-.category-card:hover::before {
-    transform: scale(1.35) translate(-15px, 12px);
-    opacity: 1;
-}
-
-.category-card:hover::after {
-    left: 4%;
-    width: 92%;
-    opacity: 1;
+@media (hover: hover) {
+    .category-card:hover::before { opacity: 1; }
+    .category-card:hover::after { opacity: 1; }
 }
 
 .category-name {
@@ -421,11 +396,6 @@ main {
     color: rgba(192, 132, 252, 0.06);
     -webkit-text-stroke: 1.5px rgba(192, 132, 252, 0.45);
     opacity: 0.9;
-    transition: opacity 0.35s ease;
-}
-
-.category-card:hover .card-num .num {
-    opacity: 1;
 }
 
 .card-status {
@@ -445,7 +415,7 @@ main {
     font-size: 16px;
     font-weight: 900;
     line-height: 1;
-    transition: transform 0.35s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.3s ease;
 }
 
 .card-status::before {
@@ -615,7 +585,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .nominee:hover {
@@ -1406,7 +1376,7 @@ footer::before {
 .result-card,
 .result-item {
     opacity: var(--dim, 1);
-    transition: opacity 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+    transition: opacity 0.2s ease;
 }
 
 @keyframes resultIn {
@@ -1440,7 +1410,7 @@ footer::before {
     text-align: left;
     border: 2px solid rgba(192, 132, 252, 0.16);
     border-radius: 16px;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease, border-color 0.25s ease;
 }
 
 .nominee-card:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
@@ -1469,7 +1439,7 @@ footer::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease, filter 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .card-text {
@@ -1497,7 +1467,7 @@ footer::before {
         0 20px 44px rgba(0, 0, 0, 0.55) !important;
 }
 
-.nominee-card.selected .card-photo img { transform: scale(1.07); filter: brightness(1.1) saturate(1.12); }
+.nominee-card.selected .card-photo img { transform: scale(1.07); }
 .nominee-card.selected .card-name { color: #ffe47e; }
 
 .nominees-list.cards.has-selected .nominee-card:not(.selected) { opacity: 0.55; }
@@ -1543,20 +1513,15 @@ footer::before {
     transform-origin: 50% 0;
     clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
     background: linear-gradient(180deg, rgba(192, 132, 252, 0.17), rgba(225, 44, 255, 0.05) 55%, transparent 85%);
-    will-change: transform;
 }
 
-.b1 { left: 6%; transform: rotate(14deg); animation: sway1 14s ease-in-out infinite alternate; }
+.b1 { left: 6%; transform: rotate(14deg); }
 
 .b2 {
     right: 4%;
     transform: rotate(-16deg);
     background: linear-gradient(180deg, rgba(251, 191, 36, 0.12), rgba(225, 44, 255, 0.04) 55%, transparent 85%);
-    animation: sway2 17s ease-in-out infinite alternate;
 }
-
-@keyframes sway1 { from { transform: rotate(11deg); }  to { transform: rotate(19deg); } }
-@keyframes sway2 { from { transform: rotate(-12deg); } to { transform: rotate(-20deg); } }
 
 .sh { position: absolute; display: block; }
 
@@ -1565,22 +1530,19 @@ footer::before {
     height: 14px;
     background: var(--gold-bright);
     clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
-    opacity: 0.2;
-    animation: twinkle 4s ease-in-out infinite;
+    opacity: 0.45;
 }
 .s1 { left: 22%; top: 30%; }
-.s2 { left: 70%; top: 12%; width: 10px; height: 10px; animation-delay: 1.3s; }
-.s3 { left: 90%; top: 78%; width: 12px; height: 12px; animation-delay: 2.4s; }
-
-@keyframes twinkle { 0%, 100% { opacity: 0.12; transform: scale(0.7); } 50% { opacity: 0.85; transform: scale(1.15); } }
+.s2 { left: 70%; top: 12%; width: 10px; height: 10px; }
+.s3 { left: 90%; top: 78%; width: 12px; height: 12px; }
 
 .ring { border: 1px solid rgba(192, 132, 252, 0.22); border-radius: 50%; }
-.r1 { width: 150px; height: 150px; left: -40px; top: 22%; animation: fl1 26s ease-in-out infinite alternate; }
-.r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); animation: fl2 22s ease-in-out infinite alternate; }
+.r1 { width: 150px; height: 150px; left: -40px; top: 22%; }
+.r2 { width: 90px; height: 90px; right: 7%; top: 62%; border-color: rgba(251, 191, 36, 0.22); }
 
 .dia { width: 46px; height: 46px; border: 1px solid rgba(225, 44, 255, 0.30); transform: rotate(45deg); }
-.d1 { left: 12%; top: 72%; animation: fl3 30s ease-in-out infinite alternate; }
-.d2 { right: 14%; top: 18%; width: 30px; height: 30px; border-color: rgba(251, 191, 36, 0.28); animation: fl3 24s ease-in-out infinite alternate-reverse; }
+.d1 { left: 12%; top: 72%; }
+.d2 { right: 14%; top: 18%; width: 30px; height: 30px; border-color: rgba(251, 191, 36, 0.28); }
 
 .plus {
     width: 22px;
@@ -1590,12 +1552,7 @@ footer::before {
     background:
         linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 100% 1px no-repeat,
         linear-gradient(rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.45)) center / 1px 100% no-repeat;
-    animation: fl2 20s ease-in-out infinite alternate;
 }
-
-@keyframes fl1 { from { transform: translate3d(0, 0, 0) rotate(0); }     to { transform: translate3d(50px, -70px, 0) rotate(40deg); } }
-@keyframes fl2 { from { transform: translate3d(0, 0, 0) rotate(0); }     to { transform: translate3d(-40px, 60px, 0) rotate(-60deg); } }
-@keyframes fl3 { from { transform: translate3d(0, 0, 0) rotate(45deg); } to { transform: translate3d(40px, -50px, 0) rotate(135deg); } }
 
 .confetti {
     position: fixed;
@@ -1608,11 +1565,11 @@ footer::before {
 
 /* ============ Производительность: пауза анимаций, когда они не видны ============ */
 
-body.modal-open::before,
-body.paused::before,
-body.modal-open .bg-fx *,
-body.paused .bg-fx *,
-body.paused .top-image::before,
+body.modal-open > main,
+body.modal-open > footer {
+    visibility: hidden;
+}
+
 body.paused .count-card * {
     animation-play-state: paused;
 }
