@@ -71,8 +71,6 @@ let currentUser = null;
 let userVotes = {};
 let voteBusy = false;
 
-const isMulti = category => category.id === "indie";
-
 const pad = n => String(n).padStart(2, "0");
 
 function escapeHTML(value) {
@@ -268,9 +266,7 @@ function openCategory(category) {
     modalNumber.textContent = `НОМИНАЦИЯ ${pad(CATEGORIES.indexOf(category) + 1)}`;
     modalTitle.textContent = category.name;
 
-    modalDescription.textContent = isMulti(category)
-        ? "Можно выбрать несколько вариантов (повторный клик снимает голос)."
-        : "Выберите одного кандидата.";
+    modalDescription.textContent = "Выберите одного кандидата.";
 
     setBanner(modalImage, category); // свой баннер номинации или главный
 
@@ -280,7 +276,6 @@ function openCategory(category) {
     const useCards = Boolean(category.cards);
     const total = category.nominees.length;
 
-    
     const twoRows = useCards && total > 6;
     const topCount = Math.floor(total / 2);
     const cols = twoRows ? Math.ceil(total / 2) * 2 : Math.max(total, 3);
@@ -446,7 +441,7 @@ async function loadUserVotes() {
     }
 
     (data || []).forEach(item => {
-        (userVotes[item.category_id] ||= []).push(item.nominee_id);
+        userVotes[item.category_id] = [item.nominee_id];
     });
 
     refreshVoteMarks();
@@ -480,6 +475,8 @@ async function voteForNominee(category, nominee, button) {
 
     if (!supabaseClient) return;
 
+    if (button.classList.contains("selected")) return;
+
     // голосование закончилось, а страница ещё открыта
     if (votingIsOver()) {
         voteMessage.textContent = "Голосование завершено.";
@@ -490,28 +487,21 @@ async function voteForNominee(category, nominee, button) {
 
     voteBusy = true;
 
-    const multi = isMulti(category);
-
     // Мгновенная визуальная реакция
-    if (multi) {
-        button.classList.toggle("selected");
-    } else {
-        nomineesList.querySelectorAll(".nominee.selected").forEach(el => el.classList.remove("selected"));
-        button.classList.add("selected");
-    }
+    nomineesList.querySelectorAll(".nominee.selected").forEach(el => el.classList.remove("selected"));
+    button.classList.add("selected");
 
     // Карточки: остальные притухают, выбранная выходит на передний план
-    nomineesList.classList.toggle("has-selected", Boolean(nomineesList.querySelector(".nominee.selected")));
+    nomineesList.classList.add("has-selected");
 
     voteMessage.classList.remove("error");
     voteMessage.textContent = "Сохраняем голос...";
     voteMessage.classList.add("visible");
 
-    let action = null;
     let error = null;
 
     try {
-        ({ data: action, error } = await supabaseClient.rpc("cast_vote", {
+        ({ error } = await supabaseClient.rpc("cast_vote", {
             p_category_id: category.id,
             p_nominee_id: nominee
         }));
@@ -527,39 +517,18 @@ async function voteForNominee(category, nominee, button) {
         const text = "Не удалось сохранить голос: " + (error.message || "проверьте соединение");
 
         // Откат визуального состояния
-        if (currentCategory === category) {
-            if (multi) {
-                button.classList.toggle("selected");
-            } else {
-                openCategory(category);
-            }
-        }
+        if (currentCategory === category) openCategory(category);
 
         voteMessage.textContent = text;
         voteMessage.classList.add("visible", "error");
         return;
     }
 
-    if (multi) {
-        const list = userVotes[category.id] || [];
+    userVotes[category.id] = [nominee];
+    voteMessage.textContent = "✓ Голос сохранён!";
+    burst(button);
 
-        if (action === "removed") {
-            userVotes[category.id] = list.filter(name => name !== nominee);
-            voteMessage.textContent = "Голос убран!";
-        } else {
-            userVotes[category.id] = [...list, nominee];
-            voteMessage.textContent = "✓ Голос добавлен!";
-            burst(button);
-        }
-
-        button.setAttribute("aria-pressed", String(button.classList.contains("selected")));
-    } else {
-        userVotes[category.id] = [nominee];
-        voteMessage.textContent = "✓ Голос сохранён!";
-        burst(button);
-
-        nomineesList.querySelectorAll(".nominee").forEach(el => el.setAttribute("aria-pressed", String(el.classList.contains("selected"))));
-    }
+    nomineesList.querySelectorAll(".nominee").forEach(el => el.setAttribute("aria-pressed", String(el.classList.contains("selected"))));
 
     refreshVoteMarks();
 }

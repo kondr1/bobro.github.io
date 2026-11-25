@@ -28,12 +28,14 @@ const prevButton          = document.getElementById("prev-category");
 const nextButton          = document.getElementById("next-category");
 const navCounter          = document.getElementById("nav-counter");
 const navStrip            = document.getElementById("nom-strip");
+const resultsBanner       = document.getElementById("results-banner");
 
 const REFRESH_MS = 10000;
 
 let voteResults = {};
 let openedCategoryId = null;
 let loading = false;
+let loaded = false;
 let lastLoadAt = 0;
 
 
@@ -97,7 +99,7 @@ function splitNominee(nominee) {
 
 function renderCategoryCards() {
     categoriesContainer.innerHTML = CATEGORIES.map((category, index) => `
-        <div class="category-card" data-index="${index}">
+        <div class="category-card" data-index="${index}" role="button" tabindex="0">
             <div class="category-name">${escapeHtml(category.name)}</div>
 
             <div class="category-bottom">
@@ -111,6 +113,16 @@ function renderCategoryCards() {
     categoriesContainer.addEventListener("click", event => {
         const card = event.target.closest(".category-card");
         if (card) openCategory(CATEGORIES[Number(card.dataset.index)]);
+    });
+
+    categoriesContainer.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+
+        const card = event.target.closest(".category-card");
+        if (!card) return;
+
+        event.preventDefault();
+        openCategory(CATEGORIES[Number(card.dataset.index)]);
     });
 }
 
@@ -143,6 +155,7 @@ async function loadResults() {
             });
         }
 
+        loaded = true;
         updateStatus.textContent = "Результаты обновлены: " + new Date().toLocaleTimeString();
 
         if (openedCategoryId) {
@@ -168,6 +181,8 @@ async function loadResults() {
 function openCategory(category) {
     openedCategoryId = category.id;
     modalTitle.textContent = category.name;
+
+    if (resultsBanner) setBanner(resultsBanner, category);
 
     renderModalResults(category, true);
 
@@ -275,7 +290,7 @@ function resultCardHTML(category, item, index, percentage, rank) {
     return `
         <div class="result-card${rank}" style="--d:${index * 70}ms;--dim:${dimFor(index)}">
             <div class="card-photo${tile ? " no-img" : ""}">
-                ${tile ? "" : `<img src="${escapeHtml(own || IMAGE)}" alt="" loading="lazy" decoding="async">`}
+                ${tile ? "" : `<img src="${escapeHtml(own || MAIN_BANNER)}" alt="" loading="lazy" decoding="async">`}
                 <span class="card-ph" aria-hidden="true">${letter}</span>
                 <span class="rank-badge">${index + 1}</span>
             </div>
@@ -297,6 +312,13 @@ function resultCardHTML(category, item, index, percentage, rank) {
 }
 
 function renderModalResults(category, animate = false) {
+    if (!loaded) {
+        delete resultsList.dataset.sig;
+        resultsList.className = "results-list";
+        resultsList.innerHTML = `<div class="no-votes">Загружаем результаты...</div>`;
+        return;
+    }
+
     const results = category.nominees
         .map(nominee => ({ nominee, votes: voteResults[category.id]?.[nominee] || 0 }))
         .sort((a, b) => b.votes - a.votes || a.nominee.localeCompare(b.nominee, "ru"));
@@ -364,11 +386,13 @@ loadResults();
 
 // обновляем только пока открыто окно с результатами
 setInterval(() => { if (!document.hidden && openedCategoryId) loadResults(); }, REFRESH_MS);
-document.addEventListener("visibilitychange", () => { if (!document.hidden && openedCategoryId) loadResults(); });
 
-// на скрытой вкладке ставим фоновые анимации на паузу
-document.addEventListener("visibilitychange", () =>
-    document.body.classList.toggle("paused", document.hidden));
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && openedCategoryId) loadResults();
+
+    // на скрытой вкладке ставим фоновые анимации на паузу
+    document.body.classList.toggle("paused", document.hidden);
+});
 
 // Плавное появление карточек при прокрутке
 
