@@ -149,6 +149,12 @@ const CATEGORIES = [
         "Resident Evil Requiem", "Trails in the Sky 2nd Chapter",
         "Onimusha: Way of the Sword", "Control Resonant", "007: First Light", "Ace Combat 8", "Mewgenics"] },
 
+    { id: "expedition", name: "Экспедиция года", banner: "Banners/sort.webp", cards: true, ratio: "2 / 3",
+        images: {
+        "Clair Obscur: Expedition 33": "Pictures/expedition.webp" },
+        nominees: [
+        "Clair Obscur: Expedition 33"] },
+
     { id: "most-anticipated", name: "Ожидание Года", banner: "Banners/anticipated.webp", nominees: [
         "Persona 6", "Tides of Annihilation", "Stellar Blade Blood Rain", "Ananta",
         "Final Fantasy VII Revelation", "Fable", "God of War: Laufey",
