@@ -1574,6 +1574,14 @@ body.paused .count-card * {
     animation-play-state: paused;
 }
 
+/* ============ Один кандидат: карточка по центру ============ */
+
+.nominees-list.cards.single,
+.results-list.cards.single {
+    grid-template-columns: minmax(0, 300px);
+    justify-content: center;
+}
+
 /* ============ Планшеты ============ */
 
 @media (max-width: 1000px) {

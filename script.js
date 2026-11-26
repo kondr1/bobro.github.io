@@ -286,6 +286,7 @@ function openCategory(category) {
     nomineesList.className = "nominees-list"
         + (useCards ? " cards" : "")
         + (twoRows ? " two-rows" : "")
+        + (useCards && total === 1 ? " single" : "")
         + (useCards && selected.length ? " has-selected" : "");
     nomineesList.style.setProperty("--cols", cols);
     nomineesList.style.setProperty("--start", start);

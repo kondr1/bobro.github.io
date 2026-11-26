@@ -334,7 +334,7 @@ function renderModalResults(category, animate = false) {
     if (!animate && resultsList.dataset.sig === signature) return;
 
     resultsList.dataset.sig = signature;
-    resultsList.className = "results-list" + (useCards ? " cards" : "") + (animate ? " animate" : "");
+    resultsList.className = "results-list" + (useCards ? " cards" : "") + (useCards && category.nominees.length === 1 ? " single" : "") + (animate ? " animate" : "");
     resultsList.style.setProperty("--ratio", category.ratio || "3 / 4");
 
     const total = category.nominees.length;
