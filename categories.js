@@ -107,13 +107,12 @@ const CATEGORIES = [
         images: {
         "The Witcher 3: Wild Hunt Remastered": "Pictures/witcher.webp", "Gothic 1 Remake": "Pictures/gothic.webp",
         "Assassin's Creed IV: Black Flag Resynced": "Pictures/assassin.webp", "Trails in the Sky 2nd Chapter": "Pictures/trails.webp",
-        "Dynasty Warriors 3: Complete Edition Remastered": "Pictures/dynasty.webp", "Halo: Campaign Evolved": "Pictures/halo.webp",
-        "The Legend of Zelda: Ocarina of Time": "Pictures/zelda.webp", "METAL GEAR SOLID: MASTER COLLECTION Vol.2": "Pictures/mgs.webp" },
+        "Halo: Campaign Evolved": "Pictures/halo.webp",
+        "The Legend of Zelda: Ocarina of Time": "Pictures/zelda.webp", "METAL GEAR SOLID: MASTER COLLECTION Vol.2": "Pictures/mgs.webp", "Shrek 2 Remastered": "Pictures/shrek.webp" }, 
         nominees: [
         "The Witcher 3: Wild Hunt Remastered", "Gothic 1 Remake",
-        "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter",
-        "Dynasty Warriors 3: Complete Edition Remastered", "Halo: Campaign Evolved", "The Legend of Zelda: Ocarina of Time",
-        "METAL GEAR SOLID: MASTER COLLECTION Vol.2"] },
+        "Assassin's Creed IV: Black Flag Resynced", "Trails in the Sky 2nd Chapter", "Halo: Campaign Evolved", "The Legend of Zelda: Ocarina of Time",
+        "METAL GEAR SOLID: MASTER COLLECTION Vol.2", "Shrek 2 Remastered"] },
 
     { id: "early-access", name: "Ранний Доступ Года", banner: "Banners/early.webp", cards: true, ratio: "2 / 3",
         images: {
