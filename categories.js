@@ -64,9 +64,13 @@ const CATEGORIES = [
         "Star Wars: Zero Company", "Mewgenics", "Anno 117: Pax Romana",
         "Going Medieval", "Terra Invicta", "Pioneers of Pagonia"] },
 
-    { id: "rpg", name: "RPG Года", banner: "Banners/rpg.webp", nominees: [
-        "The Blood of Dawnwalker", "Phantom Blade Zero", "Nioh 3", "Crimson Desert",
-        "Code Vein 2", "Of Ash and Steel", "Mortal Shell II",
+    { id: "rpg", name: "RPG Года", banner: "Banners/rpg.webp", cards: true, ratio: "2 / 3",
+        images: {
+        "The Blood of Dawnwalker": "Pictures/dawnwalker.webp", "Phantom Blade Zero": "Pictures/phantom.webp", "Nioh 3": "Pictures/nioh.webp", "Crimson Desert": "Pictures/crimson.webp", "Of Ash and Steel": "Pictures/ash.webp", 
+        "Mortal Shell II": "Pictures/mortal.webp",
+        "Minecraft Dungeons II": "Pictures/minecraft.webp", "Monster Hunter Stories 3: Twisted Reflection": "Pictures/monster.webp" },
+        nominees: [
+        "The Blood of Dawnwalker", "Phantom Blade Zero", "Nioh 3", "Crimson Desert", "Of Ash and Steel", "Mortal Shell II",
         "Minecraft Dungeons II", "Monster Hunter Stories 3: Twisted Reflection"] },
 
     { id: "simulator", name: "Симулятор Года", banner: "Banners/simulator.webp", cards: true, ratio: "2 / 3",
